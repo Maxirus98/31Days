@@ -29,8 +29,8 @@ public class BoomerangSword : ThrowSpells
     {
         var playerTransform = transform;
         var playerForward = playerTransform.forward;
-        
-        AnimatePlayer();
+
+        StartCoroutine(nameof(AnimatePlayer));
         
         var spell = Instantiate(_initialSummon, playerTransform.position, playerTransform.rotation);
         var rbSpell = spell.gameObject.GetComponent<Rigidbody>();
@@ -38,14 +38,17 @@ public class BoomerangSword : ThrowSpells
         spell.transform.Translate(Vector3.forward + Vector3.up);
         spell.transform.Rotate(Vector3.right * 90);
         rbSpell.velocity =  playerForward * 10;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(Cooldown);
         
         rbSpell.velocity =  playerForward * -10;
         Destroy(spell.gameObject, 1);
     }
 
-    private void AnimatePlayer()
+    protected override IEnumerator AnimatePlayer()
     {
-        _playerAnimator.AnimateSpell(name);
+        Debug.Log("animate player with spellName" + Name);
+        _playerAnimator.AnimateSpell(Name);
+        yield return new WaitForSeconds(0.1f);
+        _playerAnimator.StopAnimatingSpell(Name);
     }
 }

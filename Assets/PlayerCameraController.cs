@@ -25,10 +25,16 @@ public class PlayerCameraController : MonoBehaviour
         }
         else
         {
-            transform.LookAt(_playerTransform);
+            StartCoroutine(nameof(LookAtPlayer));
         }
         
         FollowPlayer();
+    }
+
+    IEnumerator LookAtPlayer()
+    {
+        yield return new WaitForFixedUpdate();
+        transform.LookAt(_playerTransform);
     }
 
     void RotateCameraWithMouse()

@@ -14,10 +14,12 @@ public class Spells : MonoBehaviour
     [SerializeField] protected bool IsAutoTarget { get; set; }
 
     protected PlayerAnimator _playerAnimator;
+    protected Animator _animator;
     
-    private void Awake()
+    protected virtual void Start()
     {
         _playerAnimator = GetComponent<PlayerAnimator>();
+        _animator = GetComponent<Animator>();
     }
 
     protected virtual IEnumerator DoSpell()
@@ -25,7 +27,7 @@ public class Spells : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    protected virtual void AnimatePlayer()
+    protected virtual IEnumerator AnimatePlayer()
     {
         throw new NotImplementedException();
     }
