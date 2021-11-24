@@ -45,16 +45,13 @@ public class PlayerAnimator : MonoBehaviour
         }
         _animator.SetFloat("Jump", 0);
     }
-
     
-    // TODO: Auto attack only when near an enemy that is targeted
     private void StartAutoAttackAnimation()
     {
         if (Time.time > _autoAttack.Timestamp)
         {
             if (_mouseManager.focus)
             {
-                Debug.Log("RANGE"+ Vector3.SqrMagnitude(transform.position - _mouseManager.focus.transform.position));
                 _animator.SetBool("AutoAttacking", isInMeleeRange());
                 _autoAttack.Timestamp = Time.time + _autoAttack.Cooldown;
             }

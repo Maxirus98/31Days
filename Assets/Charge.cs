@@ -22,7 +22,7 @@ public class Charge : Spells
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             StartCoroutine(nameof(DoSpell));
         }

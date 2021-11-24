@@ -5,18 +5,24 @@ using UnityEngine;
 public class Growth : Spells
 {
     private Vector3 _initialScale;
+    private ParticleSystem _growthEffect;
+    private float _duration;
+    private float _growthScale;
     private void Awake()
     {
-            Name = "Growth";
-            Description = "For a limited time, you grow in size and in health";
-            Cooldown = 1f;
-            IsAutoTarget = true;
-            _initialScale = transform.localScale;
+        Name = "Growth";
+        Description = "For a limited time, you grow in size and in get bonus health";
+        Cooldown = 10f;
+        IsAutoTarget = true;
+        _initialScale = transform.localScale;
+        _growthEffect = transform.Find("GrowthEffect").GetComponent<ParticleSystem>();
+        _duration = 5f;
+        _growthScale = 1.5f;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Time.time >= Timestamp && Input.GetKeyDown(KeyCode.Alpha2))
         {
             StartCoroutine(nameof(DoSpell));
 
@@ -26,9 +32,13 @@ public class Growth : Spells
 
     protected override IEnumerator DoSpell()
     {
-        transform.localScale *= 1.5f;
-        yield return new WaitForSeconds(5f);    
+        if(!_growthEffect.isPlaying)_growthEffect.Play(false);
+        StartCoroutine(nameof(AnimatePlayer));
+        Timestamp = Time.time + Cooldown;
+        transform.localScale *= _growthScale;
+        yield return new WaitForSeconds(_duration);    
         transform.localScale = _initialScale;
+        if(_growthEffect.isPlaying)_growthEffect.Stop(false);
     }
 
 
