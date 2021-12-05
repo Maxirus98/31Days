@@ -22,7 +22,7 @@ public class Charge : Spells
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Time.time > Timestamp && Input.GetKeyDown(KeyCode.Alpha3))
         {
             StartCoroutine(nameof(DoSpell));
         }
@@ -30,15 +30,14 @@ public class Charge : Spells
 
     protected override IEnumerator DoSpell()
     {
+        Timestamp = Time.time + Cooldown;
         if(!_chargeEffect.isPlaying)_chargeEffect.Play(false);
         var constraints = _rigidbody.constraints;
         _rigidbody.constraints = constraints | RigidbodyConstraints.FreezePositionY;
         _rigidbody.detectCollisions = false;
         StartCoroutine(nameof(AnimatePlayer));
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         if(_chargeEffect.isPlaying)_chargeEffect.Stop(false);
-
-        yield return new WaitForSeconds(Cooldown);
         _rigidbody.detectCollisions = true;
         _rigidbody.constraints = constraints;
 

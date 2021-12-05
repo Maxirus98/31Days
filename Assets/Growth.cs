@@ -12,7 +12,7 @@ public class Growth : Spells
     {
         Name = "Growth";
         Description = "For a limited time, you grow in size and in get bonus health";
-        Cooldown = 10f;
+        Cooldown = 1f;
         IsAutoTarget = true;
         _initialScale = transform.localScale;
         _growthEffect = transform.Find("GrowthEffect").GetComponent<ParticleSystem>();

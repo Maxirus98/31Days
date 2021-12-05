@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using Quaternion = System.Numerics.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class BoomerangSword : ThrowSpells
@@ -19,7 +20,7 @@ public class BoomerangSword : ThrowSpells
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Time.time > Timestamp && Input.GetKeyDown(KeyCode.Alpha1))
         {
             StartCoroutine(nameof(DoSpell));
         }
@@ -27,6 +28,7 @@ public class BoomerangSword : ThrowSpells
 
     protected override IEnumerator DoSpell()
     {
+        Timestamp = Time.time + Cooldown;
         var playerTransform = transform;
         var playerForward = playerTransform.forward;
 
@@ -38,10 +40,9 @@ public class BoomerangSword : ThrowSpells
         spell.transform.Translate(Vector3.forward + Vector3.up);
         spell.transform.Rotate(Vector3.right * 90);
         rbSpell.velocity =  playerForward * 10;
-        yield return new WaitForSeconds(Cooldown);
-        
+        yield return new WaitForSeconds(1f);
         rbSpell.velocity =  playerForward * -10;
-        Destroy(spell.gameObject, 1);
+        Destroy(spell.gameObject, 1f);
     }
 
     protected override IEnumerator AnimatePlayer()
