@@ -17030,7 +17030,7 @@ PrefabInstance:
     - target: {fileID: 7232825074913793620, guid: f5f68ece0f7103b4989aba75f64ee993,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Warrior
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4795263823487637411, guid: f5f68ece0f7103b4989aba75f64ee993, type: 3}
