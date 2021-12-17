@@ -6301,6 +6301,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3814332188076549465, guid: 292f796210597404b986ab7676ebe1ca,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3b9a720919e589544af25e82c0a76e42, type: 2}
     - target: {fileID: 6779818980131826840, guid: 292f796210597404b986ab7676ebe1ca,
         type: 3}
       propertyPath: m_TagString
