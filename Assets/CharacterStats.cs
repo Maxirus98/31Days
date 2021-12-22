@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,18 +16,23 @@ public class CharacterStats : MonoBehaviour
     public float MovementSpeed { get; set; }
     public float TurnSpeed { get; set; }
 
-    private Slider _hpSlider;
+    [SerializeField]private Slider _hpSlider;
     private Slider _resourceSlider;
-    private void Awake()
+    private void Start()
     {
-        // Going to be in PlayerStats
-        _hpSlider = GameObject.Find("PlayerResource").transform.GetChild(0).gameObject.GetComponent<Slider>();
-        _resourceSlider = GameObject.Find("PlayerResource").transform.GetChild(1).gameObject.GetComponent<Slider>();
 
+        StartCoroutine(nameof(GetSliders));
         initStats();
         
         _hpSlider.maxValue = MaxHealth;
         _resourceSlider.maxValue = MaxResource;
+    }
+
+    IEnumerator GetSliders()
+    {
+        yield return new WaitForSeconds(1);
+        _hpSlider = GameObject.Find("PlayerResource").transform.GetChild(0).gameObject.GetComponent<Slider>();
+        _resourceSlider = GameObject.Find("PlayerResource").transform.GetChild(1).gameObject.GetComponent<Slider>();
     }
 
     private void Update()

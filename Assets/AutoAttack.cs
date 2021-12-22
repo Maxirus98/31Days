@@ -5,6 +5,8 @@ using UnityEngine;
 public class AutoAttack : Action
 {
     public float[] Attacks { get; set; }
+    
+    //TODO: Rotate between 2-3 attack animations
     public int currentAttackIndex;
     public float range;
     protected override void instantiateAction()

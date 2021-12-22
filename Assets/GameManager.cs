@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CharacterSelector))]
 public class GameManager : Singleton<GameManager>
 {
     [System.Serializable] public class EventGameState : UnityEvent<GameState, GameState> {}
@@ -17,27 +19,15 @@ public class GameManager : Singleton<GameManager>
     
     private List<AsyncOperation> _loadOperations = new List<AsyncOperation>();
     
-    [SerializeField] private GameObject[] systemPrefabs;
+    [SerializeField] private List<GameObject> systemPrefabs;
     private List<GameObject> instanceSystemPrefabsKept = new List<GameObject>();
     private GameState _currentGameState = GameState.Running;
     
     private string _currentLevelName = string.Empty;
-    
+    private Rigidbody _playerRb;
     void Start()
     {
         DontDestroyOnLoad(this);
-        KeepSystemPrefabs();
-    }
-
-
-    void KeepSystemPrefabs()
-    {
-        foreach (var go in systemPrefabs)
-        {
-            var clonePrefab = Instantiate(go);
-            instanceSystemPrefabsKept.Add(clonePrefab);
-            DontDestroyOnLoad(clonePrefab);
-        }
     }
 
     void Update()
@@ -61,11 +51,9 @@ public class GameManager : Singleton<GameManager>
         {
             case GameState.Running:
                 Time.timeScale = 1;
-                if(instanceSystemPrefabsKept.Count > 0)instanceSystemPrefabsKept[0].gameObject.SetActive(false);
                 break;
             case GameState.Pause:
                 Time.timeScale = 0;
-                if(instanceSystemPrefabsKept.Count > 0)instanceSystemPrefabsKept[0].gameObject.SetActive(true);
                 break;
             default:
                 break;
@@ -87,8 +75,8 @@ public class GameManager : Singleton<GameManager>
     
     public void LoadLevel(string levelName)
     {
+        KeepSelectedCharacter();
         CurrentLevelName = levelName;
-        
         AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
         if (loadSceneAsync == null)  // La scene existe dans le build setting
         {
@@ -97,6 +85,25 @@ public class GameManager : Singleton<GameManager>
         }
         loadSceneAsync.completed += OnLoadSceneComplete;
         _loadOperations.Add(loadSceneAsync);
+    }
+    
+    void KeepSelectedCharacter()
+    {
+        var clonePrefab = Instantiate(CharacterSelector.ChosenCharacter);
+        instanceSystemPrefabsKept.Add(clonePrefab);
+        DontDestroyOnLoad(clonePrefab);
+        ActivatePlayerComponents(clonePrefab);
+    }
+
+    void ActivatePlayerComponents(GameObject player)
+    {
+        _playerRb = player.GetComponent<Rigidbody>();
+        _playerRb.useGravity = true;
+        
+        foreach (Behaviour behaviour in player.GetComponents<Behaviour>())
+        {
+            behaviour.enabled = true;
+        }
     }
     
     private void OnLoadSceneComplete(AsyncOperation ao)

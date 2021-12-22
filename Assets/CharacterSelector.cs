@@ -1,23 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class CharacterSelector : MonoBehaviour
 {
 
     [SerializeField]private GameObject[] charactersUi;
-    private GameObject chosenCharacter;
+    public static GameObject ChosenCharacter { get; set; }
     
     public void ChooseCharacter(int choice)
     {
         RemovePreviouslySelectedCharacter();
-        chosenCharacter = Instantiate(charactersUi[choice].gameObject);
+        ChosenCharacter = Instantiate(charactersUi[choice].gameObject);
     }
 
     private void RemovePreviouslySelectedCharacter()
     {
-        if(chosenCharacter)
-            Destroy(chosenCharacter);
+        if(ChosenCharacter)
+            Destroy(ChosenCharacter);
     }
 }

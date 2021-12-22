@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(Jump))]
 public class PlayerAnimator : MonoBehaviour
@@ -14,6 +16,14 @@ public class PlayerAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
         _jump = GetComponent<Jump>();
         _autoAttack = GetComponent<AutoAttack>();
+        
+        // TODO : Refactor to not have to wait to get the MouseManager after level is loaded
+        StartCoroutine(nameof(GetMouseManager));
+    }
+
+    IEnumerator GetMouseManager()
+    {
+        yield return new WaitForSeconds(1);
         _mouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
     }
 
@@ -50,7 +60,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (Time.time > _autoAttack.Timestamp)
         {
-            if (_mouseManager.focus)
+            if (_mouseManager && _mouseManager.focus)
             {
                 _animator.SetBool("AutoAttacking", isInMeleeRange());
                 _autoAttack.Timestamp = Time.time + _autoAttack.Cooldown;
