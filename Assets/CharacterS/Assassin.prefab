@@ -10,10 +10,10 @@ Animator:
   m_GameObject: {fileID: 9083040907121873970}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b6ef2f4d0154b2747860a3332fa05f97, type: 3}
-  m_Controller: {fileID: 9100000, guid: faf9f3133d5f10e47904cb7a4e6cf2e7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 00ad0e25779c60e4695fb02969e82bb2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -48,7 +48,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1753741187899190, guid: 45608daf8c357ac4883238b3247d64b7, type: 3}
       propertyPath: m_Name
-      value: AssassinUi
+      value: Assassin
       objectReference: {fileID: 0}
     - target: {fileID: 1753741187899190, guid: 45608daf8c357ac4883238b3247d64b7, type: 3}
       propertyPath: m_TagString

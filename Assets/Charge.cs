@@ -8,6 +8,7 @@ public class Charge : Spells
     private Collider _collider;
     private Rigidbody _rigidbody;
     private ParticleSystem _chargeEffect;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
