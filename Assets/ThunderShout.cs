@@ -14,7 +14,7 @@ public class ThunderShout : Spells
         _shape = _cloudEffect.shape;
         Name = "Thunder Shout";
         Description = "You shout and form a cloud that targets all enemies. All your other attacks will spread to them. Target lasts for 8 sec";
-        Cooldown = 5f;
+        Cooldown = 1f;
         BaseDamage = 10;
     }
     private void Update()

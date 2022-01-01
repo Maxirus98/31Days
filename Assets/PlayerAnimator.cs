@@ -7,31 +7,16 @@ public class PlayerAnimator : MonoBehaviour
 {
     private Animator _animator;
     private Jump _jump;
-    private AutoAttack _autoAttack;
-    private MouseManager _mouseManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         _animator = GetComponent<Animator>();
         _jump = GetComponent<Jump>();
-        _autoAttack = GetComponent<AutoAttack>();
-        
-        // TODO : Refactor to not have to wait to get the MouseManager after level is loaded
-        StartCoroutine(nameof(GetMouseManager));
     }
 
-    IEnumerator GetMouseManager()
-    {
-        yield return new WaitForSeconds(1);
-        _mouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         MoveAnimation();
-        StartAutoAttackAnimation();
         JumpAnimation();
     }
     
@@ -54,25 +39,6 @@ public class PlayerAnimator : MonoBehaviour
             return;
         }
         _animator.SetFloat("Jump", 0);
-    }
-    
-    private void StartAutoAttackAnimation()
-    {
-        if (Time.time > _autoAttack.Timestamp)
-        {
-            if (_mouseManager && _mouseManager.focus)
-            {
-                _animator.SetBool("AutoAttacking", isInMeleeRange());
-                _autoAttack.Timestamp = Time.time + _autoAttack.Cooldown;
-            }
-        }
-    }
-
-    private bool isInMeleeRange()
-    {
-        if(_mouseManager.focus)
-            return Vector3.SqrMagnitude(transform.position - _mouseManager.focus.transform.position) < _autoAttack.range;
-        return false;
     }
 
     public void AnimateSpell(string spellName)

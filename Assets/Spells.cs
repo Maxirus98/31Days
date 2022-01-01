@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spells : MonoBehaviour
 {
-    [SerializeField] protected string Name { get; set; }
-    [SerializeField] protected string Description { get; set; }
+    protected string Name { get; set; }
+    protected string Description { get; set; }
     public float Cooldown { get; set; }
     public float Timestamp { get; set; }
 
-    [SerializeField] protected float BaseDamage { get; set; }
-    [SerializeField] protected bool IsAutoTarget { get; set; }
+    protected float BaseDamage { get; set; }
+    protected bool IsAutoTarget { get; set; }
+    protected float Range { get; set; }
 
-    protected PlayerAnimator _playerAnimator;
+
+    [SerializeField]protected PlayerAnimator _playerAnimator;
     protected Animator _animator;
     
     protected virtual void Start()
@@ -30,5 +31,10 @@ public class Spells : MonoBehaviour
     protected virtual IEnumerator AnimatePlayer()
     {
         throw new NotImplementedException();
+    }
+
+    protected void StopCurrentAnimation(string name)
+    {
+        _playerAnimator.StopAnimatingSpell(name);
     }
 }

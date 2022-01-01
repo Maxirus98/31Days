@@ -1,20 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-public class AutoAttack : Action
+public class AutoAttack : AutoTargetSpell
 {
-    public float[] Attacks { get; set; }
-    
-    //TODO: Rotate between 2-3 attack animations
-    public int currentAttackIndex;
-    public float range;
-    protected override void instantiateAction()
+    public static bool Blocked { get; set; }
+    void Awake()
     {
-        Cooldown = 1f;
-        Name = "Auto Attack";
-        range = 15f;
-        Attacks = new []{1f, 2f, 3f};
-        currentAttackIndex = 0;
+        Cooldown = 0.5f;
+        Name = "AutoAttacking";
+        Range = 15f;
+        Blocked = false;
+    }
+
+    private void Update()
+    {
+        if (Blocked)
+        {
+            _playerAnimator.StopAnimatingSpell(Name);
+        }
+        if (!Blocked && Time.time >= Timestamp)
+        {
+            StartCoroutine(nameof(DoSpell));
+            Timestamp = Time.time + Cooldown;
+        }
+    }
+
+    protected override IEnumerator DoSpell()
+    {
+        StartCoroutine(nameof(AnimatePlayer));
+        yield return new WaitForSeconds(0.1f);
+    }
+
+    protected override IEnumerator AnimatePlayer()
+    {
+        if (IsInRange(Range))
+        {
+            _playerAnimator.AnimateSpell(Name);
+            Timestamp = Time.time + Cooldown;
+            yield return new WaitForSeconds(0.1f);
+        }
+        else
+        {
+            _playerAnimator.StopAnimatingSpell(Name);
+        }
     }
 }

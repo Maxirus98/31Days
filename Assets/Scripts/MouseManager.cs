@@ -57,25 +57,23 @@ public class MouseManager : MonoBehaviour
             {
                 switch (hit.collider.tag)
                 {
+                    // horrible way to put a targeter under the enemy
                     case "Enemy":
+                        Interactable interactable = hit.collider.GetComponent<Interactable>();
                         Cursor.SetCursor(_target, new Vector2(16, 16), CursorMode.Auto);
                         _targeter = hit.collider.transform.GetChild(hit.collider.transform.childCount - 1);
                         _targeter.gameObject.SetActive(true);
+                        if (interactable)
+                        {
+                            SetFocus(interactable);
+                        }
                         break;
                     default:
                         if(_targeter) _targeter.gameObject.SetActive(false);
+                        if (focus) focus = null;
                         break;
                 }
                 OnClickEnvironment.Invoke(hit.point);
-            }
-            
-            if (Input.GetMouseButtonDown(1))
-            {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-                if (interactable)
-                {
-                    SetFocus(interactable);
-                }
             }
         }
     }
