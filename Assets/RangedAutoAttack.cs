@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class AutoAttack : AutoTargetSpell
+// TODO : Utiliser l'héritage avec AutoAttack
+public class RangedAutoAttack : AutoTargetSpell
 {
     public static bool Blocked { get; set; }
     public void Awake()
     {
         Cooldown = 0.5f;
         Name = "AutoAttacking";
-        Range = 15f;
+        Range = 150f;
         Blocked = false;
     }
 

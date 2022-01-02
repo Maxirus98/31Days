@@ -890,7 +890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersUi:
   - {fileID: 9083040907121873970, guid: 86c29a3aa6c549c4f873462194da17da, type: 3}
-  - {fileID: 9083040907121873970, guid: 5acd6d85945a32b4eb26138c7795d446, type: 3}
+  - {fileID: 1930578967618458, guid: 0a05a01d0c11f9843aa9a08b77fe6b7a, type: 3}
   - {fileID: 1298028809135162, guid: 3bd4664b493e27d4f84e3e457551493c, type: 3}
 --- !u!4 &250443452 stripped
 Transform:
