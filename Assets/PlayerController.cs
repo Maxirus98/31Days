@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private readonly float SPEED = 6f;
-    private readonly float YAW_SPEED = 500f;
+    private readonly float INIT_YAW_SPEED = 100f;
+    public float YawSpeed { get; set; }
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        YawSpeed = INIT_YAW_SPEED;
+    }
+
     void Update()
     {
         MoveCharacter();
@@ -34,11 +36,16 @@ public class PlayerController : MonoBehaviour
 
     void TurnLeft()
     {
-        transform.Rotate(Vector3.down * (YAW_SPEED * Time.deltaTime));
+        transform.Rotate(Vector3.down * (YawSpeed * Time.deltaTime));
     }
 
     void TurnRight()
     {
-        transform.Rotate(Vector3.up * (YAW_SPEED * Time.deltaTime));
+        transform.Rotate(Vector3.up * (YawSpeed * Time.deltaTime));
+    }
+
+    public void ResetYawSpeed()
+    {
+        YawSpeed = INIT_YAW_SPEED;
     }
 }
