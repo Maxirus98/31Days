@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class EventVector3 : UnityEvent<Vector3>
@@ -20,23 +21,25 @@ public class MouseManager : MonoBehaviour
     [SerializeField] private Texture2D _pointer;
     [SerializeField] private Texture2D _shop;
     private Transform _targeter;
-    private Animator _playerAnimator;
     [SerializeField] public Interactable focus;
     private Camera mainCamera;
+    private GameObject _player;
+    private SkillShotSpell[] _skillShotSpells;
 
     //2e étape, déclarer le handler
     public EventVector3 OnClickEnvironment;
 
     private void Start()
     {
-        _playerAnimator = GameObject.FindWithTag("Player").GetComponent<Animator>();
         mainCamera = Camera.main;
+        _player = GameObject.FindWithTag("Player");
+        _skillShotSpells = _player.GetComponents<SkillShotSpell>();
     }
 
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, 25, _clickableLayer.value))
+        if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, _clickableLayer.value))
         {
             switch (hit.collider.tag)
             {
@@ -48,6 +51,31 @@ public class MouseManager : MonoBehaviour
                     break;
                 default:
                     Cursor.SetCursor(_pointer, new Vector2(16, 16), CursorMode.Auto);
+                    // foreach must be costly here. Try finding another way to spawn on mouse position.
+                    foreach (var spell in _skillShotSpells)
+                    {
+                        Debug.Log(spell.MaxRange);
+                        var spellSpawnArea = spell.spawnArea;
+                        if (spellSpawnArea)
+                        {
+                            Debug.Log("dist "  + Vector3.Distance(spellSpawnArea.transform.position, _player.transform.position));
+                            if (Vector3.Distance(spellSpawnArea.transform.position, _player.transform.position) <
+                                spell.MaxRange)
+                            {
+                                spellSpawnArea.transform.position = hit.point + Vector3.up;
+                            }
+                            else
+                            {
+                                Vector3 playerToCursor = hit.point - _player.transform.position;
+                                Vector3 dir = playerToCursor.normalized;
+                                Vector3 cursorVector = dir * spell.MaxRange;
+                                Vector3 finalPos = _player.transform.position + cursorVector;
+                                finalPos.y = hit.point.y + 1;
+                                spellSpawnArea.transform.position = finalPos;
+                            }
+                        }
+                    }
+                    
                     break;
                     ;
             }
@@ -88,5 +116,4 @@ public class MouseManager : MonoBehaviour
         }
         newFocus.OnFocused(transform);
     }
-
 }

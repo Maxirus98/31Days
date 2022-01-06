@@ -81,7 +81,7 @@ public class Fireball : AutoTargetSpell
 
     private void CastFireball()
     {
-        var spawnPoint = MageSpell.FindDeepChild("SpellCast", transform);
+        var spawnPoint = AbilityUtils.FindDeepChild("SpellCast", transform);
         _cloneFireball = Instantiate(fireball, spawnPoint.position, spawnPoint.rotation);
     }
 }

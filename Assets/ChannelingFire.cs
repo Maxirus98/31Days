@@ -5,7 +5,7 @@ public class ChannelingFire : Spells
 {
     [SerializeField] private GameObject channelingFire;
     private GameObject _cloneChannelingFire;
-    private float WarmUpTime { get; set; }
+    private float CastTime { get; set; }
     private float Duration { get; set; }
 
     private PlayerController _playerController;
@@ -17,7 +17,7 @@ public class ChannelingFire : Spells
         Description = "Channel a beam of fire in front of you. (10 mana by second).";
         Cooldown = 8f;
         Duration = 6f;
-        WarmUpTime = 1f;
+        CastTime = 1f;
         _playerController = GetComponent<PlayerController>();
     }
 
@@ -31,9 +31,10 @@ public class ChannelingFire : Spells
 
     protected override IEnumerator DoSpell()
     {
+        Timestamp = Time.time + Cooldown;
         _playerController.YawSpeed = YAW_SPEED;
         StartCoroutine(nameof(AnimatePlayer));
-        Invoke(nameof(CastChannelingFire), WarmUpTime);
+        Invoke(nameof(CastChannelingFire), CastTime);
         yield return new WaitForSeconds(Duration);
         _playerController.ResetYawSpeed();
     }
@@ -41,14 +42,14 @@ public class ChannelingFire : Spells
     protected override IEnumerator AnimatePlayer()
     {
         _playerAnimator.AnimateSpell(Name);
-        yield return new WaitForSeconds(WarmUpTime);
+        yield return new WaitForSeconds(CastTime);
         _playerAnimator.StopAnimatingSpell(Name);
     }
 
     private void CastChannelingFire()
     {
         _playerController.YawSpeed = YAW_SPEED;
-        var spawnPoint = MageSpell.FindDeepChild("SpellCast", transform);
+        var spawnPoint = AbilityUtils.FindDeepChild("SpellCast", transform);
         _cloneChannelingFire = Instantiate(channelingFire, spawnPoint.position, spawnPoint.rotation * Quaternion.Euler(180, 0, 0), spawnPoint.transform);
         Destroy(_cloneChannelingFire, Duration);
     }

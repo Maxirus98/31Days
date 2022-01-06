@@ -17,7 +17,7 @@ public class Spells : MonoBehaviour
     [SerializeField]protected PlayerAnimator _playerAnimator;
     protected Animator _animator;
     
-    protected virtual void Start()
+    protected void Start()
     {
         _playerAnimator = GetComponent<PlayerAnimator>();
         _animator = GetComponent<Animator>();

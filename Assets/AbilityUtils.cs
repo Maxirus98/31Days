@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MageSpell
+public class AbilityUtils
 {
     public static Transform FindDeepChild(string name, Transform parent)
     {
@@ -17,5 +17,5 @@ public class MageSpell
                 queue.Enqueue(t);
         }
         return null;
-    }   
+    }
 }
