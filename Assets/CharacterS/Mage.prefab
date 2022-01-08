@@ -77355,6 +77355,7 @@ GameObject:
   - component: {fileID: 261272250103388221}
   - component: {fileID: 8956129809437447602}
   - component: {fileID: 1297613406519114039}
+  - component: {fileID: 1213945802692356877}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Player
@@ -77531,8 +77532,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAnimator: {fileID: 0}
+  spawnArea: {fileID: 0}
   tornado: {fileID: 1858714725665292, guid: f2d2eb5e2dcf3744095b7caf76d344dc, type: 3}
   spawn: {fileID: 1096038273005124, guid: 5cabce0a1911b5c44aeeeb03c087c0a0, type: 3}
+--- !u!114 &1213945802692356877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930578967618458}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6c4ac63a2b44642bfcbda9d29d4087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerAnimator: {fileID: 0}
+  _initialSummon: {fileID: 4060939980105884499, guid: 10fc260457d86684bb2e5798323873cd,
+    type: 3}
 --- !u!1 &1931926986896276
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,15 +34,15 @@ public class Fireball : AutoTargetSpell
             _cloneFireball.transform.position = Vector3.MoveTowards(fireballPosition,
                 focusTransform.position + Vector3.up * 
                 focusTransform.localScale.y, 20f * Time.deltaTime);
-            if (Vector3.SqrMagnitude(fireballPosition - focusTransform.position) < 2f)
+            if (Vector3.SqrMagnitude(fireballPosition - (focusTransform.position + Vector3.up * 
+                focusTransform.localScale.y)) < focusTransform.localScale.y)
             {
-                Destroy(_cloneFireball, 1f);
-                Instantiate(explosion, _cloneFireball.transform.position, _cloneFireball.transform.rotation,
-                    _cloneFireball.transform);
+                Instantiate(explosion, _cloneFireball.transform);
+                Destroy(_cloneFireball, 0.2f);
             }
         }
     }
-
+    
     protected override IEnumerator DoSpell()
     {
         if (IsInRange(Range))

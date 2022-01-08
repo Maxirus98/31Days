@@ -26,7 +26,7 @@ public class Tornado : SkillShotSpell
 
     private void Update()
     {
-        if (Time.time > Timestamp && Input.GetKeyDown(KeyCode.Alpha2) && !_cloneSpawn)
+        if (Time.time > Timestamp && Input.GetKeyDown(KeyCode.Alpha3) && !_cloneSpawn)
         {
             ToggleAbilityRange(true, _abilityRange.gameObject);
             SetAreaScale(_abilityRange);
