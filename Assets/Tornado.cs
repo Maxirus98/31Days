@@ -47,7 +47,7 @@ public class Tornado : SkillShotSpell
     {
         Timestamp = Time.time + Cooldown;
         StartCoroutine(nameof(AnimatePlayer));
-        Invoke(nameof(CastTornado), CastTime);
+        CastTornado();
         DestroyMarkers();
         yield return new WaitForSeconds(Duration);
     }
@@ -68,7 +68,7 @@ public class Tornado : SkillShotSpell
     private void DestroyMarkers()
     {
         ToggleAbilityRange(false, _abilityRange.gameObject);
-        Destroy(_cloneSpawn, CastTime);
+        Destroy(_cloneSpawn);
     }
 
     private void CastTornado()

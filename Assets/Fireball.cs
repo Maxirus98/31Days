@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-// TODO : Utiliser l'héritage avec AutoAttack
 public class Fireball : AutoTargetSpell
 {
-    [SerializeField]private GameObject explosion;
-    [SerializeField]private GameObject fireball;
+    public GameObject explosion;
+    public GameObject fireball;
     private GameObject _cloneFireball;
     public static bool Blocked { get; set; }
     private float _autoAttackClipLenght;
@@ -37,7 +35,7 @@ public class Fireball : AutoTargetSpell
             if (Vector3.SqrMagnitude(fireballPosition - (focusTransform.position + Vector3.up * 
                 focusTransform.localScale.y)) < focusTransform.localScale.y)
             {
-                Instantiate(explosion, _cloneFireball.transform);
+                Instantiate(explosion, _cloneFireball.transform.position, transform.rotation, _cloneFireball.transform);
                 Destroy(_cloneFireball, 0.2f);
             }
         }

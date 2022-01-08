@@ -54,7 +54,6 @@ public class MouseManager : MonoBehaviour
                     // foreach must be costly here. Try finding another way to spawn on mouse position.
                     foreach (var spell in _skillShotSpells)
                     {
-                        Debug.Log(spell.MaxRange);
                         var spellSpawnArea = spell.spawnArea;
                         if (spellSpawnArea)
                         {

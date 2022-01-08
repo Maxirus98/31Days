@@ -28,6 +28,12 @@ public class Vanish : Spells
     protected override IEnumerator DoSpell()
     {
         Timestamp = Time.time + Cooldown;
+        StartCoroutine(nameof(ChangeMaterial));
+        yield break;
+    }
+
+    private IEnumerator ChangeMaterial()
+    {
         if(!_vanishSmoke.isPlaying)_vanishSmoke.Play(true);
         Renderer[] rs = GetComponentsInChildren<Renderer>();
         foreach (Renderer r in rs)
