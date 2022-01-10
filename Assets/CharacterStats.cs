@@ -16,29 +16,32 @@ public class CharacterStats : MonoBehaviour
     public float MovementSpeed { get; set; }
     public float TurnSpeed { get; set; }
 
-    [SerializeField]private Slider _hpSlider;
+    private Slider _hpSlider;
     private Slider _resourceSlider;
     private void Start()
     {
 
-        StartCoroutine(nameof(GetSliders));
+        StartCoroutine(nameof(SetSliders));
         initStats();
+    }
+
+    IEnumerator SetSliders()
+    {
+        yield return new WaitForSeconds(1);
+        _hpSlider = GameObject.Find("PlayerResource").transform.GetChild(0).gameObject.GetComponent<Slider>();
+        _resourceSlider = GameObject.Find("PlayerResource").transform.GetChild(1).gameObject.GetComponent<Slider>();
         
         _hpSlider.maxValue = MaxHealth;
         _resourceSlider.maxValue = MaxResource;
     }
 
-    IEnumerator GetSliders()
-    {
-        yield return new WaitForSeconds(1);
-        _hpSlider = GameObject.Find("PlayerResource").transform.GetChild(0).gameObject.GetComponent<Slider>();
-        _resourceSlider = GameObject.Find("PlayerResource").transform.GetChild(1).gameObject.GetComponent<Slider>();
-    }
-
     private void Update()
     {
-        _hpSlider.value = Health;
-        _resourceSlider.value = Resource;
+        if (_hpSlider && _resourceSlider)
+        {
+            _hpSlider.value = Health;
+            _resourceSlider.value = Resource;
+        }
     }
 
     public virtual void initStats()

@@ -9,6 +9,7 @@ TagManager:
   - AMCheckpoints
   - Ground
   - InnerTrigger
+  - Weapon
   layers:
   - Default
   - TransparentFX

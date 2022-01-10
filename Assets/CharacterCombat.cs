@@ -8,7 +8,6 @@ public class CharacterCombat : MonoBehaviour
     private void Awake()
     {
         _characterStats = GetComponent<CharacterStats>();
-        
     }
 
     private void TakeDamage(float damage)

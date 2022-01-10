@@ -38,5 +38,6 @@ public class Cleave : Spells
         Vector3 spawnPoint = transform.TransformPoint(spawnDistance);
         var cloneShadow = Instantiate(shadowWarrior, spawnPoint,
             transform.rotation * Quaternion.Euler(0, 180, 0));
+        cloneShadow.transform.localScale = transform.localScale;
     }
 }
