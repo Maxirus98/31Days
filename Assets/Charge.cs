@@ -52,10 +52,11 @@ public class Charge : AutoTargetSpell
         Vector3 fromPosition = transform.position;
         Vector3 toPosition = MouseManager.focus.transform.position;
         Vector3 direction = toPosition - fromPosition;
-     
+    
         Debug.DrawLine(transform.position, direction);
         if(Physics.Linecast(transform.position,direction,out hit))
-        {
+        { 
+            transform.rotation = Quaternion.LookRotation(direction);
             _playerAnimator.AnimateSpell(Name);
             if(!_chargeEffect.isPlaying)_chargeEffect.Play(false);
             var focusPosition = MouseManager.focus.transform.position;

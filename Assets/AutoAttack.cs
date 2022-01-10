@@ -6,7 +6,7 @@ public class AutoAttack : AutoTargetSpell
     public static bool Blocked { get; set; }
     public void Awake()
     {
-        Cooldown = 0.5f;
+        Cooldown = 2f;
         Name = "AutoAttacking";
         Range = 15f;
         Blocked = false;
@@ -18,7 +18,7 @@ public class AutoAttack : AutoTargetSpell
         {
             _playerAnimator.StopAnimatingSpell(Name);
         }
-        if (!Blocked && Time.time >= Timestamp)
+        if (Time.time > Timestamp)
         {
             StartCoroutine(nameof(DoSpell));
             Timestamp = Time.time + Cooldown;
@@ -27,21 +27,14 @@ public class AutoAttack : AutoTargetSpell
 
     protected override IEnumerator DoSpell()
     {
-        StartCoroutine(nameof(AnimatePlayer));
-        yield return new WaitForSeconds(0.1f);
-    }
-
-    protected override IEnumerator AnimatePlayer()
-    {
         if (IsInRange(Range))
         {
-            _playerAnimator.AnimateSpell(Name);
             Timestamp = Time.time + Cooldown;
-            yield return new WaitForSeconds(0.1f);
+            _playerAnimator.AnimateSpell(Name);
+
+            yield break;
         }
-        else
-        {
-            _playerAnimator.StopAnimatingSpell(Name);
-        }
+        _playerAnimator.StopAnimatingSpell(Name);
+
     }
 }
