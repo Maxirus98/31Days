@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
-public class Charge : Spells
+public class Charge : AutoTargetSpell
 {
-    private Collider _collider;
-    private Rigidbody _rigidbody;
     private ParticleSystem _chargeEffect;
+    private float _stopChargingRange;
+    private bool _isCharging;
+    private float _chargeSpeed;
     
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        _collider = GetComponent<Collider>();
         _chargeEffect = transform.Find("ChargeEffect").GetComponent<ParticleSystem>();
         Name = "Charge";
         Description = "You charge forward hitting and stunning the enemy";
         Cooldown = 1f;
-        BaseDamage = 10;
+        Range = 200f;
+        _stopChargingRange = 2f;
+        _chargeSpeed = 20f;
+        BaseDamage = 10f;
         IsAutoTarget = true;
     }
 
@@ -27,29 +28,49 @@ public class Charge : Spells
         {
             StartCoroutine(nameof(DoSpell));
         }
+        
+        if (_isCharging && MouseManager && MouseManager.focus)
+        {
+            StartCharging();
+        }
+        StopCharging();
     }
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
-        if(!_chargeEffect.isPlaying)_chargeEffect.Play(false);
-        var constraints = _rigidbody.constraints;
-        _rigidbody.constraints = constraints | RigidbodyConstraints.FreezePositionY;
-        _rigidbody.detectCollisions = false;
-        StartCoroutine(nameof(AnimatePlayer));
-        yield return new WaitForSeconds(0.5f);
-        if(_chargeEffect.isPlaying)_chargeEffect.Stop(false);
-        _rigidbody.detectCollisions = true;
-        _rigidbody.constraints = constraints;
-
-
+        if (IsInRange(Range))
+        {
+            Timestamp = Time.time + Cooldown;
+            _isCharging = true;
+        }   
+        yield break;
     }
-    
-    protected override IEnumerator AnimatePlayer()
+
+    private void StartCharging()
     {
-        Debug.Log("animate player with spellName" + Name);
-        _playerAnimator.AnimateSpell(Name);
-        yield return new WaitForSeconds(0.1f);
-        _playerAnimator.StopAnimatingSpell(Name);
+        RaycastHit hit;
+        Vector3 fromPosition = transform.position;
+        Vector3 toPosition = MouseManager.focus.transform.position;
+        Vector3 direction = toPosition - fromPosition;
+     
+        Debug.DrawLine(transform.position, direction);
+        if(Physics.Linecast(transform.position,direction,out hit))
+        {
+            _playerAnimator.AnimateSpell(Name);
+            if(!_chargeEffect.isPlaying)_chargeEffect.Play(false);
+            var focusPosition = MouseManager.focus.transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, focusPosition,  _chargeSpeed * Time.deltaTime);
+        }
+    }
+
+    private void StopCharging()
+    {
+        if (IsInRange(_stopChargingRange) && _isCharging)
+        {
+            
+            _isCharging = false;
+            if (_chargeEffect.isPlaying) _chargeEffect.Stop(false);
+            _playerAnimator.StopAnimatingSpell(Name);
+        }
     }
 }

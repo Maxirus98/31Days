@@ -11,19 +11,18 @@ public class AMController : MonoBehaviour
     private int _currentCheckPointInArray = 0;
     private NavMeshAgent _agent;
     private Animator _animator;
-    private GameObject _player;
+    private Transform _lookAt;
 
     private float _radius;
 
     private static readonly int WALK_FORWARD = Animator.StringToHash("Walk Forward");
 
-    // Start is called before the first frame update
     void Start()
     {
         _checkpoints = GameObject.FindGameObjectsWithTag("AMCheckpoints");
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
-        _player = GameObject.FindWithTag("Player");
+        _lookAt = GameObject.Find("AMLookAt").transform;
         _radius = 3f;
         InvokeRepeating(nameof(GoToNextCheckPoint), 0, 10);
     }
@@ -33,7 +32,7 @@ public class AMController : MonoBehaviour
         if (Vector3.Distance(transform.position, _checkpoints[_currentCheckPointInArray].transform.position) <= _radius)
         {
             _animator.SetBool(WALK_FORWARD, false);
-            transform.LookAt(_player.transform);
+            transform.LookAt(_lookAt);
             _currentCheckPointInArray = _currentCheckPointInArray < _checkpoints.Length - 1?_currentCheckPointInArray + 1:0;
             _agent.velocity = Vector3.zero;
             _agent.isStopped = true;
