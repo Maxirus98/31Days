@@ -17,7 +17,7 @@ public class AutoTargetSpell : Spells
         yield return new WaitForSeconds(1);
         MouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
     }
-    
+
     protected bool IsInRange(float range)
     {
         if (MouseManager && MouseManager.focus)
@@ -27,4 +27,18 @@ public class AutoTargetSpell : Spells
         
         return false;
     }
+    
+    protected void DamageEnemiesHit()
+    {
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, _swordRadius, enemyLayers);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+            if (enemy.gameObject == MouseManager.focus.gameObject)
+            {
+                enemy.GetComponent<CharacterCombat>().TakeDamage(BaseDamage);
+            }
+        }
+    }
+    
 }

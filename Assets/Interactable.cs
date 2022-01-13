@@ -27,7 +27,8 @@ public class Interactable : MonoBehaviour
         }
         
     }
-
+    
+    // Set Target here
     public void OnFocused(Transform playerTransform)
     {
         isFocus = true;
@@ -35,12 +36,14 @@ public class Interactable : MonoBehaviour
         hasInteracted = false;
     }
 
+    // Remove target here
     public void OnDefocused()
     {
         isFocus = false;
         _player = null;
         hasInteracted = false;
     }
+    
     private void OnDrawGizmosSelected()
     {
         //callback function in unity

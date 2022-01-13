@@ -90,6 +90,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6eb10bfd454d64aa0aa572b6136b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _swordRadius: 0.5
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
 --- !u!114 &-2239907401249943941
 MonoBehaviour:
@@ -139,6 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45476869d0854e64fb2737fe701f2d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _swordRadius: 0.5
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
 --- !u!114 &2358122142690146169
 MonoBehaviour:
@@ -152,7 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47de2b16117f3d439f024fd9a93faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpSlider: {fileID: 0}
+  health: 0
+  maxHealth: 0
+  resource: 0
+  maxResource: 0
+  defense: 0
 --- !u!114 &4399777797596597369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,11 +174,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthbarScript: {fileID: 0}
 --- !u!114 &4757542138524274753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24bb0ef9f930334fa370dfc03595485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _swordRadius: 0.5
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
   _initialSummon: {fileID: 138024, guid: 2a1f01091710d154c927ad10991a05df, type: 3}
 --- !u!114 &5348724573569074768
@@ -191,12 +211,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2697d091c6693e4faa5dc56f0d737ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAnimator: {fileID: 0}
+  _swordRadius: 0.5
   attackPoint: {fileID: 1232144446854105215}
-  attackRange: 1
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
+  _playerAnimator: {fileID: 0}
+--- !u!114 &6273116585082552682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9083040907121873970}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa95e6af910d7743a24377c6f4c07f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  resource: 0
+  maxResource: 0
+  defense: 0
 --- !u!114 &8009665319561904617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,11 +241,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbc7f060bff87574abf1ae8888e4adc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _swordRadius: 0.5
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
   shadowWarrior: {fileID: 9083040907121873970, guid: 0c5182cec18b0d44bb60360242a77b95,
     type: 3}

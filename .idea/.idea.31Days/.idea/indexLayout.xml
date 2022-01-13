@@ -13,6 +13,7 @@
       <Path>Library/PackageCache/com.unity.postprocessing@2.1.7</Path>
       <Path>Library/PackageCache/com.unity.probuilder@4.4.0</Path>
       <Path>Library/PackageCache/com.unity.purchasing@2.0.6</Path>
+      <Path>Library/PackageCache/com.unity.recorder@3.0.3</Path>
       <Path>Library/PackageCache/com.unity.settings-manager@1.0.3</Path>
       <Path>Library/PackageCache/com.unity.test-framework@1.1.20</Path>
       <Path>Library/PackageCache/com.unity.textmeshpro@2.1.1</Path>
@@ -28,6 +29,7 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>Recordings</Path>
       <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>

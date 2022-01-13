@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-public class PlayerCombat : CharacterCombat
+﻿public class PlayerCombat : CharacterCombat
 {
+    
 }

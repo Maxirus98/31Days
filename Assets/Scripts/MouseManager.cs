@@ -105,7 +105,7 @@ public class MouseManager : MonoBehaviour
         }
     }
     
-    void SetFocus(Interactable newFocus)
+    public void SetFocus(Interactable newFocus)
     {
         if (newFocus != focus)
         {
@@ -113,6 +113,7 @@ public class MouseManager : MonoBehaviour
                 focus.OnDefocused();
             focus = newFocus;
         }
-        newFocus.OnFocused(transform);
+        if (newFocus != null)
+            newFocus.OnFocused(transform);
     }
 }

@@ -1,59 +1,44 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterStats : MonoBehaviour
 {
-    public float Health { get; set; }
-    public float MaxHealth { get; set; }
-    public float Resource { get; set; }
-    public float MaxResource { get; set; }
-    public float Defense { get; set; }
-    public float CurrentDefenseMultiplier { get; set; }
+    public float health;
+    public float maxHealth;
+    public float resource;
+    public float maxResource;
+    public float defense;
     public float AttackSpeed { get; set; }
     public float MovementSpeed { get; set; }
     public float TurnSpeed { get; set; }
 
-    private Slider _hpSlider;
-    private Slider _resourceSlider;
-    private void Start()
-    {
+    protected Slider _hpSlider;
+    protected Slider _resourceSlider;
 
-        StartCoroutine(nameof(SetSliders));
-        initStats();
+    public virtual void Start()
+    {
+        maxHealth = 100;
+        maxResource = 100;
+        health = maxHealth;
+        resource = maxResource;
     }
 
-    IEnumerator SetSliders()
+    protected virtual IEnumerator SetSliders()
     {
-        yield return new WaitForSeconds(1);
-        _hpSlider = GameObject.Find("PlayerResource").transform.GetChild(0).gameObject.GetComponent<Slider>();
-        _resourceSlider = GameObject.Find("PlayerResource").transform.GetChild(1).gameObject.GetComponent<Slider>();
-        
-        _hpSlider.maxValue = MaxHealth;
-        _resourceSlider.maxValue = MaxResource;
+        throw new NotImplementedException();
     }
-
-    private void Update()
-    {
-        if (_hpSlider && _resourceSlider)
-        {
-            _hpSlider.value = Health;
-            _resourceSlider.value = Resource;
-        }
-    }
-
     public virtual void initStats()
     {
-        Health = 100;
-        MaxHealth = Health;
-        Resource = 100;
-        MaxResource = Resource;
-        Defense = 10;
-        CurrentDefenseMultiplier = 0.33f;
+        health = 100;
+        maxHealth = health;
+        resource = 100;
+        maxResource = resource;
+        defense = 10;
         AttackSpeed = 0.1f;
         MovementSpeed = 6f;
         TurnSpeed = 500f;
     }
+    
 }
