@@ -150,6 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  damageSender: {fileID: 0}
 --- !u!114 &2358122142690146169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +218,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _playerAnimator: {fileID: 0}
+  damageSender: {fileID: 8480147002679231755, guid: 3b10e54ccea100e40a039cd83449a464,
+    type: 3}
 --- !u!114 &6273116585082552682
 MonoBehaviour:
   m_ObjectHideFlags: 0

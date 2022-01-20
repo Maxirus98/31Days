@@ -77478,7 +77478,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47de2b16117f3d439f024fd9a93faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpSlider: {fileID: 0}
+  health: 0
+  maxHealth: 0
+  resource: 0
+  maxResource: 0
+  defense: 0
 --- !u!114 &8314137143479812111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77491,6 +77495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a60f41f6be8218469c2c91c79e8daf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthbarScript: {fileID: 0}
 --- !u!114 &261272250103388221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77503,9 +77508,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1678f6157d3b84981c6ba7951a24f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitRadius: 1
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
   _playerAnimator: {fileID: 0}
+  damageSender: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee,
+    type: 3}
   explosion: {fileID: 1809022330002312, guid: ad2d4bd2648087f46bb6e37ab9bb7a2b, type: 3}
-  fireball: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee, type: 3}
 --- !u!114 &8956129809437447602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77518,6 +77529,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b68786dbd63ae149b70b045a2004cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitRadius: 1
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
   channelingFire: {fileID: 1293375810718194, guid: 0e27717049f50724ba2034b0b77ab444,
     type: 3}
@@ -77533,6 +77549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a74364cf6361944b280ab6b6b09b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitRadius: 1
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
   spawnArea: {fileID: 0}
   tornado: {fileID: 1858714725665292, guid: f2d2eb5e2dcf3744095b7caf76d344dc, type: 3}
@@ -77549,6 +77570,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6c4ac63a2b44642bfcbda9d29d4087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitRadius: 1
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
   _initialSummon: {fileID: 4060939980105884499, guid: 10fc260457d86684bb2e5798323873cd,
     type: 3}
@@ -77564,6 +77590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168aaa89ca71bbc43af353eb35adb3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitRadius: 1
+  attackPoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _playerAnimator: {fileID: 0}
   voidMaterial: {fileID: 2100000, guid: 3074202733f4d804c833795ed40f1824, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 068b891fe967b1c45850c97d1092abe0, type: 2}

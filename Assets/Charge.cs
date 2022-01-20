@@ -14,7 +14,7 @@ public class Charge : AutoTargetSpell
         _chargeEffect = transform.Find("ChargeEffect").GetComponent<ParticleSystem>();
         Name = "Charge";
         Description = "You charge forward hitting and stunning the enemy";
-        Cooldown = 1f;
+        cooldown = 1f;
         Range = 200f;
         _stopChargingRange = 2f;
         _chargeSpeed = 20f;
@@ -40,7 +40,7 @@ public class Charge : AutoTargetSpell
     {
         if (IsInRange(Range))
         {
-            Timestamp = Time.time + Cooldown;
+            Timestamp = Time.time + cooldown;
             _isCharging = true;
         }   
         yield break;
@@ -49,11 +49,8 @@ public class Charge : AutoTargetSpell
     private void StartCharging()
     {
         RaycastHit hit;
-        Vector3 fromPosition = transform.position;
-        Vector3 toPosition = MouseManager.focus.transform.position;
-        Vector3 direction = toPosition - fromPosition;
-    
-        Debug.DrawLine(transform.position, direction);
+
+        var direction = AbilityUtils.DirectAt(transform, MouseManager.focus);
         if(Physics.Linecast(transform.position,direction,out hit))
         { 
             transform.rotation = Quaternion.LookRotation(direction);

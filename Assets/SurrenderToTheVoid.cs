@@ -9,6 +9,8 @@ public class SurrenderToTheVoid : Spells
     [SerializeField] private GameObject initialExplosion;
     [SerializeField] private GameObject voidAutoAttack;
     [SerializeField] private GameObject voidExplosion;
+    private float _initialBaseDamage;
+    private float _initialRadius;
 
     private GameObject _fireball;
     private Vector3 _initialScale;
@@ -19,8 +21,12 @@ public class SurrenderToTheVoid : Spells
     {
         Name = "Surrender to the Void";
         Description = "The mage turns to the power of the void. He cannot cast spells but all his Auto Attacks becomes void, piercing through armor and dealing more damage. After Surrender to the void, the mage gains all his mana back.";
-        Cooldown = 20f;
+        cooldown = 20f;
         IsAutoTarget = true;
+        hitRadius = 2f;
+        _initialBaseDamage = GetComponent<Fireball>().BaseDamage;
+        _initialRadius = GetComponent<Fireball>().hitRadius;
+        BaseDamage = 200f;
         _voidEffect = transform.Find("VoidEffect").GetComponent<ParticleSystem>();
         Duration = 10f;
     }
@@ -35,9 +41,11 @@ public class SurrenderToTheVoid : Spells
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         if(!_voidEffect.isPlaying)_voidEffect.Play(true);
-        GetComponent<Fireball>().fireball = voidAutoAttack;
+        GetComponent<Fireball>().BaseDamage = BaseDamage;
+        GetComponent<Fireball>().hitRadius = hitRadius;
+        GetComponent<Fireball>().damageSender = voidAutoAttack;
         GetComponent<Fireball>().explosion = voidExplosion;
         Renderer[] rs = GetComponentsInChildren<Renderer>();
         foreach (Renderer r in rs)
@@ -54,9 +62,9 @@ public class SurrenderToTheVoid : Spells
                 r.material = defaultMaterial;
         }
         if(_voidEffect.isPlaying)_voidEffect.Stop(true);
-        GetComponent<Fireball>().fireball = initialAutoAttack;
+        GetComponent<Fireball>().BaseDamage = _initialBaseDamage;
+        GetComponent<Fireball>().damageSender = initialAutoAttack;
         GetComponent<Fireball>().explosion = initialExplosion;
-
     }
 
     protected override IEnumerator AnimatePlayer()

@@ -15,7 +15,7 @@ public class ChannelingFire : Spells
     {
         Name = "Channeling Fire";
         Description = "Channel a beam of fire in front of you. (10 mana by second).";
-        Cooldown = 8f;
+        cooldown = 8f;
         Duration = 6f;
         CastTime = 1f;
         _playerController = GetComponent<PlayerController>();
@@ -31,7 +31,7 @@ public class ChannelingFire : Spells
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         _playerController.YawSpeed = YAW_SPEED;
         StartCoroutine(nameof(AnimatePlayer));
         Invoke(nameof(CastChannelingFire), CastTime);

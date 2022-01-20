@@ -8,7 +8,7 @@ public class Tsunami : ThrowSpells
     {
         Name = "Typhoon";
         Description = "Summon a tsunami in front of you pushing back enemies. (80 mana)";
-        Cooldown = 1f;
+        cooldown = 1f;
         Range = 1.2f;
         TravelSpeed = 6f;
         BaseDamage = 100;
@@ -25,7 +25,7 @@ public class Tsunami : ThrowSpells
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         var playerTransform = transform;
         var playerForward = playerTransform.forward;
 

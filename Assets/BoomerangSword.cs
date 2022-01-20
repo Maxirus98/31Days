@@ -13,7 +13,7 @@ public class BoomerangSword : ThrowSpells
         Name = "Boomerang Sword";
         TravelSpeed = 6f;
         Description = "You throw your sword in front of you and it comes back at you dealing damage and slowing enemies in its path";
-        Cooldown = 1f;
+        cooldown = 1f;
         BaseDamage = 100;
         IsAutoTarget = false;
     }
@@ -28,7 +28,7 @@ public class BoomerangSword : ThrowSpells
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         var playerTransform = transform;
         var playerForward = playerTransform.forward;
 

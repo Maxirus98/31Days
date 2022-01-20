@@ -4,34 +4,31 @@ using UnityEngine;
 
 public class Spells : MonoBehaviour
 {
+    protected delegate void AttackCallback(CharacterState characterState);
+    protected CharacterCombat CharacterCombat;
+    protected AttackCallback attackCallback;
     protected string Name { get; set; }
     protected string Description { get; set; }
-    public float Cooldown { get; set; }
+    public float cooldown;
     public float Timestamp { get; set; }
 
-    protected float BaseDamage { get; set; }
+    public float BaseDamage { get; set; }
     protected bool IsAutoTarget { get; set; }
     protected float Range { get; set; }
-    public float _swordRadius = 1f;
+    public float hitRadius = 1f;
 
     [SerializeField] protected Transform attackPoint;
     [SerializeField] protected LayerMask enemyLayers;
     [SerializeField] protected PlayerAnimator _playerAnimator;
-    protected Animator _animator;
+    protected Animator animator;
     
-    protected void Start()
+    protected virtual void Start()
     {
+        CharacterCombat = GetComponent<CharacterCombat>();
+        attackCallback = CharacterCombat.UpdateCharacterState;
         _playerAnimator = GetComponent<PlayerAnimator>();
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null)
-            return;
-        Gizmos.DrawWireSphere(attackPoint.position, _swordRadius);
-    }
-    
 
     protected virtual IEnumerator DoSpell()
     {

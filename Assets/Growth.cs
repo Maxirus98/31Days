@@ -12,7 +12,7 @@ public class Growth : Spells
     {
         Name = "Growth";
         Description = "For a limited time, you grow in size and in get bonus health";
-        Cooldown = 1f;
+        cooldown = 1f;
         IsAutoTarget = true;
         _initialScale = transform.localScale;
         _growthEffect = transform.Find("GrowthEffect").GetComponent<ParticleSystem>();
@@ -34,7 +34,7 @@ public class Growth : Spells
     {
         if(!_growthEffect.isPlaying)_growthEffect.Play(false);
         StartCoroutine(nameof(AnimatePlayer));
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         transform.localScale *= _growthScale;
         yield return new WaitForSeconds(_duration);    
         transform.localScale = _initialScale;

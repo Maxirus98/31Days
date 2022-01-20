@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 [System.Serializable]
 public class EventVector3 : UnityEvent<Vector3>
@@ -57,7 +54,6 @@ public class MouseManager : MonoBehaviour
                         var spellSpawnArea = spell.spawnArea;
                         if (spellSpawnArea)
                         {
-                            Debug.Log("dist "  + Vector3.Distance(spellSpawnArea.transform.position, _player.transform.position));
                             if (Vector3.Distance(spellSpawnArea.transform.position, _player.transform.position) <
                                 spell.MaxRange)
                             {
@@ -79,32 +75,29 @@ public class MouseManager : MonoBehaviour
                     ;
             }
 
-            // target is not good
             if (Input.GetMouseButtonDown(0))
             {
                 switch (hit.collider.tag)
                 {
-                    // horrible way to put a targeter under the enemy
+                    // bad way to put a targeter under the enemy
                     case "Enemy":
                         Interactable interactable = hit.collider.GetComponent<Interactable>();
                         Cursor.SetCursor(_target, new Vector2(16, 16), CursorMode.Auto);
-                        _targeter = hit.collider.transform.GetChild(hit.collider.transform.childCount - 1);
-                        _targeter.gameObject.SetActive(true);
                         if (interactable)
                         {
                             SetFocus(interactable);
                         }
                         break;
                     default:
-                        if(_targeter) _targeter.gameObject.SetActive(false);
-                        if (focus) focus = null;
                         break;
                 }
+                
+                //3e étape
                 OnClickEnvironment.Invoke(hit.point);
             }
         }
     }
-    
+
     public void SetFocus(Interactable newFocus)
     {
         if (newFocus != focus)
@@ -114,6 +107,6 @@ public class MouseManager : MonoBehaviour
             focus = newFocus;
         }
         if (newFocus != null)
-            newFocus.OnFocused(transform);
+            newFocus.OnFocused();
     }
 }

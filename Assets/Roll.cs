@@ -9,7 +9,7 @@ public class Roll : Spells
     {
         Name = "Roll";
         Description = "Roll in the moving direction";
-        Cooldown = 1f;
+        cooldown = 1f;
         IsAutoTarget = true;
     }
 

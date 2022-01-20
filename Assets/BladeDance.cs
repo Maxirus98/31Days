@@ -1,63 +1,67 @@
 ﻿using System.Collections;
-using System.Numerics;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class BladeDance : AutoTargetSpell
 {
+    public bool isBuffed;
+
     [SerializeField]private GameObject _dagger;
     private GameObject cloneDaggerRight;
     private GameObject cloneDaggerLeft;
+    public float initialDamage;
     private void Awake()
     {
         Name = "Blade Dance";
         Description = "2 consecutive attacks. Blade Dance is more effective while stealth.";
-        Cooldown = 1f;
+        cooldown = 4f;
+        BaseDamage = 500f;
+        initialDamage = BaseDamage;
         Range = 130f;
         IsAutoTarget = false;
     }
 
     private void Update()
     {
-        if (Time.time >= Timestamp && Input.GetKeyDown(KeyCode.Alpha1) && IsInRange(Range))
+        base.Update();
+        if (Time.time > Timestamp && Input.GetKeyDown(KeyCode.Alpha1))
         {
             StartCoroutine(nameof(DoSpell));
         }
 
-        //TODO: I don't like the code
         if (cloneDaggerLeft && cloneDaggerRight)
         {
-            var focusPosition = MouseManager.focus.transform.position;
-            cloneDaggerRight.transform.position = Vector3.MoveTowards(cloneDaggerRight.transform.position, focusPosition, 10f * Time.deltaTime);
-            cloneDaggerLeft.transform.position = Vector3.MoveTowards(cloneDaggerLeft.transform.position, focusPosition, 10f * Time.deltaTime);
-            if (Vector3.SqrMagnitude(cloneDaggerLeft.transform.position - focusPosition) < MouseManager.focus.transform.localScale.y || Vector3.SqrMagnitude(cloneDaggerRight.transform.position - focusPosition) < MouseManager.focus.transform.localScale.y)
+            if (MouseManager.focus == null)
             {
                 DestroyDaggers();
+            }
+
+            var focusPosition = MouseManager.focus.transform.position;
+            cloneDaggerRight.transform.position = Vector3.MoveTowards(cloneDaggerRight.transform.position, focusPosition, 15f * Time.deltaTime);
+            cloneDaggerLeft.transform.position = Vector3.MoveTowards(cloneDaggerLeft.transform.position, focusPosition, 15f * Time.deltaTime);
+            if(Vector3.SqrMagnitude(cloneDaggerLeft.transform.position - focusPosition) < MouseManager.focus.transform.localScale.y)
+            {
+                DestroyDaggers();
+                if(isBuffed)
+                    DebuffDamage();
             }
         }
     }
 
     protected override IEnumerator DoSpell()
     {
-        if (MouseManager && MouseManager.focus)
+        if (MouseManager && MouseManager.focus && IsInRange(Range))
         {
-            StartCoroutine(nameof(AnimatePlayer));
+            Timestamp = Time.time + cooldown;
+            cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
+            DamageDid = false;
             SpawnDaggers();
-            Timestamp = Time.time + Cooldown;
+            _playerAnimator.AnimateSpell(Name);
+            yield return new WaitForSeconds(0.1f);
+            _playerAnimator.StopAnimatingSpell(Name);
+            attackCallback(CharacterState.InCombat);
         }
-        
-        yield return new WaitForSeconds(1f);    
-    }
-
-
-    protected override IEnumerator AnimatePlayer()
-    {
-        AutoAttack.Blocked = true;
-        _playerAnimator.AnimateSpell(Name);
-        yield return new WaitForSeconds(0.1f);
-        _playerAnimator.StopAnimatingSpell(Name);
-        AutoAttack.Blocked = false;
     }
 
     private void SpawnDaggers()
@@ -69,9 +73,21 @@ public class BladeDance : AutoTargetSpell
         cloneDaggerLeft.transform.Rotate(new Vector3(0, 0, 150));
     }
 
-    private void DestroyDaggers()
+    private void DestroyDaggers(float time = 0f)
     {
-        Destroy(cloneDaggerLeft);
-        Destroy(cloneDaggerRight);
+        Destroy(cloneDaggerLeft, time);
+        Destroy(cloneDaggerRight, time);
+    }
+
+    public void BuffDamage()
+    {
+        BaseDamage *= 2;
+        isBuffed = true;
+    }
+
+    public void DebuffDamage()
+    {
+        BaseDamage = initialDamage;
+        isBuffed = false;
     }
 }

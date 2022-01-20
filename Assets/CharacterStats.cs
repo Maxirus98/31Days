@@ -19,8 +19,6 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Start()
     {
-        maxHealth = 100;
-        maxResource = 100;
         health = maxHealth;
         resource = maxResource;
     }

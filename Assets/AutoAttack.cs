@@ -6,7 +6,7 @@ public class AutoAttack : AutoTargetSpell
     public static bool Blocked { get; set; }
     public void Awake()
     {
-        Cooldown = 2f;
+        if (cooldown <= 0) cooldown = 2f;
         Name = "AutoAttacking";
         BaseDamage = 100f;
         Range = 15f;
@@ -15,9 +15,9 @@ public class AutoAttack : AutoTargetSpell
 
     private void Update()
     {
+        base.Update();
         if (Time.time > Timestamp)
         {
-            DamageEnemiesHit();
             StartCoroutine(nameof(DoSpell));
         }
     }
@@ -26,11 +26,16 @@ public class AutoAttack : AutoTargetSpell
     {
         if (IsInRange(Range))
         {
-            Timestamp = Time.time + Cooldown;
+            Timestamp = Time.time + cooldown;
+            CharacterCombat.onStateChangeHandler.Invoke(CharacterState.InCombat);
+            var direction = AbilityUtils.DirectAt(transform, MouseManager.focus);
+            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
+            DamageDid = false;
             _playerAnimator.AnimateSpell(Name);
             yield return new WaitForSeconds(0.1f);
             _playerAnimator.StopAnimatingSpell(Name);
-
+            attackCallback(CharacterState.InCombat);
         }
     }
 }

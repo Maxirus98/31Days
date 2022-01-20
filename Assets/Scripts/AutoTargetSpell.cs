@@ -4,12 +4,37 @@ using UnityEngine;
 public class AutoTargetSpell : Spells
 {
     protected MouseManager MouseManager;
-
-    private void Start()
+    protected Interactable tmpFocus;
+    
+    public GameObject damageSender;
+    protected GameObject cloneDmgSender;
+    protected bool DamageDid = false;
+    
+    protected override void Start()
     {
-        _playerAnimator = GetComponent<PlayerAnimator>();
-        _animator = GetComponent<Animator>();
+        base.Start();
         StartCoroutine(nameof(GetMouseManager));
+    }
+
+    protected virtual void Update()
+    {
+        if (cloneDmgSender && MouseManager.focus)
+        {
+            SendDamage();
+        }
+    }
+
+    private void SendDamage()
+    {
+        var dmgSenderPos = cloneDmgSender.transform.position;
+        var focusTransform = MouseManager.focus.transform;
+        cloneDmgSender.transform.position = Vector3.MoveTowards(dmgSenderPos,
+            focusTransform.position + Vector3.up * 
+            focusTransform.localScale.y, 20f * Time.deltaTime);
+        if (!DamageDid)
+        {
+            DamageEnemiesHit();
+        }
     }
 
     private  IEnumerator GetMouseManager()
@@ -20,25 +45,37 @@ public class AutoTargetSpell : Spells
 
     protected bool IsInRange(float range)
     {
-        if (MouseManager && MouseManager.focus)
+        if (MouseManager)
         {
-            return Vector3.SqrMagnitude(transform.position - MouseManager.focus.transform.position) < range;
+            tmpFocus = MouseManager.focus;
+        }
+        if(tmpFocus)
+        {
+            return Vector3.SqrMagnitude(transform.position - tmpFocus.transform.position) < range;
         }
         
         return false;
     }
     
-    protected void DamageEnemiesHit()
+    private void DamageEnemiesHit()
     {
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, _swordRadius, enemyLayers);
-
+        Collider[] hitEnemies = Physics.OverlapSphere(cloneDmgSender.transform.position, hitRadius, enemyLayers);
         foreach (Collider enemy in hitEnemies)
         {
-            if (enemy.gameObject == MouseManager.focus.gameObject)
+            DamageDid = true;
+            if (MouseManager.focus.gameObject == enemy.gameObject)
             {
                 enemy.GetComponent<CharacterCombat>().TakeDamage(BaseDamage);
+                Destroy(cloneDmgSender, 0.2f);
             }
         }
     }
     
+    
+    private void OnDrawGizmosSelected()
+    {
+        if (cloneDmgSender == null)
+            return;
+        Gizmos.DrawWireSphere(cloneDmgSender.transform.position, hitRadius);
+    }
 }

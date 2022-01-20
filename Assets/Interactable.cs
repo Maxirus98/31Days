@@ -3,50 +3,43 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    private static readonly string TargetIndicator = "Target";
     public float radius = 3f;
-
+    
     private bool isFocus;
-    [SerializeField] private Transform _player;
-
+    
+    [SerializeField]
+    private GameObject _targeter;
+    
     private bool hasInteracted;
-
-    private void Awake()
+    
+    private void Start()
     {
-        _player = GameObject.FindWithTag("Player").transform;
-    }
-
-    private void Update()
-    {
-        if (isFocus && !hasInteracted)
+        foreach (Transform child in transform)
         {
-            float distance = Vector3.Distance(_player.position, transform.position);
-            if (distance <= radius)
+            if (child.name.Equals(TargetIndicator))
             {
-                hasInteracted = true;
+                _targeter = child.gameObject;
             }
         }
-        
-    }
-    
-    // Set Target here
-    public void OnFocused(Transform playerTransform)
-    {
-        isFocus = true;
-        _player = playerTransform;
-        hasInteracted = false;
     }
 
+    // Set Target here
+    public void OnFocused()
+    {
+        isFocus = true;
+        _targeter.SetActive(true);
+    }
+    
     // Remove target here
     public void OnDefocused()
     {
         isFocus = false;
-        _player = null;
-        hasInteracted = false;
+        _targeter.SetActive(false);
     }
     
     private void OnDrawGizmosSelected()
     {
-        //callback function in unity
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }

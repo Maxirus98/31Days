@@ -18,4 +18,13 @@ public class AbilityUtils
         }
         return null;
     }
+
+    public static Vector3  DirectAt(Transform transform, Interactable focus)
+    {
+        Vector3 fromPosition = transform.position;
+        Vector3 toPosition = focus.transform.position;
+        Vector3 direction = toPosition - fromPosition;
+
+        return direction;
+    }
 }

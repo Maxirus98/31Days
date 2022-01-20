@@ -4,39 +4,36 @@ using System.Collections;
 public class Fireball : AutoTargetSpell
 {
     public GameObject explosion;
-    public GameObject fireball;
-    private GameObject _cloneFireball;
     public static bool Blocked { get; set; }
     private float _autoAttackClipLenght;
     
     public void Awake()
     {
-        Cooldown = 2f;
+        cooldown = 2f;
         Name = "AutoAttacking";
         Range = 150f;
+        BaseDamage = 150f;
         Blocked = false;
         _autoAttackClipLenght = GetAnimationClipLength();
     }
 
     private void Update()
     {
+        base.Update();
         if (Time.time >= Timestamp)
         {
             StartCoroutine(nameof(DoSpell));
         }
-        
-        if (_cloneFireball && MouseManager.focus)
+
+        if (cloneDmgSender && MouseManager.focus)
         {
-            var fireballPosition = _cloneFireball.transform.position;
+            var fireballPos = cloneDmgSender.transform.position;
             var focusTransform = MouseManager.focus.transform;
-            _cloneFireball.transform.position = Vector3.MoveTowards(fireballPosition,
-                focusTransform.position + Vector3.up * 
-                focusTransform.localScale.y, 20f * Time.deltaTime);
-            if (Vector3.SqrMagnitude(fireballPosition - (focusTransform.position + Vector3.up * 
+            if (Vector3.SqrMagnitude(cloneDmgSender.transform.position - (focusTransform.position + Vector3.up * 
                 focusTransform.localScale.y)) < focusTransform.localScale.y)
             {
-                Instantiate(explosion, _cloneFireball.transform.position, transform.rotation, _cloneFireball.transform);
-                Destroy(_cloneFireball, 0.2f);
+                Instantiate(explosion, fireballPos, transform.rotation, cloneDmgSender.transform);
+                Destroy(cloneDmgSender, 0.2f);
             }
         }
     }
@@ -45,7 +42,8 @@ public class Fireball : AutoTargetSpell
     {
         if (IsInRange(Range))
         {
-            Timestamp = Time.time + Cooldown;
+            Timestamp = Time.time + cooldown;
+            DamageDid = false;
             StartCoroutine(nameof(AnimatePlayer));
             yield return new WaitForSeconds(_autoAttackClipLenght * Time.deltaTime);
             CastFireball();
@@ -65,7 +63,7 @@ public class Fireball : AutoTargetSpell
 
     private float GetAnimationClipLength()
     {
-        AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
         foreach (AnimationClip clip in clips)
         {
             if (!clip.name.Equals("AutoAttacking"))
@@ -80,6 +78,6 @@ public class Fireball : AutoTargetSpell
     private void CastFireball()
     {
         var spawnPoint = AbilityUtils.FindDeepChild("SpellCast", transform);
-        _cloneFireball = Instantiate(fireball, spawnPoint.position, spawnPoint.rotation);
+        cloneDmgSender = Instantiate(damageSender, spawnPoint.position, spawnPoint.rotation);
     }
 }

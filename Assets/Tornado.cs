@@ -17,7 +17,7 @@ public class Tornado : SkillShotSpell
         Name = "Tornado";
         Duration = 5f;
         Description = $"Summon a tornado and bring all enemies in the center. They are unable to move. (Last {Duration} seconds). (10 mana)";
-        Cooldown = 1f;
+        cooldown = 1f;
         CastTime = 1f;
         MaxRange = 10f;
         AreaScale = new Vector3(MaxRange, 0.05f, MaxRange);
@@ -45,7 +45,7 @@ public class Tornado : SkillShotSpell
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         StartCoroutine(nameof(AnimatePlayer));
         CastTornado();
         DestroyMarkers();

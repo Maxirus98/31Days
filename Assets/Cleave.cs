@@ -11,7 +11,7 @@ public class Cleave : Spells
         _cleaveEffect = transform.Find("CleaveEffect").GetComponent<ParticleSystem>();
         Name = "Cleave";
         Description = "You cleave in front of you. For 8 seconds, all enemies hit will take damage from your attacks.";
-        Cooldown = 1f;
+        cooldown = 1f;
         BaseDamage = 10;
     }
     private void Update()
@@ -24,7 +24,7 @@ public class Cleave : Spells
 
     protected override IEnumerator DoSpell()
     {
-        Timestamp = Time.time + Cooldown;
+        Timestamp = Time.time + cooldown;
         _playerAnimator.AnimateSpell(Name);
         SpawnShadowWarrior();
         if(!_cleaveEffect.isPlaying)_cleaveEffect.Play(false);
