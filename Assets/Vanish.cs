@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Vanish : Spells
 {
-    [SerializeField] Material _initialMaterial;
+    private static readonly string STEALTH_LAYER_MASK = "Stealth";
+    
+    [SerializeField] Material initialMaterial;
     [SerializeField] private Material stealthMaterial;
-    private ParticleSystem _vanishSmoke;
+    [SerializeField] private GameObject vanishSmoke;
+    
     private BladeDance _bladeDance;
     private CharacterCombat _characterCombat;
+    private string _initialLayerMask;
     private float Duration { get; set; }
+    private float PreventStealthBreakTimeStamp { get; set; }
+    private float _preventStealthBreakTime;
     private Renderer[] _renderers;
-    private bool isStealth;
+    private bool _isStealth;
 
     private void Awake()
     {
@@ -18,7 +25,8 @@ public class Vanish : Spells
         Description = "The Rogue hides in the shadows. He cannot be seen.";
         cooldown = 16f;
         Duration = 8f;
-        _vanishSmoke = transform.Find("VanishSmoke").GetComponent<ParticleSystem>();
+        _preventStealthBreakTime = 2f;
+        _initialLayerMask = LayerMask.LayerToName(gameObject.layer);
         _characterCombat = GetComponent<CharacterCombat>();
         _bladeDance = GetComponent<BladeDance>();
         _renderers = GetComponentsInChildren<Renderer>();
@@ -31,7 +39,7 @@ public class Vanish : Spells
             StartCoroutine(nameof(DoSpell));
         }
 
-        if (_characterCombat.CurrentCharacterState.Equals(CharacterState.InCombat) && isStealth)
+        if (_characterCombat.CurrentCharacterState.Equals(CharacterState.InCombat) && _isStealth && Time.time > PreventStealthBreakTimeStamp)
         {
             Show();
         }
@@ -40,6 +48,7 @@ public class Vanish : Spells
     protected override IEnumerator DoSpell()
     {
         Timestamp = Time.time + cooldown;
+        Instantiate(vanishSmoke, transform.position, Quaternion.identity);
         _bladeDance.BuffDamage();
         StartCoroutine(nameof(UpdateStealth));
         yield break;
@@ -47,15 +56,14 @@ public class Vanish : Spells
     
     private void Show()
     {
-        Debug.Log("show called");
         // change rogue layers so that enemies can follow the player.
+        gameObject.layer = LayerMask.NameToLayer(_initialLayerMask);
         UseInitialMaterial();
-        isStealth = false;
+        _isStealth = false;
     }
 
     private IEnumerator UpdateStealth()
     {
-        if(!_vanishSmoke.isPlaying)_vanishSmoke.Play(true);
         Hide();
         yield return new WaitForSeconds(Duration);
         Show();
@@ -72,16 +80,16 @@ public class Vanish : Spells
     private void UseInitialMaterial()
     {
         foreach (Renderer r in _renderers)
-            r.material = _initialMaterial;
+            r.material = initialMaterial;
     }
 
     private void Hide()
     {
-        Debug.Log("hide called");
-        isStealth = true;
+        gameObject.layer = LayerMask.NameToLayer(STEALTH_LAYER_MASK);
+        _isStealth = true;
         _characterCombat.UpdateCharacterState(CharacterState.OutCombat);
         UseStealthMaterial();
-        // change rogue layers so that enemies can't follow the player.
         // prevent attacks from breaking stealth for 1 - 2 sec.
+        PreventStealthBreakTimeStamp = Time.time + _preventStealthBreakTime;
     }
 }

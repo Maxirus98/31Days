@@ -10,14 +10,18 @@ public class BladeDance : AutoTargetSpell
     [SerializeField]private GameObject _dagger;
     private GameObject cloneDaggerRight;
     private GameObject cloneDaggerLeft;
+    public float buffedDamage;
     public float initialDamage;
+    public float initialCooldown;
     private void Awake()
     {
         Name = "Blade Dance";
         Description = "2 consecutive attacks. Blade Dance is more effective while stealth.";
         cooldown = 4f;
         BaseDamage = 500f;
+        buffedDamage = BaseDamage * 2;
         initialDamage = BaseDamage;
+        initialCooldown = cooldown;
         Range = 130f;
         IsAutoTarget = false;
     }
@@ -43,15 +47,13 @@ public class BladeDance : AutoTargetSpell
             if(Vector3.SqrMagnitude(cloneDaggerLeft.transform.position - focusPosition) < MouseManager.focus.transform.localScale.y)
             {
                 DestroyDaggers();
-                if(isBuffed)
-                    DebuffDamage();
             }
         }
     }
 
     protected override IEnumerator DoSpell()
     {
-        if (MouseManager && MouseManager.focus && IsInRange(Range))
+        if (IsInRange(Range) && IsLookingAt(MouseManager.focus.transform))
         {
             Timestamp = Time.time + cooldown;
             cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
@@ -81,7 +83,7 @@ public class BladeDance : AutoTargetSpell
 
     public void BuffDamage()
     {
-        BaseDamage *= 2;
+        BaseDamage = buffedDamage;
         isBuffed = true;
     }
 

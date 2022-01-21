@@ -57,6 +57,12 @@ public class AutoTargetSpell : Spells
         return false;
     }
     
+    public bool IsLookingAt(Transform target)
+    {
+        float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
+        return dot > 0.7f;
+    }
+    
     private void DamageEnemiesHit()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(cloneDmgSender.transform.position, hitRadius, enemyLayers);

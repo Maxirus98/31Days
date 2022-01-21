@@ -28,8 +28,15 @@ public class SmokeBomb : Spells
 
         if (_cloneSmokeBomb)
         {
-            ToggleBladeDanceDamage();
+            BuffBladeDance();
+            
+            if (Vector3.SqrMagnitude(transform.position - _cloneSmokeBomb.transform.position) >= RADIUS && _bladeDance.isBuffed)
+            {
+                DebuffBladeDance();
+            }
         }
+
+        
     }
 
     protected override IEnumerator DoSpell()
@@ -37,17 +44,23 @@ public class SmokeBomb : Spells
         _cloneSmokeBomb = Instantiate(smokeBomb, transform.position, transform.rotation);
         yield return new WaitForSeconds(Duration);
         Destroy(_cloneSmokeBomb);
+        DebuffBladeDance();
     }
 
-    private void ToggleBladeDanceDamage()
+    private void BuffBladeDance()
     {
         if (Vector3.SqrMagnitude(transform.position - _cloneSmokeBomb.transform.position) < RADIUS && !_bladeDance.isBuffed)
         {
             _bladeDance.BuffDamage();
+            _bladeDance.cooldown = 1f;
         }
-        else if(Vector3.SqrMagnitude(transform.position - _cloneSmokeBomb.transform.position) >= RADIUS && _bladeDance.isBuffed)
-        {
-           _bladeDance.DebuffDamage();
-        }
+    }
+
+    private void DebuffBladeDance()
+    {
+        
+            _bladeDance.DebuffDamage();
+            _bladeDance.cooldown = _bladeDance.initialCooldown;
+        
     }
 }

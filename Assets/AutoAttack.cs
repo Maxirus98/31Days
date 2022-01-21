@@ -24,12 +24,10 @@ public class AutoAttack : AutoTargetSpell
 
     protected override IEnumerator DoSpell()
     {
-        if (IsInRange(Range))
+        if (IsInRange(Range) && IsLookingAt(MouseManager.focus.transform))
         {
             Timestamp = Time.time + cooldown;
             CharacterCombat.onStateChangeHandler.Invoke(CharacterState.InCombat);
-            var direction = AbilityUtils.DirectAt(transform, MouseManager.focus);
-            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
             DamageDid = false;
             _playerAnimator.AnimateSpell(Name);
