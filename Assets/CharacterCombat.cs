@@ -8,8 +8,6 @@ public enum CharacterState
     OutCombat
 }
 
-
-
 [RequireComponent(typeof(CharacterStats))]
 public class CharacterCombat : MonoBehaviour
 {
@@ -21,15 +19,14 @@ public class CharacterCombat : MonoBehaviour
     
     private CharacterStats _characterStats;
     private Animator _animator;
-    private MouseManager _mouseManager;
     
     protected Rigidbody _rigidbody;
     protected Collider _collider;
     
     public HealthbarScript _healthbarScript;
-    
     public CharacterStateEvent onStateChangeHandler;
     public CharacterState CurrentCharacterState {get; set;}
+    public bool isDead;
     
     private void Awake()
     {
@@ -37,7 +34,6 @@ public class CharacterCombat : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        _mouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
     }
 
     private void Start()
@@ -70,6 +66,7 @@ public class CharacterCombat : MonoBehaviour
     private void Die()
     {
         DesactivateEnemy();
+        isDead = true;
         _animator.SetTrigger("Die");
         Destroy(gameObject, 5f);
     }

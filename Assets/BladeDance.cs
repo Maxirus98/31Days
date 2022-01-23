@@ -39,6 +39,7 @@ public class BladeDance : AutoTargetSpell
             if (MouseManager.focus == null)
             {
                 DestroyDaggers();
+                return;
             }
 
             var focusPosition = MouseManager.focus.transform.position;
@@ -84,12 +85,10 @@ public class BladeDance : AutoTargetSpell
     public void BuffDamage()
     {
         BaseDamage = buffedDamage;
-        isBuffed = true;
     }
 
     public void DebuffDamage()
     {
         BaseDamage = initialDamage;
-        isBuffed = false;
     }
 }

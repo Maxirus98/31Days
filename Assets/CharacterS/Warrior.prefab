@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6eb10bfd454d64aa0aa572b6136b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swordRadius: 0.5
+  cooldown: 0
+  hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
@@ -144,7 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45476869d0854e64fb2737fe701f2d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swordRadius: 0.5
+  cooldown: 0
+  hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
@@ -181,6 +183,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthbarScript: {fileID: 0}
+  onStateChangeHandler:
+    m_PersistentCalls:
+      m_Calls: []
+  isDead: 0
 --- !u!114 &4757542138524274753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,13 +199,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24bb0ef9f930334fa370dfc03595485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swordRadius: 0.5
+  cooldown: 0
+  hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
   _initialSummon: {fileID: 138024, guid: 2a1f01091710d154c927ad10991a05df, type: 3}
+  indicator: {fileID: 120096, guid: 07bee576df5b5e049a39f20f65b6ddb1, type: 3}
+  boomerangSwordScript: {fileID: 0}
 --- !u!114 &5348724573569074768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2697d091c6693e4faa5dc56f0d737ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swordRadius: 0.5
+  cooldown: 0
+  hitRadius: 1
   attackPoint: {fileID: 1232144446854105215}
   enemyLayers:
     serializedVersion: 2
@@ -249,7 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc7f060bff87574abf1ae8888e4adc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swordRadius: 0.5
+  cooldown: 0
+  hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2

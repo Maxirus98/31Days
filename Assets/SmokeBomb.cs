@@ -51,15 +51,17 @@ public class SmokeBomb : Spells
     {
         if (Vector3.SqrMagnitude(transform.position - _cloneSmokeBomb.transform.position) < RADIUS && !_bladeDance.isBuffed)
         {
+            Debug.Log("buff blade dance in range");
             _bladeDance.BuffDamage();
+            _bladeDance.isBuffed = true;
             _bladeDance.cooldown = 1f;
         }
     }
 
     private void DebuffBladeDance()
     {
-        
             _bladeDance.DebuffDamage();
+            _bladeDance.isBuffed = false;
             _bladeDance.cooldown = _bladeDance.initialCooldown;
         
     }

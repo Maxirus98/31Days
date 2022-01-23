@@ -24,7 +24,7 @@ public class AutoTargetSpell : Spells
         }
     }
 
-    private void SendDamage()
+    protected void SendDamage()
     {
         var dmgSenderPos = cloneDmgSender.transform.position;
         var focusTransform = MouseManager.focus.transform;
@@ -63,22 +63,23 @@ public class AutoTargetSpell : Spells
         return dot > 0.7f;
     }
     
-    private void DamageEnemiesHit()
+    protected void DamageEnemiesHit()
     {
-        Collider[] hitEnemies = Physics.OverlapSphere(cloneDmgSender.transform.position, hitRadius, enemyLayers);
-        foreach (Collider enemy in hitEnemies)
+        int maxColliders = 1;
+        Collider[] hitColliders = new Collider[maxColliders];
+        int numColliders = Physics.OverlapSphereNonAlloc(cloneDmgSender.transform.position, hitRadius, hitColliders, enemyLayers);
+        for(int i = 0; i < numColliders ; i++)
         {
-            DamageDid = true;
-            if (MouseManager.focus.gameObject == enemy.gameObject)
+            if (hitColliders[i].gameObject == MouseManager.focus.gameObject)
             {
-                enemy.GetComponent<CharacterCombat>().TakeDamage(BaseDamage);
+                hitColliders[i].GetComponent<CharacterCombat>().TakeDamage(BaseDamage);
+                DamageDid = true;
                 Destroy(cloneDmgSender, 0.2f);
             }
         }
     }
-    
-    
-    private void OnDrawGizmosSelected()
+
+    private void OnDrawGizmos()
     {
         if (cloneDmgSender == null)
             return;

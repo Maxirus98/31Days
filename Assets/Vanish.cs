@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class Vanish : Spells
 {
-    private static readonly string STEALTH_LAYER_MASK = "Stealth";
-    
-    [SerializeField] Material initialMaterial;
+    private const string StealthLayerMask = "Stealth";
+
+    [SerializeField] private Material initialMaterial;
     [SerializeField] private Material stealthMaterial;
     [SerializeField] private GameObject vanishSmoke;
     
@@ -60,6 +61,13 @@ public class Vanish : Spells
         gameObject.layer = LayerMask.NameToLayer(_initialLayerMask);
         UseInitialMaterial();
         _isStealth = false;
+        StartCoroutine(ShowCallback());
+    }
+
+    private IEnumerator ShowCallback()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _bladeDance.DebuffDamage();
     }
 
     private IEnumerator UpdateStealth()
@@ -85,11 +93,10 @@ public class Vanish : Spells
 
     private void Hide()
     {
-        gameObject.layer = LayerMask.NameToLayer(STEALTH_LAYER_MASK);
+        gameObject.layer = LayerMask.NameToLayer(StealthLayerMask);
         _isStealth = true;
         _characterCombat.UpdateCharacterState(CharacterState.OutCombat);
         UseStealthMaterial();
-        // prevent attacks from breaking stealth for 1 - 2 sec.
         PreventStealthBreakTimeStamp = Time.time + _preventStealthBreakTime;
     }
 }

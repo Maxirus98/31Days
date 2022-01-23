@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 452112}
   - component: {fileID: 3389452}
   - component: {fileID: 2321604}
-  - component: {fileID: 64117480093628612}
   - component: {fileID: -1426176667814051666}
   - component: {fileID: -1254367580231373903}
+  - component: {fileID: 7052643653405244536}
+  - component: {fileID: -4490652176987757538}
   m_Layer: 0
   m_Name: BoomerangSword
   m_TagString: Untagged
@@ -83,20 +84,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &64117480093628612
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138024}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43873360945913592, guid: 59447c218a1585b40bc6aabb3a596a2a, type: 2}
 --- !u!54 &-1426176667814051666
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,6 +119,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7052643653405244536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd733d4f58795a44bc5ef0e943790ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!65 &-4490652176987757538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 2, z: 0.5}
+  m_Center: {x: 0, y: 0.6363474, z: -0.0000005066395}
 --- !u!1001 &2233753553803564135
 PrefabInstance:
   m_ObjectHideFlags: 0
