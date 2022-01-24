@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class BoomerangSword : ThrowSpells
 {
-    [SerializeField] private GameObject indicator;
+    public GameObject indicator;
     private GameObject _cloneIndicator;
+    private GameObject _cloneSword;
+    private Transform _playerTransform;
+    private Vector3 _targetPos;
+    private Vector3 _initPos;
     
     [NonSerialized]
     public BoomerangSwordScript boomerangSwordScript;
@@ -19,6 +25,7 @@ public class BoomerangSword : ThrowSpells
         TravelTime = 1f;
         BaseDamage = 100;
         IsAutoTarget = false;
+        _playerTransform = transform;
     }
     
     private void Update()
@@ -33,35 +40,37 @@ public class BoomerangSword : ThrowSpells
             StartCoroutine(nameof(DoSpell));
             Destroy(_cloneIndicator);
         }
+
+        if (_cloneIndicator && Input.GetMouseButton(1))
+        {
+            Destroy(_cloneIndicator);
+        }
     }
+    
 
     private void SpawnIndicator()
     {
-        Vector3 playerPos = transform.position;
-        Vector3 playerDirection = transform.forward;
-        Quaternion playerRotation = transform.rotation;
-        Vector3 spawnPos = playerPos + playerDirection*indicator.transform.localScale.z;
+        Vector3 playerPos = _playerTransform.position;
+        Vector3 playerDirection = _playerTransform.forward;
+        Quaternion playerRotation = _playerTransform.rotation;
+        Vector3 spawnPos = playerPos + playerDirection * indicator.transform.localScale.z;
         
-        _cloneIndicator = Instantiate(indicator, spawnPos + Vector3.up * 0.1f, playerRotation, transform);
+        _cloneIndicator = Instantiate(indicator, spawnPos + Vector3.up * 0.1f, playerRotation, _playerTransform);
     }
 
     protected override IEnumerator DoSpell()
     {
         Timestamp = Time.time + cooldown;
         var playerTransform = transform;
-        var playerForward = playerTransform.forward;
 
         StartCoroutine(nameof(AnimatePlayer));
-        
-        var cloneSword = Instantiate(_initialSummon, playerTransform.position, playerTransform.rotation, playerTransform);
-        var rb = cloneSword.GetComponent<Rigidbody>();
-        rb.velocity = playerForward * TravelSpeed;
-        cloneSword.transform.Translate(Vector3.forward + Vector3.up);
-        cloneSword.transform.Rotate(Vector3.right * 90);
+
+        _cloneSword = Instantiate(_initialSummon, _playerTransform.position, playerTransform.rotation);
+        _cloneSword.transform.Rotate(Vector3.right * 90);
+
         yield return new WaitForSeconds(TravelTime);
-        rb.velocity = playerForward * TravelSpeed * -1f;
+        
         boomerangSwordScript.ClearCollidersCollidedWith();
-        Destroy(cloneSword, TravelTime);
     }
 
     protected override IEnumerator AnimatePlayer()

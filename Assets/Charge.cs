@@ -8,6 +8,8 @@ public class Charge : AutoTargetSpell
     private float _stopChargingRange;
     private bool _isCharging;
     private float _chargeSpeed;
+    private float _stunDuration;
+    private Interactable _currentFocus;
     
     private void Awake()
     {
@@ -20,6 +22,7 @@ public class Charge : AutoTargetSpell
         _chargeSpeed = 20f;
         BaseDamage = 10f;
         IsAutoTarget = true;
+        _stunDuration = 5f;
     }
 
     private void Update()
@@ -56,7 +59,8 @@ public class Charge : AutoTargetSpell
             transform.rotation = Quaternion.LookRotation(direction);
             _playerAnimator.AnimateSpell(Name);
             if(!_chargeEffect.isPlaying)_chargeEffect.Play(false);
-            var focusPosition = MouseManager.focus.transform.position;
+            _currentFocus = MouseManager.focus;
+            var focusPosition = _currentFocus.transform.position;
             transform.position = Vector3.MoveTowards(transform.position, focusPosition,  _chargeSpeed * Time.deltaTime);
         }
     }
@@ -65,10 +69,11 @@ public class Charge : AutoTargetSpell
     {
         if (IsInRange(_stopChargingRange) && _isCharging)
         {
-            
+            var enemyCombat = _currentFocus.GetComponent<CharacterCombat>();
             _isCharging = false;
             if (_chargeEffect.isPlaying) _chargeEffect.Stop(false);
             _playerAnimator.StopAnimatingSpell(Name);
+            StartCoroutine(enemyCombat.Stun(_stunDuration));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,6 +28,9 @@ public class CharacterCombat : MonoBehaviour
     public CharacterStateEvent onStateChangeHandler;
     public CharacterState CurrentCharacterState {get; set;}
     public bool isDead;
+
+    private ParticleSystem _stunEffect;
+    public bool isStunned;
     
     private void Awake()
     {
@@ -34,6 +38,7 @@ public class CharacterCombat : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
+        _stunEffect = transform.Find("StunEffect").GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -69,6 +74,20 @@ public class CharacterCombat : MonoBehaviour
         isDead = true;
         _animator.SetTrigger("Die");
         Destroy(gameObject, 5f);
+    }
+
+    public IEnumerator Stun(float duration)
+    {
+        // prevent from attacking and moving
+
+        isStunned = true;
+        // Playing stun animation
+        
+        if(!_stunEffect.isPlaying)_stunEffect.Play();
+        
+        
+        yield return new WaitForSeconds(duration);
+        if(_stunEffect.isPlaying)_stunEffect.Stop();
     }
 
     private void DesactivateEnemy()
