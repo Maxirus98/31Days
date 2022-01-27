@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Rigidbody _rigidbody;
     private readonly float SPEED = 6f;
     private readonly float INIT_YAW_SPEED = 100f;
     public float YawSpeed { get; set; }
@@ -10,6 +11,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         YawSpeed = INIT_YAW_SPEED;
+    }
+
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()

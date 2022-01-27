@@ -30,7 +30,6 @@ public class CharacterCombat : MonoBehaviour
     public bool isDead;
 
     private ParticleSystem _stunEffect;
-    public bool isStunned;
     
     private void Awake()
     {
@@ -80,7 +79,6 @@ public class CharacterCombat : MonoBehaviour
     {
         // prevent from attacking and moving
 
-        isStunned = true;
         // Playing stun animation
         
         if(!_stunEffect.isPlaying)_stunEffect.Play();

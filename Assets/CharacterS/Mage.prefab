@@ -77357,7 +77357,7 @@ GameObject:
   - component: {fileID: 1297613406519114039}
   - component: {fileID: 1213945802692356877}
   - component: {fileID: 6698702507565572033}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Mage
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -77496,6 +77496,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthbarScript: {fileID: 0}
+  onStateChangeHandler:
+    m_PersistentCalls:
+      m_Calls: []
+  isDead: 0
 --- !u!114 &261272250103388221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77508,6 +77512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1678f6157d3b84981c6ba7951a24f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
@@ -77529,6 +77534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b68786dbd63ae149b70b045a2004cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
@@ -77549,6 +77555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a74364cf6361944b280ab6b6b09b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
@@ -77570,6 +77577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6c4ac63a2b44642bfcbda9d29d4087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:
@@ -77590,6 +77598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168aaa89ca71bbc43af353eb35adb3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   hitRadius: 1
   attackPoint: {fileID: 0}
   enemyLayers:

@@ -9,12 +9,13 @@ public class SurrenderToTheVoid : Spells
     [SerializeField] private GameObject initialExplosion;
     [SerializeField] private GameObject voidAutoAttack;
     [SerializeField] private GameObject voidExplosion;
-    private float _initialBaseDamage;
-    private float _initialRadius;
 
+    private CharacterCombat _characterCombat;
+    private float _initialBaseDamage;
+    private Fireball _fireballScript;
     private GameObject _fireball;
-    private Vector3 _initialScale;
     private ParticleSystem _voidEffect;
+    
 
     private float Duration { get; set; }
     private void Awake()
@@ -24,11 +25,12 @@ public class SurrenderToTheVoid : Spells
         cooldown = 20f;
         IsAutoTarget = true;
         hitRadius = 2f;
-        _initialBaseDamage = GetComponent<Fireball>().BaseDamage;
-        _initialRadius = GetComponent<Fireball>().hitRadius;
         BaseDamage = 200f;
         _voidEffect = transform.Find("VoidEffect").GetComponent<ParticleSystem>();
         Duration = 10f;
+        _fireballScript = GetComponent<Fireball>();
+        _initialBaseDamage = _fireballScript.BaseDamage;
+        _characterCombat = GetComponent<CharacterCombat>();
     }
 
     private void Update()
@@ -43,10 +45,7 @@ public class SurrenderToTheVoid : Spells
     {
         Timestamp = Time.time + cooldown;
         if(!_voidEffect.isPlaying)_voidEffect.Play(true);
-        GetComponent<Fireball>().BaseDamage = BaseDamage;
-        GetComponent<Fireball>().hitRadius = hitRadius;
-        GetComponent<Fireball>().damageSender = voidAutoAttack;
-        GetComponent<Fireball>().explosion = voidExplosion;
+        BuffAutoAttack();
         Renderer[] rs = GetComponentsInChildren<Renderer>();
         foreach (Renderer r in rs)
         {
@@ -62,9 +61,7 @@ public class SurrenderToTheVoid : Spells
                 r.material = defaultMaterial;
         }
         if(_voidEffect.isPlaying)_voidEffect.Stop(true);
-        GetComponent<Fireball>().BaseDamage = _initialBaseDamage;
-        GetComponent<Fireball>().damageSender = initialAutoAttack;
-        GetComponent<Fireball>().explosion = initialExplosion;
+        DebuffAutoAttack();
     }
 
     protected override IEnumerator AnimatePlayer()
@@ -72,5 +69,22 @@ public class SurrenderToTheVoid : Spells
         _playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(0.1f);
         _playerAnimator.StopAnimatingSpell(Name);
+    }
+
+    private void BuffAutoAttack()
+    {
+        _fireballScript.BaseDamage = BaseDamage;
+        _fireballScript.damageSender = voidAutoAttack;
+        _fireballScript.explosion = voidExplosion;
+        // make it do more dmamage
+        // make it aoe
+        // make it restore mana per hit.
+    }
+
+    private void DebuffAutoAttack()
+    {
+        _fireballScript.BaseDamage = _initialBaseDamage;
+        _fireballScript.damageSender = initialAutoAttack;
+        _fireballScript.explosion = initialExplosion;
     }
 }

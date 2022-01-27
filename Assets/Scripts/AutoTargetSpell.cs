@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AutoTargetSpell : Spells
 {
@@ -70,7 +71,7 @@ public class AutoTargetSpell : Spells
         int numColliders = Physics.OverlapSphereNonAlloc(cloneDmgSender.transform.position, hitRadius, hitColliders, enemyLayers);
         for(int i = 0; i < numColliders ; i++)
         {
-            if (hitColliders[i].gameObject == MouseManager.focus.gameObject)
+            if ( hitColliders[i].gameObject == MouseManager.focus.gameObject)
             {
                 hitColliders[i].GetComponent<CharacterCombat>().TakeDamage(BaseDamage);
                 DamageDid = true;
