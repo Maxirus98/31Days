@@ -265,6 +265,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  _initialSummon: {fileID: 2363680987434103974, guid: 0fcaebefdbc7a8c41b0eb34d78ae7020,
+    type: 3}
   shadowWarrior: {fileID: 9083040907121873970, guid: 0c5182cec18b0d44bb60360242a77b95,
     type: 3}
 --- !u!1001 &443247658155875009

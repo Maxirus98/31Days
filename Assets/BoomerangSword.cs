@@ -53,7 +53,7 @@ public class BoomerangSword : ThrowSpells
         Vector3 playerPos = _playerTransform.position;
         Vector3 playerDirection = _playerTransform.forward;
         Quaternion playerRotation = _playerTransform.rotation;
-        Vector3 spawnPos = playerPos + playerDirection * indicator.transform.localScale.z;
+        Vector3 spawnPos = playerPos + playerDirection * indicator.transform.localScale.z * _playerTransform.localScale.z;
         
         _cloneIndicator = Instantiate(indicator, spawnPos + Vector3.up * 0.1f, playerRotation, _playerTransform);
     }

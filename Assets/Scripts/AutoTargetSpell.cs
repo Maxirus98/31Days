@@ -11,6 +11,7 @@ public class AutoTargetSpell : Spells
     protected GameObject cloneDmgSender;
     protected bool DamageDid = false;
     
+    
     protected override void Start()
     {
         base.Start();

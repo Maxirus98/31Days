@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Spells : MonoBehaviour
 {
-    protected delegate void AttackCallback(CharacterState characterState);
     protected CharacterCombat CharacterCombat;
-    protected AttackCallback attackCallback;
+    public delegate void AttackCallback(CharacterState characterState);
+    public AttackCallback attackCallback;
     protected string Name { get; set; }
     protected string Description { get; set; }
     public float cooldown;
