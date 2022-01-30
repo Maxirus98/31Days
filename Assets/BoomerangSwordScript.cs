@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BoomerangSwordScript : MonoBehaviour
@@ -8,7 +10,6 @@ public class BoomerangSwordScript : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers;
     private GameObject _player;
     private BoomerangSword _boomerangSword;
-    private List<Collider> _collidersCollidedWith = new List<Collider>();
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
@@ -26,13 +27,11 @@ public class BoomerangSwordScript : MonoBehaviour
         _sword = AbilityUtils.FindDeepChild("WarriorSword", _player.transform).GetComponent<MeshRenderer>();
         
         _sword.enabled = false;
-        StartCoroutine(Boom());
+        StartCoroutine(MoveSword());
     }
     
     void Update()
     {
-        DamageEnemiesHit();
-        
         if (_isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position,_locationInFrontOfPlayer, Time.deltaTime * 15); //Change The Position To The Location In Front Of The Player            
@@ -49,52 +48,23 @@ public class BoomerangSwordScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    IEnumerator Boom()
+
+    private IEnumerator MoveSword()
     {
         _isMoving = true;
         yield return new WaitForSeconds(_boomerangSword.TravelTime);
         _isMoving = false;
     }
-    
-    private void DamageEnemiesHit()
+
+    private void OnTriggerEnter(Collider other)
     {
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, HitRadius, enemyLayers);
-        foreach (Collider enemy in hitEnemies)
-        {
-            if (_collidersCollidedWith.Count == 0)
-            {
-                var enemyCombat = enemy.GetComponent<CharacterCombat>();
-                FillCollidersCollidedWith(enemy);
-                enemyCombat.TakeDamage(_boomerangSword.BaseDamage);
-            }
-            else
-            {
-                foreach (Collider collided in _collidersCollidedWith)
-                {
-                    if (!enemy.Equals(collided))
-                    {
-                        var enemyCombat = enemy.GetComponent<CharacterCombat>();
-                        FillCollidersCollidedWith(enemy);
-                        enemyCombat.TakeDamage(_boomerangSword.BaseDamage);
-                    }
-                }
-            }
-        }
+        if (!other.CompareTag("Enemy")) return;
+        var enemy = other.GetComponent<CharacterCombat>();
+        enemy.TakeDamage(_boomerangSword.BaseDamage);
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, HitRadius);
-    }
-    
-    private void FillCollidersCollidedWith(Collider enemy)
-    {
-        _collidersCollidedWith.Add(enemy);
-    }
-    
-    public void ClearCollidersCollidedWith()
-    {
-        _collidersCollidedWith.Clear();
     }
 }

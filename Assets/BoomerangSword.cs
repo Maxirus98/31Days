@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Numerics;
+﻿using System.Collections;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 public class BoomerangSword : ThrowSpells
@@ -14,8 +11,6 @@ public class BoomerangSword : ThrowSpells
     private Vector3 _targetPos;
     private Vector3 _initPos;
     
-    [NonSerialized]
-    public BoomerangSwordScript boomerangSwordScript;
     private void Awake()
     {
         Name = "Boomerang Sword";
@@ -46,14 +41,13 @@ public class BoomerangSword : ThrowSpells
             Destroy(_cloneIndicator);
         }
     }
-    
 
     private void SpawnIndicator()
     {
-        Vector3 playerPos = _playerTransform.position;
-        Vector3 playerDirection = _playerTransform.forward;
-        Quaternion playerRotation = _playerTransform.rotation;
-        Vector3 spawnPos = playerPos + playerDirection * indicator.transform.localScale.z * _playerTransform.localScale.z;
+        var playerPos = _playerTransform.position;
+        var playerDirection = _playerTransform.forward;
+        var playerRotation = _playerTransform.rotation;
+        var spawnPos = playerPos + playerDirection * indicator.transform.localScale.z * _playerTransform.localScale.z;
         
         _cloneIndicator = Instantiate(indicator, spawnPos + Vector3.up * 0.1f, playerRotation, _playerTransform);
     }
@@ -69,8 +63,6 @@ public class BoomerangSword : ThrowSpells
         _cloneSword.transform.Rotate(Vector3.right * 90);
 
         yield return new WaitForSeconds(TravelTime);
-        
-        boomerangSwordScript.ClearCollidersCollidedWith();
     }
 
     protected override IEnumerator AnimatePlayer()
