@@ -39153,7 +39153,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea128b040f8b0af4c9d2de400aaff30a, type: 2}
+  - {fileID: 2100000, guid: 068b891fe967b1c45850c97d1092abe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50126,7 +50126,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea128b040f8b0af4c9d2de400aaff30a, type: 2}
+  - {fileID: 2100000, guid: 068b891fe967b1c45850c97d1092abe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77543,6 +77543,8 @@ MonoBehaviour:
   _playerAnimator: {fileID: 0}
   channelingFire: {fileID: 1293375810718194, guid: 0e27717049f50724ba2034b0b77ab444,
     type: 3}
+  damageSender: {fileID: 2363680987434103974, guid: 26a6d620b899687418d55e55b18c35c4,
+    type: 3}
 --- !u!114 &1297613406519114039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81473,6 +81475,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.m_NumColorKeys
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 199771287193113184, guid: 00808b0c942b25b4a97919613a8d5d57,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3974128526911480105, guid: 00808b0c942b25b4a97919613a8d5d57,
         type: 3}

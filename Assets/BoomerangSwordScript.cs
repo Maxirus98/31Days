@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using UnityEngine;
 
 public class BoomerangSwordScript : MonoBehaviour
@@ -13,13 +10,12 @@ public class BoomerangSwordScript : MonoBehaviour
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
-    
-    void Start()
+
+    private void Start()
     {
         _isMoving = false;
         _player = GameObject.FindWithTag("Player");
         _boomerangSword = _player.GetComponent<BoomerangSword>();
-        _boomerangSword.boomerangSwordScript = this;
 
         _locationInFrontOfPlayer = _player.transform.position + Vector3.up +
                                    _player.transform.forward * (_boomerangSword.indicator.transform.localScale.z + 2f);
@@ -29,8 +25,8 @@ public class BoomerangSwordScript : MonoBehaviour
         _sword.enabled = false;
         StartCoroutine(MoveSword());
     }
-    
-    void Update()
+
+    private void Update()
     {
         if (_isMoving)
         {

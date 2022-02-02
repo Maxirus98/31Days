@@ -1,21 +1,19 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
-    private readonly float SPEED = 6f;
-    private readonly float INIT_YAW_SPEED = 100f;
+    public readonly float INIT_SPEED = 6f;
+    public readonly float INIT_YAW_SPEED = 100f;
+    
     public float YawSpeed { get; set; }
+    public float Speed { get; set; }
 
     private void Awake()
     {
         YawSpeed = INIT_YAW_SPEED;
-    }
-
-    private void Start()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
+        Speed = INIT_SPEED;
     }
 
     void Update()
@@ -26,8 +24,8 @@ public class PlayerController : MonoBehaviour
 
     void MoveCharacter()
     {
-        var horizontal = Input.GetAxis("Horizontal") * SPEED * Time.deltaTime;
-        var vertical = Input.GetAxis("Vertical") * SPEED * Time.deltaTime;
+        var horizontal = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+        var vertical = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
         transform.Translate(horizontal * Vector3.right);
         transform.Translate(vertical * Vector3.forward);
     }
@@ -48,10 +46,5 @@ public class PlayerController : MonoBehaviour
     void TurnRight()
     {
         transform.Rotate(Vector3.up * (YawSpeed * Time.deltaTime));
-    }
-
-    public void ResetYawSpeed()
-    {
-        YawSpeed = INIT_YAW_SPEED;
     }
 }

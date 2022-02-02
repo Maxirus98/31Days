@@ -66,6 +66,18 @@ public class CharacterCombat : MonoBehaviour
             Die();
         }
     }
+    
+    public void TakeDamageNoAnimation(float damage)
+    {
+        float damageDone  = damage / _characterStats.defense;
+        Debug.Log("took " + damageDone);
+        _characterStats.health -= damageDone;
+        _healthbarScript.SetHealth(_characterStats.health);
+        if (_characterStats.health <= 0)
+        {
+            Die();
+        }
+    }
 
     private void Die()
     {

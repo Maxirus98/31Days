@@ -4,10 +4,10 @@ using System.Collections;
 public class Fireball : AutoTargetSpell
 {
     public GameObject explosion;
-    public static bool Blocked { get; set; }
+    public bool Blocked { get; set; }
     private float _autoAttackClipLenght;
     
-    public void Awake()
+    private void Awake()
     {
         cooldown = 2f;
         Name = "AutoAttacking";
@@ -20,7 +20,7 @@ public class Fireball : AutoTargetSpell
     private void Update()
     {
         base.Update();
-        if (Time.time >= Timestamp)
+        if (Time.time >= Timestamp && !Blocked)
         {
             StartCoroutine(nameof(DoSpell));
         }
@@ -37,7 +37,7 @@ public class Fireball : AutoTargetSpell
             }
         }
     }
-    
+
     protected override IEnumerator DoSpell()
     {
         if (IsInRange(Range))
