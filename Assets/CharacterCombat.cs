@@ -40,11 +40,6 @@ public class CharacterCombat : MonoBehaviour
         _stunEffect = transform.Find("StunEffect").GetComponent<ParticleSystem>();
     }
 
-    private void Start()
-    {
-        _healthbarScript.SetMaxHealth(_characterStats.maxHealth);
-    }
-
     public void UpdateCharacterState(CharacterState characterState)
     {
         CurrentCharacterState = characterState;

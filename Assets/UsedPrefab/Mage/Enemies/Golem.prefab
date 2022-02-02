@@ -3021,7 +3021,7 @@ GameObject:
   - component: {fileID: 3630529449583891185}
   - component: {fileID: 6341261221765855469}
   - component: {fileID: 7308166117522547125}
-  - component: {fileID: 3138612667973588174}
+  - component: {fileID: -4419611790204678348}
   m_Layer: 8
   m_Name: Golem
   m_TagString: Enemy
@@ -3154,7 +3154,7 @@ MonoBehaviour:
   resource: 0
   maxResource: 0
   defense: 0
---- !u!114 &3138612667973588174
+--- !u!114 &-4419611790204678348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3163,15 +3163,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3630529449583768828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a60f41f6be8218469c2c91c79e8daf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ddc37278599e3d4080cde7d883374bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 3420734526874604848}
-  onStateChangeHandler:
-    m_PersistentCalls:
-      m_Calls: []
-  isDead: 0
-  isStunned: 0
 --- !u!1 &3630529449583770198
 GameObject:
   m_ObjectHideFlags: 0
@@ -5004,18 +4998,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5800300524725218223}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3420734526874604848 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9153053273874529951, guid: 699bcba96ce9ac84e92e634411640e84,
-    type: 3}
-  m_PrefabInstance: {fileID: 5800300524725218223}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3078f6a6e5186d47bd3e3b0d956ad23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8938786645224339846
 PrefabInstance:
   m_ObjectHideFlags: 0
