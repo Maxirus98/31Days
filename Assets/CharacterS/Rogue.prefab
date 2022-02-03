@@ -20107,8 +20107,6 @@ GameObject:
   - component: {fileID: 95460151052124970}
   - component: {fileID: 8203448911754438813}
   - component: {fileID: 4332691972458088596}
-  - component: {fileID: 5364165869187269371}
-  - component: {fileID: 3692817608429315961}
   - component: {fileID: 7660095618865323657}
   - component: {fileID: 3188191318982936205}
   - component: {fileID: 8655988555823918113}
@@ -20117,6 +20115,8 @@ GameObject:
   - component: {fileID: 695627650000916009}
   - component: {fileID: 3202247992173987380}
   - component: {fileID: 4628150205126457609}
+  - component: {fileID: 6935103913686921775}
+  - component: {fileID: 387245281917655237}
   m_Layer: 2
   m_Name: Rogue
   m_TagString: Player
@@ -20188,39 +20188,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &5364165869187269371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298028809135162}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c47de2b16117f3d439f024fd9a93faec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  resource: 0
-  maxResource: 0
-  defense: 0
---- !u!114 &3692817608429315961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298028809135162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a60f41f6be8218469c2c91c79e8daf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 0}
-  onStateChangeHandler:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &7660095618865323657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20366,6 +20333,41 @@ MonoBehaviour:
   _playerAnimator: {fileID: 0}
   damageSender: {fileID: 8480147002679231755, guid: 3b10e54ccea100e40a039cd83449a464,
     type: 3}
+--- !u!114 &6935103913686921775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298028809135162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa95e6af910d7743a24377c6f4c07f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 200
+  maxHealth: 200
+  resource: 100
+  maxResource: 100
+  defense: 5
+  hp: {fileID: 0}
+--- !u!114 &387245281917655237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298028809135162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthbarScript: {fileID: 0}
+  onStateChangeHandler:
+    m_PersistentCalls:
+      m_Calls: []
+  isDead: 0
 --- !u!1 &1298277522779278
 GameObject:
   m_ObjectHideFlags: 0

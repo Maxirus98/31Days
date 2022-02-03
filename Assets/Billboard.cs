@@ -1,15 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    public Transform cam;
+    private Camera _camera;
+    private Canvas _canvas;
+
+    private void Start()
+    {
+        _camera = GameObject.Find("PlayerCamera").GetComponent<Camera>();
+    }
 
     void LateUpdate()
     {
         // Take current position and go 1 unity in the direction the camera is currently facing
         // Standard billboard script
-        transform.LookAt(transform.position + cam.forward);
+        transform.LookAt(transform.position + _camera.transform.forward);
     }
 }

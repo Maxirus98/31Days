@@ -77350,13 +77350,13 @@ GameObject:
   - component: {fileID: 8792481743050170569}
   - component: {fileID: 1109243131611785771}
   - component: {fileID: 2182320984411347191}
-  - component: {fileID: 7894839867787466747}
-  - component: {fileID: 8314137143479812111}
   - component: {fileID: 261272250103388221}
   - component: {fileID: 8956129809437447602}
   - component: {fileID: 1297613406519114039}
   - component: {fileID: 1213945802692356877}
   - component: {fileID: 6698702507565572033}
+  - component: {fileID: 1068645061629048139}
+  - component: {fileID: 6440541421942666727}
   m_Layer: 2
   m_Name: Mage
   m_TagString: Player
@@ -77466,40 +77466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a67d7ff1eb6d442b53daae1aad17f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7894839867787466747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930578967618458}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c47de2b16117f3d439f024fd9a93faec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  resource: 0
-  maxResource: 0
-  defense: 0
---- !u!114 &8314137143479812111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930578967618458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a60f41f6be8218469c2c91c79e8daf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 0}
-  onStateChangeHandler:
-    m_PersistentCalls:
-      m_Calls: []
-  isDead: 0
 --- !u!114 &261272250103388221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77542,8 +77508,6 @@ MonoBehaviour:
     m_Bits: 0
   _playerAnimator: {fileID: 0}
   channelingFire: {fileID: 1293375810718194, guid: 0e27717049f50724ba2034b0b77ab444,
-    type: 3}
-  damageSender: {fileID: 2363680987434103974, guid: 26a6d620b899687418d55e55b18c35c4,
     type: 3}
 --- !u!114 &1297613406519114039
 MonoBehaviour:
@@ -77617,6 +77581,41 @@ MonoBehaviour:
     type: 3}
   voidExplosion: {fileID: 1454807473737458, guid: 1b527ca3cf40e284a983349b09cde9f2,
     type: 3}
+--- !u!114 &1068645061629048139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930578967618458}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa95e6af910d7743a24377c6f4c07f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 200
+  maxHealth: 200
+  resource: 200
+  maxResource: 200
+  defense: 5
+  hp: {fileID: 0}
+--- !u!114 &6440541421942666727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930578967618458}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthbarScript: {fileID: 0}
+  onStateChangeHandler:
+    m_PersistentCalls:
+      m_Calls: []
+  isDead: 0
 --- !u!1 &1931926986896276
 GameObject:
   m_ObjectHideFlags: 0
