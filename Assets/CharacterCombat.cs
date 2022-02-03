@@ -31,6 +31,7 @@ public class CharacterCombat : MonoBehaviour
     public bool isDead;
 
     private ParticleSystem _stunEffect;
+    protected bool isStunned = false;
     protected delegate void  OnDeath();
 
     protected OnDeath _onDeath;
@@ -42,6 +43,14 @@ public class CharacterCombat : MonoBehaviour
         _collider = GetComponent<Collider>();
         _stunEffect = transform.Find("StunEffect").GetComponent<ParticleSystem>();
         _onDeath = Die;
+    }
+
+    protected virtual void Update()
+    {
+        if (isStunned)
+        {
+            
+        }
     }
 
     public void UpdateCharacterState(CharacterState characterState)
@@ -57,7 +66,7 @@ public class CharacterCombat : MonoBehaviour
         _characterStats.health -= damageDone;
         if (_characterStats.health > 0)
         {
-           // _animator.SetTrigger("TakeDamage");
+           _animator.SetTrigger("TakeDamage");
         }
         _healthbarScript.SetHealth(_characterStats.health);
         if (_characterStats.health <= 0)
@@ -93,9 +102,9 @@ public class CharacterCombat : MonoBehaviour
         // Playing stun animation
         
         if(!_stunEffect.isPlaying)_stunEffect.Play();
-        
-        
+        isStunned = true;
         yield return new WaitForSeconds(duration);
+        isStunned = false;
         if(_stunEffect.isPlaying)_stunEffect.Stop();
     }
 

@@ -6,36 +6,70 @@ public class EnemyCombat : CharacterCombat
     [SerializeField] private float damage;
     private readonly float _detectionRadius = 6f;
     private readonly float _attackDistance = 2f;
+    private readonly float _slerpSpeed = 6f;
+    private readonly float _followSpeed = 4f;
+    
     private EnemyAnimator _enemyAnimator;
     private GameObject _player;
     private float TimestampAttack { get; set; }
     private float AttackCooldown { get; set; } = 2f;
     private bool _hasTarget = false;
     private CharacterCombat _playerCombat;
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
 
     private void Start()
     {
+        _initialPosition = transform.position;
+        _initialRotation = transform.rotation;
         _healthbarScript.SetMaxHealth(_characterStats.maxHealth);
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _player = GameObject.FindWithTag("Player");
         _playerCombat = _player.GetComponent<CharacterCombat>();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (!isDead)
+        base.Update();
+        if (!isDead && !isStunned)
         {
             SetTarget();
-            if (Time.time >= TimestampAttack && Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _attackDistance)
-            {
-                StartCoroutine(AttackPlayer());
-            }
 
             if (_hasTarget)
             {
                 DirectAtPlayer();
                 FollowPlayer();
+                if (Time.time >= TimestampAttack && Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _attackDistance)
+                {
+                    StartCoroutine(AttackPlayer());
+                }
             }
+            else
+            {
+                ResetEnemy();
+            }
+        }
+    }
+
+    private float GetInitialPositionDiff()
+    {
+        return Vector3.SqrMagnitude(transform.position - _initialPosition);
+    }
+
+    private void ResetEnemy()
+    {
+        if (GetInitialPositionDiff() <= 1f) {
+            _enemyAnimator.AnimateMovements("Movements", 0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _initialRotation, _slerpSpeed * Time.deltaTime);
+        }
+        else
+        {
+            // call animation only once
+            _enemyAnimator.AnimateMovements("Movements", 1f);
+            var newRotation = Quaternion.LookRotation(_initialPosition);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, _slerpSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _initialPosition, _followSpeed * Time.deltaTime);
+
         }
     }
 
@@ -43,14 +77,14 @@ public class EnemyCombat : CharacterCombat
     {
         var direction = _player.transform.position - transform.position;
         direction.Normalize();
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 6f * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), _slerpSpeed * Time.deltaTime);
     }
 
     private void FollowPlayer()
     {
         if (Vector3.SqrMagnitude(_player.transform.position - transform.position) > _attackDistance)
         {
-            transform.position += transform.forward * 6f * Time.deltaTime;
+            transform.position += transform.forward * _followSpeed * Time.deltaTime;
             _enemyAnimator.StopAnimatingEnemy("Attack");
             _enemyAnimator.AnimateMovements("Movements", 1f);
         }
@@ -69,9 +103,14 @@ public class EnemyCombat : CharacterCombat
 
     private void SetTarget()
     {
-        if(IsPlayerInRange())
+        if(IsPlayerInRange() && !_player.layer.Equals(LayerMask.NameToLayer("Stealth")))
         {
             _hasTarget = true;
+        }
+
+        if (_player.layer.Equals(LayerMask.NameToLayer("Stealth")))
+        {
+            _hasTarget = false;
         }
     }
 
