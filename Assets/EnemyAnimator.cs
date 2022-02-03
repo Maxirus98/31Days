@@ -7,6 +7,11 @@ public class EnemyAnimator : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
+    
+    public void AnimateMovements(string Name,  float movement)
+    {
+        _animator.SetFloat(Name, movement);
+    }
 
     public void AnimateEnemy(string Name)
     {

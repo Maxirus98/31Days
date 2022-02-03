@@ -51,11 +51,4 @@ public class Interactable : MonoBehaviour
         _mouseManager.focus = null;
         _targeter.SetActive(false);
     }
-    
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-    
 }

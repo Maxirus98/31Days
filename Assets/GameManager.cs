@@ -21,7 +21,9 @@ public class GameManager : Singleton<GameManager>
     private GameState _currentGameState = GameState.Running;
     
     private string _currentLevelName = string.Empty;
+    private GameObject _player;
     private Rigidbody _playerRb;
+    private PlayerCombat _playerCombat;
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -29,6 +31,10 @@ public class GameManager : Singleton<GameManager>
 
     void Update()
     {
+        if (!CurrentGameState.Equals( GameState.Pause) && _player && _playerCombat.CurrentCharacterState.Equals(CharacterState.Dead)) 
+        {
+            UpdateGameState(GameState.Pause);
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
@@ -40,7 +46,7 @@ public class GameManager : Singleton<GameManager>
         UpdateGameState(CurrentGameState == GameState.Running ? GameState.Pause : GameState.Running);
     }
 
-    void UpdateGameState(GameState newGameState)
+    public void UpdateGameState(GameState newGameState)
     {
         var previousGameState = CurrentGameState;
         CurrentGameState = newGameState;
@@ -86,18 +92,18 @@ public class GameManager : Singleton<GameManager>
     
     void KeepSelectedCharacter()
     {
-        var clonePrefab = Instantiate(CharacterSelector.ChosenCharacter);
-        instanceSystemPrefabsKept.Add(clonePrefab);
-        DontDestroyOnLoad(clonePrefab);
-        ActivatePlayerComponents(clonePrefab);
+        _player = Instantiate(CharacterSelector.ChosenCharacter);
+        instanceSystemPrefabsKept.Add(_player);
+        DontDestroyOnLoad(_player);
+        ActivatePlayerComponents();
     }
 
-    void ActivatePlayerComponents(GameObject player)
+    void ActivatePlayerComponents()
     {
-        _playerRb = player.GetComponent<Rigidbody>();
+        _playerRb = _player.GetComponent<Rigidbody>();
         _playerRb.useGravity = true;
-        
-        foreach (Behaviour behaviour in player.GetComponents<Behaviour>())
+        _playerCombat = _player.GetComponent<PlayerCombat>();
+        foreach (Behaviour behaviour in _player.GetComponents<Behaviour>())
         {
             behaviour.enabled = true;
         }

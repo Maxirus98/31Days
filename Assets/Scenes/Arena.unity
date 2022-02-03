@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.58056706, g: 0.36767623, b: 0.098205306, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7235,7 +7235,7 @@ PrefabInstance:
     - target: {fileID: 6313737393028019130, guid: e8cbc513ec06b74429256e3367184b5c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6313737393028019134, guid: e8cbc513ec06b74429256e3367184b5c,
         type: 3}
@@ -7444,6 +7444,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8cbc513ec06b74429256e3367184b5c, type: 3}
+--- !u!1 &1783850574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6313737393765778932, guid: e8cbc513ec06b74429256e3367184b5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1783850571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1783850575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6313737393765778936, guid: e8cbc513ec06b74429256e3367184b5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1783850571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783850574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1783850576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783850574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3078f6a6e5186d47bd3e3b0d956ad23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1783850575}
 --- !u!1001 &1996122216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12338,6 +12369,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4419611790204678348, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: damage
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 3138612667973588174, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
       propertyPath: _healthbarScript

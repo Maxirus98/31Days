@@ -58,8 +58,9 @@ public class Growth : Spells
     private void Buff()
     {
         _playerStats.defense += 20;
-        _playerStats.health += 200;
-        _playerStats.maxHealth += 200;
+        // Add shield instead that lasts for duration
+        _playerStats.health += 50;
+        _playerStats.maxHealth += 50;
         _autoAttack.BaseDamage += 100;
         _autoAttack.cooldown = 0.5f;
     }
@@ -67,8 +68,9 @@ public class Growth : Spells
     private void Debuff()
     {
         _playerStats.defense -= 20;
-        _playerStats.health -= 200;
-        _playerStats.maxHealth -= 200;
+        // Add shield instead that lasts for duration
+        _playerStats.maxHealth -= 50;
+        _playerStats.health -= 50;
         _autoAttack.BaseDamage -= 100;
         _autoAttack.cooldown = 2f;
     }

@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public enum CharacterState
 {
     InCombat,
-    OutCombat
+    OutCombat,
+    Dead,
 }
 
 [RequireComponent(typeof(CharacterStats))]
@@ -18,8 +19,8 @@ public class CharacterCombat : MonoBehaviour
         //1. déFINIR LA CLASSE D'ÉVÉNEMENT avec les param qu'on veut passer
     }
     
-    private CharacterStats _characterStats;
-    private Animator _animator;
+    protected CharacterStats _characterStats;
+    protected Animator _animator;
     
     protected Rigidbody _rigidbody;
     protected Collider _collider;
@@ -30,7 +31,9 @@ public class CharacterCombat : MonoBehaviour
     public bool isDead;
 
     private ParticleSystem _stunEffect;
-    
+    protected delegate void  OnDeath();
+
+    protected OnDeath _onDeath;
     private void Awake()
     {
         _characterStats = GetComponent<CharacterStats>();
@@ -38,6 +41,7 @@ public class CharacterCombat : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _stunEffect = transform.Find("StunEffect").GetComponent<ParticleSystem>();
+        _onDeath = Die;
     }
 
     public void UpdateCharacterState(CharacterState characterState)
@@ -53,12 +57,12 @@ public class CharacterCombat : MonoBehaviour
         _characterStats.health -= damageDone;
         if (_characterStats.health > 0)
         {
-            _animator.SetTrigger("TakeDamage");
+           // _animator.SetTrigger("TakeDamage");
         }
         _healthbarScript.SetHealth(_characterStats.health);
         if (_characterStats.health <= 0)
         {
-            Die();
+            _onDeath.Invoke();
         }
     }
     
@@ -70,11 +74,11 @@ public class CharacterCombat : MonoBehaviour
         _healthbarScript.SetHealth(_characterStats.health);
         if (_characterStats.health <= 0)
         {
-            Die();
+            _onDeath.Invoke();
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         DesactivateEnemy();
         isDead = true;
