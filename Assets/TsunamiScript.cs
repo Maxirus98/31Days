@@ -35,8 +35,8 @@ public class TsunamiScript : MonoBehaviour
     {
         foreach (var enemy in enemies)
         {
-            Vector3 moveDir = (enemy.transform.position - transform.position).normalized;
-            enemy.transform.position += moveDir * (5f * Time.deltaTime);    
+            var rb = enemy.GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * -1, ForceMode.Impulse);
         }
     }
 
