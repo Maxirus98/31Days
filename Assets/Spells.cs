@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spells : MonoBehaviour
 {
     protected CharacterCombat CharacterCombat;
-    public delegate void AttackCallback(CharacterState characterState);
+    public delegate void AttackCallback(CharacterCombatState characterCombatState);
     public AttackCallback attackCallback;
     protected string Name { get; set; }
     protected string Description { get; set; }
@@ -25,7 +25,7 @@ public class Spells : MonoBehaviour
     protected virtual void Start()
     {
         CharacterCombat = GetComponent<CharacterCombat>();
-        attackCallback = CharacterCombat.UpdateCharacterState;
+        attackCallback = CharacterCombat.UpdateCharacterCombatState;
         _playerAnimator = GetComponent<PlayerAnimator>();
         animator = GetComponent<Animator>();
     }

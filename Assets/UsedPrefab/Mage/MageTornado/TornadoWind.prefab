@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 198955616953408736}
   - component: {fileID: 199077260094889934}
   - component: {fileID: 2834264062468711005}
+  - component: {fileID: 6691479512283275005}
   m_Layer: 0
   m_Name: TornadoWind
   m_TagString: Untagged
@@ -4770,7 +4771,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 98c2cb3a48b9fc849ae1b47e397eaece, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4826,6 +4826,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407c0e090855635469d2786d6cc6b198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rootedDebuff: {fileID: 8627559458836928995, guid: f10257e65d07d9b41a87074d0947cd6a,
+    type: 3}
+--- !u!65 &6691479512283275005
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858714725665292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &4107647960656279556
 PrefabInstance:
   m_ObjectHideFlags: 0

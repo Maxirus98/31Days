@@ -3037,7 +3037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3630529449583768828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.082232, y: -4.74, z: 50.00782}
+  m_LocalPosition: {x: 3.082232, y: 0.5, z: 50.00782}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3630529449584088210}
@@ -3154,6 +3154,8 @@ MonoBehaviour:
   resource: 0
   maxResource: 0
   defense: 10
+  movementSpeed: 0
+  attackSpeed: 0
 --- !u!114 &-4419611790204678348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3166,11 +3168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddc37278599e3d4080cde7d883374bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 3420734526874604848}
-  onStateChangeHandler:
+  healthbarScript: {fileID: 3420734526874604848}
+  onCombatStateChangeHandler:
     m_PersistentCalls:
       m_Calls: []
-  isDead: 0
   damage: 20
 --- !u!1 &3630529449583770198
 GameObject:

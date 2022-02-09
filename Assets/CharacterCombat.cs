@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum CharacterState
+public enum CharacterCombatState
 {
     InCombat,
     OutCombat,
@@ -14,101 +14,96 @@ public enum CharacterState
 public class CharacterCombat : MonoBehaviour
 {
     [Serializable]
-    public class CharacterStateEvent : UnityEvent<CharacterState>
-    {
-        //1. déFINIR LA CLASSE D'ÉVÉNEMENT avec les param qu'on veut passer
-    }
+    public class CharacterCombatStateEvent : UnityEvent<CharacterCombatState> {}
     
-    protected CharacterStats _characterStats;
-    protected Animator _animator;
+    public HealthbarScript healthbarScript;
+    public CharacterCombatStateEvent onCombatStateChangeHandler;
+    public CharacterCombatState CurrentCharacterCombatState {get; set;}
     
-    protected Rigidbody _rigidbody;
-    protected Collider _collider;
-    
-    public HealthbarScript _healthbarScript;
-    public CharacterStateEvent onStateChangeHandler;
-    public CharacterState CurrentCharacterState {get; set;}
-    public bool isDead;
-
-    private ParticleSystem _stunEffect;
-    protected bool isStunned = false;
+    protected CharacterStats CharacterStats;
     protected delegate void  OnDeath();
-
-    protected OnDeath _onDeath;
+    protected OnDeath OnDeathCallback;
+    
+    private Animator _animator;
+    private Rigidbody _rigidbody;
+    private Collider _collider;
+    private ParticleSystem _stunEffect;
+    private readonly float _takeDamageCooldown = 2f;
+    
     private void Awake()
     {
-        _characterStats = GetComponent<CharacterStats>();
+        CharacterStats = GetComponent<CharacterStats>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        _stunEffect = transform.Find("StunEffect").GetComponent<ParticleSystem>();
-        _onDeath = Die;
+        OnDeathCallback = Die;
+        CurrentCharacterCombatState = CharacterCombatState.OutCombat;
     }
 
-    protected virtual void Update()
+    protected virtual void Start()
     {
-        if (isStunned)
-        {
-            
-        }
+        if(healthbarScript == null)
+            Debug.LogWarning("Healthbar Script is not set for " + gameObject.name);
     }
 
-    public void UpdateCharacterState(CharacterState characterState)
+    public void UpdateCharacterCombatState(CharacterCombatState characterCombatState)
     {
-        CurrentCharacterState = characterState;
-        onStateChangeHandler.Invoke(characterState);
+        CurrentCharacterCombatState = characterCombatState;
+        onCombatStateChangeHandler.Invoke(characterCombatState);
     }
-
+    
     public void TakeDamage(float damage)
     {
-        float damageDone  = damage / _characterStats.defense;
-        Debug.Log("took " + damageDone);
-        _characterStats.health -= damageDone;
-        if (_characterStats.health > 0)
+        var damageDone = damage / CharacterStats.defense;
+        CharacterStats.health -= damageDone;
+        if (CharacterStats.health > 0)
         {
-           _animator.SetTrigger("TakeDamage");
+            _animator.SetTrigger("TakeDamage");
+            Debug.Log($"{gameObject.name} took {damageDone} damage.");
+            UpdateCharacterCombatState(CharacterCombatState.InCombat);
         }
-        _healthbarScript.SetHealth(_characterStats.health);
-        if (_characterStats.health <= 0)
+        healthbarScript.SetHealth(CharacterStats.health);
+        if (CharacterStats.health <= 0)
         {
-            _onDeath.Invoke();
+            OnDeathCallback.Invoke();
         }
     }
     
     public void TakeDamageNoAnimation(float damage)
     {
-        float damageDone  = damage / _characterStats.defense;
-        Debug.Log("took " + damageDone);
-        _characterStats.health -= damageDone;
-        _healthbarScript.SetHealth(_characterStats.health);
-        if (_characterStats.health <= 0)
+        var damageDone = damage / CharacterStats.defense;
+        CharacterStats.health -= damageDone;
+        if (CharacterStats.health > 0)
         {
-            _onDeath.Invoke();
+            UpdateCharacterCombatState(CharacterCombatState.InCombat);
+        }
+        healthbarScript.SetHealth(CharacterStats.health);
+        if (CharacterStats.health <= 0)
+        {
+            OnDeathCallback.Invoke();
         }
     }
 
     protected virtual void Die()
     {
-        DesactivateEnemy();
-        isDead = true;
+        DeactivateEnemy();
+        UpdateCharacterCombatState(CharacterCombatState.Dead);
         _animator.SetTrigger("Die");
         Destroy(gameObject, 5f);
     }
 
+    // Move to another class ?
     public IEnumerator Stun(float duration)
     {
         // prevent from attacking and moving
-
         // Playing stun animation
         
         if(!_stunEffect.isPlaying)_stunEffect.Play();
-        isStunned = true;
         yield return new WaitForSeconds(duration);
-        isStunned = false;
         if(_stunEffect.isPlaying)_stunEffect.Stop();
     }
 
-    private void DesactivateEnemy()
+    private void DeactivateEnemy()
     {
         _rigidbody.useGravity = false;
         _collider.enabled = false;

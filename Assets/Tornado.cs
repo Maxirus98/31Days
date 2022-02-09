@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Tornado : SkillShotSpell
 {
+    
     [SerializeField] private GameObject tornado;
     [SerializeField] private GameObject spawn;
     private Transform _abilityRange;
@@ -11,7 +12,8 @@ public class Tornado : SkillShotSpell
     private Vector3 _spawnPoint;
     private GameObject _cloneTornado;
     private float CastTime { get; set; }
-    private float Duration { get; set; }
+    public float Duration { get; set; }
+ 
     private void Awake()
     {
         Name = "Tornado";

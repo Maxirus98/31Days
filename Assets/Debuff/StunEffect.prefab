@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6633424595210317000}
   - component: {fileID: 5401163340068009612}
   - component: {fileID: 7270896752856038016}
+  - component: {fileID: -4601682286148501320}
   m_Layer: 8
   m_Name: StunEffect
   m_TagString: Untagged
@@ -4777,7 +4778,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f42a357a923c92f4b9818c765c8b2c03, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4821,3 +4821,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-4601682286148501320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782674973002650496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481e802001304977bbedf6addf1351b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Stunned
+  duration: 0

@@ -28,13 +28,13 @@ public class AutoAttack : AutoTargetSpell
         if (IsInRange(Range) && IsLookingAt(MouseManager.focus.transform))
         {
             Timestamp = Time.time + cooldown;
-            CharacterCombat.onStateChangeHandler.Invoke(CharacterState.InCombat);
+            CharacterCombat.onCombatStateChangeHandler.Invoke(CharacterCombatState.InCombat);
             cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
             DamageDid = false;
             _playerAnimator.AnimateSpell(Name);
             yield return new WaitForSeconds(0.1f);
             _playerAnimator.StopAnimatingSpell(Name);
-            attackCallback(CharacterState.InCombat);
+            attackCallback(CharacterCombatState.InCombat);
             
             // Warrior only - to refactor
             spreadAttack?.Invoke();

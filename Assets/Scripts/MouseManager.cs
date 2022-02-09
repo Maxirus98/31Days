@@ -89,6 +89,7 @@ public class MouseManager : MonoBehaviour
                         }
                         break;
                     default:
+                        SetFocus(null);
                         break;
                 }
                 

@@ -3037,7 +3037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3630529449583768828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.082232, y: -4.74, z: 50.00782}
+  m_LocalPosition: {x: 3.082232, y: 0.5, z: 50.00782}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3630529449584088210}
@@ -3097,7 +3097,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!65 &3630529449583891184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3154,6 +3154,8 @@ MonoBehaviour:
   resource: 0
   maxResource: 0
   defense: 0
+  movementSpeed: 0
+  attackSpeed: 0
 --- !u!114 &-4419611790204678348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3166,11 +3168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddc37278599e3d4080cde7d883374bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 3420734526874604848}
-  onStateChangeHandler:
+  healthbarScript: {fileID: 3420734526874604848}
+  onCombatStateChangeHandler:
     m_PersistentCalls:
       m_Calls: []
-  isDead: 0
   damage: 20
 --- !u!1 &3630529449583770198
 GameObject:
@@ -4766,6 +4767,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121719399733981202, guid: f5c3645ecaa1b1d40bb09d5e484426d6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 121719399733981207, guid: f5c3645ecaa1b1d40bb09d5e484426d6,
         type: 3}
       propertyPath: m_RootOrder
@@ -4855,6 +4861,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153053273557557308, guid: 699bcba96ce9ac84e92e634411640e84,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9153053273557558208, guid: 699bcba96ce9ac84e92e634411640e84,
         type: 3}
@@ -4986,6 +4997,21 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9153053273874529946, guid: 699bcba96ce9ac84e92e634411640e84,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153053274075953480, guid: 699bcba96ce9ac84e92e634411640e84,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153053274449975462, guid: 699bcba96ce9ac84e92e634411640e84,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9153053274449975465, guid: 699bcba96ce9ac84e92e634411640e84,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -5027,6 +5053,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StunEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782674973002650496, guid: 1339e2f3750ca7642836453880cd633d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6633424595210317000, guid: 1339e2f3750ca7642836453880cd633d,
         type: 3}

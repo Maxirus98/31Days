@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class CharacterStats : MonoBehaviour
 {
+    public readonly float InitMovementSpeed = 6f;
+
     public float health;
     public float maxHealth;
     public float resource;
     public float maxResource;
     public float defense;
-    public float AttackSpeed { get; set; }
-    public float MovementSpeed { get; set; }
+    public float movementSpeed;
+    public float attackSpeed;
     public float TurnSpeed { get; set; }
 
     protected Slider _hpSlider;
@@ -21,22 +23,11 @@ public class CharacterStats : MonoBehaviour
     {
         health = maxHealth;
         resource = maxResource;
+        movementSpeed = InitMovementSpeed;
     }
 
     protected virtual IEnumerator SetSliders()
     {
         throw new NotImplementedException();
     }
-    public virtual void initStats()
-    {
-        health = 100;
-        maxHealth = health;
-        resource = 100;
-        maxResource = resource;
-        defense = 10;
-        AttackSpeed = 0.1f;
-        MovementSpeed = 6f;
-        TurnSpeed = 500f;
-    }
-    
 }

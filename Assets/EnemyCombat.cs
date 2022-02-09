@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyCombat : CharacterCombat
@@ -7,7 +8,6 @@ public class EnemyCombat : CharacterCombat
     private readonly float _detectionRadius = 6f;
     private readonly float _attackDistance = 2f;
     private readonly float _slerpSpeed = 6f;
-    private readonly float _followSpeed = 4f;
     
     private EnemyAnimator _enemyAnimator;
     private GameObject _player;
@@ -18,23 +18,24 @@ public class EnemyCombat : CharacterCombat
     private Vector3 _initialPosition;
     private Quaternion _initialRotation;
 
-    private void Start()
+    protected override void Start()
     {
-        _initialPosition = transform.position;
-        _initialRotation = transform.rotation;
-        _healthbarScript.SetMaxHealth(_characterStats.maxHealth);
+        base.Start();
+        var enemyTransform = transform;
+        _initialPosition = enemyTransform.position;
+        _initialRotation = enemyTransform.rotation;
+        healthbarScript.SetMaxHealth(CharacterStats.maxHealth);
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _player = GameObject.FindWithTag("Player");
         _playerCombat = _player.GetComponent<CharacterCombat>();
     }
 
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
-        if (!isDead && !isStunned)
+        // TODO: if is not dead and a list of condition to move doesn't sound good 
+        if (!CurrentCharacterCombatState.Equals(CharacterCombatState.Dead))
         {
             SetTarget();
-
             if (_hasTarget)
             {
                 DirectAtPlayer();
@@ -58,17 +59,16 @@ public class EnemyCombat : CharacterCombat
 
     private void ResetEnemy()
     {
-        if (GetInitialPositionDiff() <= 1f) {
+        if (GetInitialPositionDiff() <= 1f && CurrentCharacterCombatState.Equals(CharacterCombatState.OutCombat)) {
             _enemyAnimator.AnimateMovements("Movements", 0f);
             transform.rotation = Quaternion.Slerp(transform.rotation, _initialRotation, _slerpSpeed * Time.deltaTime);
         }
         else
         {
-            // call animation only once
-            _enemyAnimator.AnimateMovements("Movements", 1f);
+            _enemyAnimator.AnimateMovements("Movements", CharacterStats.movementSpeed);
             var newRotation = Quaternion.LookRotation(_initialPosition);
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, _slerpSpeed * Time.deltaTime);
-            transform.position = Vector3.MoveTowards(transform.position, _initialPosition, _followSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _initialPosition, CharacterStats.movementSpeed  * Time.deltaTime);
 
         }
     }
@@ -80,13 +80,14 @@ public class EnemyCombat : CharacterCombat
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), _slerpSpeed * Time.deltaTime);
     }
 
+    // TODO: If was attacked or player nearby
     private void FollowPlayer()
     {
         if (Vector3.SqrMagnitude(_player.transform.position - transform.position) > _attackDistance)
         {
-            transform.position += transform.forward * _followSpeed * Time.deltaTime;
+            transform.position += transform.forward * CharacterStats.movementSpeed * Time.deltaTime;
             _enemyAnimator.StopAnimatingEnemy("Attack");
-            _enemyAnimator.AnimateMovements("Movements", 1f);
+            _enemyAnimator.AnimateMovements("Movements", CharacterStats.movementSpeed);
         }
     }
 
@@ -103,7 +104,7 @@ public class EnemyCombat : CharacterCombat
 
     private void SetTarget()
     {
-        if(IsPlayerInRange() && !_player.layer.Equals(LayerMask.NameToLayer("Stealth")))
+        if(IsPlayerInRange() || CurrentCharacterCombatState.Equals(CharacterCombatState.InCombat))
         {
             _hasTarget = true;
         }

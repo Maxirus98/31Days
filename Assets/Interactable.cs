@@ -31,7 +31,7 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (_characterCombat.isDead && isFocus)
+        if (_characterCombat.CurrentCharacterCombatState.Equals(CharacterCombatState.Dead) && isFocus)
         {
             OnDefocused();
         }

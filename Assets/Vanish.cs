@@ -40,7 +40,7 @@ public class Vanish : Spells
             StartCoroutine(nameof(DoSpell));
         }
 
-        if (_characterCombat.CurrentCharacterState.Equals(CharacterState.InCombat) && _isStealth && Time.time > PreventStealthBreakTimeStamp)
+        if (_characterCombat.CurrentCharacterCombatState.Equals(CharacterCombatState.InCombat) && _isStealth && Time.time > PreventStealthBreakTimeStamp)
         {
             Show();
         }
@@ -95,7 +95,7 @@ public class Vanish : Spells
     {
         gameObject.layer = LayerMask.NameToLayer(StealthLayerMask);
         _isStealth = true;
-        _characterCombat.UpdateCharacterState(CharacterState.OutCombat);
+        _characterCombat.UpdateCharacterCombatState(CharacterCombatState.OutCombat);
         UseStealthMaterial();
         PreventStealthBreakTimeStamp = Time.time + _preventStealthBreakTime;
     }

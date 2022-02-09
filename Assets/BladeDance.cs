@@ -63,7 +63,7 @@ public class BladeDance : AutoTargetSpell
             _playerAnimator.AnimateSpell(Name);
             yield return new WaitForSeconds(0.1f);
             _playerAnimator.StopAnimatingSpell(Name);
-            attackCallback(CharacterState.InCombat);
+            attackCallback(CharacterCombatState.InCombat);
         }
     }
 

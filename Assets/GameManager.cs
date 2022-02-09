@@ -31,10 +31,6 @@ public class GameManager : Singleton<GameManager>
 
     void Update()
     {
-        if (!CurrentGameState.Equals( GameState.Pause) && _player && _playerCombat.CurrentCharacterState.Equals(CharacterState.Dead)) 
-        {
-            UpdateGameState(GameState.Pause);
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
