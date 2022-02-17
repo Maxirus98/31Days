@@ -21,7 +21,7 @@ public class CharacterCombat : MonoBehaviour
     public CharacterCombatState CurrentCharacterCombatState {get; set;}
     
     protected CharacterStats CharacterStats;
-    protected delegate void  OnDeath();
+    protected delegate void OnDeath();
     protected OnDeath OnDeathCallback;
     
     private Animator _animator;
@@ -90,6 +90,14 @@ public class CharacterCombat : MonoBehaviour
         UpdateCharacterCombatState(CharacterCombatState.Dead);
         _animator.SetTrigger("Die");
         Destroy(gameObject, 5f);
+    }
+    
+    public void DeactivateComponents()
+    {
+        foreach (var behaviour in GetComponents<Behaviour>())
+        {
+            behaviour.enabled = false;
+        }
     }
 
     // Move to another class ?

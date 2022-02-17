@@ -1,4 +1,6 @@
-﻿public class PlayerCombat : CharacterCombat
+﻿using UnityEngine;
+
+public class PlayerCombat : CharacterCombat
 {
     private PlayerStats _playerStats;
     private void Start()

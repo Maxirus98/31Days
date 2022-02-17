@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyCombat : CharacterCombat
 {
@@ -17,6 +18,11 @@ public class EnemyCombat : CharacterCombat
     private CharacterCombat _playerCombat;
     private Vector3 _initialPosition;
     private Quaternion _initialRotation;
+    private float _overlapOffsetRadius = 3f;
+    private float _overlappingTimestamp;
+    private float _overlappingCooldown = 5f;
+    [SerializeField] private LayerMask attackableLayer;
+    private bool _isOverlapped;
 
     protected override void Start()
     {
@@ -33,13 +39,14 @@ public class EnemyCombat : CharacterCombat
     protected void Update()
     {
         // TODO: if is not dead and a list of condition to move doesn't sound good 
-        if (!CurrentCharacterCombatState.Equals(CharacterCombatState.Dead))
+        if (_player != null && !CurrentCharacterCombatState.Equals(CharacterCombatState.Dead))
         {
             SetTarget();
             if (_hasTarget)
             {
                 DirectAtPlayer();
                 FollowPlayer();
+                
                 if (Time.time >= TimestampAttack && Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _attackDistance)
                 {
                     StartCoroutine(AttackPlayer());
@@ -51,7 +58,7 @@ public class EnemyCombat : CharacterCombat
             }
         }
     }
-
+    
     private float GetInitialPositionDiff()
     {
         return Vector3.SqrMagnitude(transform.position - _initialPosition);
@@ -91,6 +98,8 @@ public class EnemyCombat : CharacterCombat
         }
     }
 
+    
+
     private IEnumerator AttackPlayer()
     {
         TimestampAttack = Time.time + AttackCooldown;
@@ -109,7 +118,7 @@ public class EnemyCombat : CharacterCombat
             _hasTarget = true;
         }
 
-        if (_player.layer.Equals(LayerMask.NameToLayer("Stealth")))
+        if (_player.layer.Equals(LayerMask.NameToLayer("Stealth")) || _playerCombat.CurrentCharacterCombatState == CharacterCombatState.Dead)
         {
             _hasTarget = false;
         }
@@ -117,12 +126,6 @@ public class EnemyCombat : CharacterCombat
 
     private bool IsPlayerInRange()
     {
-        return Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _detectionRadius;
-    }
-    
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
+        return _player != null &&  Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _detectionRadius;
     }
 }

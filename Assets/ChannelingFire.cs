@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class ChannelingFire : Spells
 {
@@ -32,6 +33,9 @@ public class ChannelingFire : Spells
         if (Time.time > Timestamp && Input.GetKeyDown(KeyCode.Alpha1))
         {
             StartCoroutine(nameof(DoSpell));
+        }else if (Input.GetAxis("Vertical") > 0f)
+        {
+            CancelChannelingFire();
         }
     }
 
@@ -50,7 +54,7 @@ public class ChannelingFire : Spells
     protected override IEnumerator AnimatePlayer()
     {
         _playerAnimator.AnimateSpell(Name);
-        yield return new WaitForSeconds(CastTime);
+        yield return new WaitForSeconds(Duration + CastTime);
         _playerAnimator.StopAnimatingSpell(Name);
     }
 
@@ -58,8 +62,17 @@ public class ChannelingFire : Spells
     {
         _playerController.YawSpeed = YAW_SPEED;
         _spawnPoint = AbilityUtils.FindDeepChild("SpellCast", transform);
-        _cloneChannelingFire = Instantiate(channelingFire, _spawnPoint.position, _spawnPoint.rotation * Quaternion.Euler(180, 0, 0), _spawnPoint.transform);
-        Destroy(_cloneChannelingFire, Duration);
+        var fireEffect = AbilityUtils.FindDeepChild("FireEffect", transform).GetComponent<ParticleSystem>();
+        if(!fireEffect.isPlaying)fireEffect.Play();
+        _cloneChannelingFire = Instantiate(channelingFire, _spawnPoint.position, transform.rotation, _spawnPoint);
+        Destroy(_cloneChannelingFire, Duration - CastTime / 2);
+    }
+
+    private void CancelChannelingFire()
+    {
+        _playerAnimator.StopAnimatingSpell(Name);
+        Reset();
+        if(_cloneChannelingFire) Destroy(_cloneChannelingFire);
     }
 
     private void Reset()

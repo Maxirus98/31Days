@@ -104,7 +104,7 @@ public class GameManager : Singleton<GameManager>
             behaviour.enabled = true;
         }
     }
-    
+
     private void OnLoadSceneComplete(AsyncOperation ao)
     {
         if (_loadOperations.Contains(ao))

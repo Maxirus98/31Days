@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TornadoScript : MonoBehaviour
 {
@@ -26,13 +28,15 @@ public class TornadoScript : MonoBehaviour
     {
         foreach (var enemy in SpawnedEnemies)
         {
-            if (Vector3.Distance (transform.position, enemy.transform.position) < Radius)
+            if (Vector3.SqrMagnitude (transform.position - enemy.transform.position) < Radius)
             {
                 InstantiateRootDebuff(enemy.transform);
                 // Set character state to be in combat
                 enemy.GetComponent<CharacterCombat>().UpdateCharacterCombatState(CharacterCombatState.InCombat);
+                var randomVector = Random.insideUnitSphere * Radius;
+                print("randomVector " + randomVector);
                 enemy.transform.position =
-                    Vector3.MoveTowards(enemy.transform.position, transform.position + Vector3.up * 2f, 6f * Time.deltaTime);
+                    Vector3.MoveTowards(enemy.transform.position, new Vector3(randomVector.x, enemy.transform.position.y, randomVector.z), 6f * Time.deltaTime);
             }
         }
     }
@@ -48,5 +52,11 @@ public class TornadoScript : MonoBehaviour
             var rooted = cloneDebuff.GetComponent<RootedScript>();
             rooted.duration = _tornado.Duration;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, Radius);
     }
 }
