@@ -92,11 +92,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 81cde4b9e8a7b094d95fc74fc14f8069, type: 3}
+  spellSlot: 1
 --- !u!114 &-2239907401249943941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,11 +148,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 8076430f60c8ec4428a3bb5fcb7c9c59, type: 3}
+  spellSlot: 2
   damageSender: {fileID: 0}
 --- !u!114 &3824159373136018422
 MonoBehaviour:
@@ -160,16 +162,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 0}
-  onStateChangeHandler:
+  healthbarScript: {fileID: 0}
+  onCombatStateChangeHandler:
     m_PersistentCalls:
       m_Calls: []
-  isDead: 0
 --- !u!114 &4757542138524274753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,74 +185,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 8bff8dadacc03e9448bee5492289f8e1, type: 3}
+  spellSlot: 0
   _initialSummon: {fileID: 138024, guid: 2a1f01091710d154c927ad10991a05df, type: 3}
   indicator: {fileID: 120096, guid: 07bee576df5b5e049a39f20f65b6ddb1, type: 3}
---- !u!114 &5348724573569074768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2697d091c6693e4faa5dc56f0d737ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 0
-  hitRadius: 1
-  attackPoint: {fileID: 1232144446854105215}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  _playerAnimator: {fileID: 0}
-  damageSender: {fileID: 8480147002679231755, guid: 3b10e54ccea100e40a039cd83449a464,
-    type: 3}
---- !u!114 &8009665319561904617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbc7f060bff87574abf1ae8888e4adc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 0
-  hitRadius: 1
-  attackPoint: {fileID: 0}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  _playerAnimator: {fileID: 0}
-  _initialSummon: {fileID: 2363680987434103974, guid: 0fcaebefdbc7a8c41b0eb34d78ae7020,
-    type: 3}
-  shadowWarrior: {fileID: 9083040907121873970, guid: 0c5182cec18b0d44bb60360242a77b95,
-    type: 3}
---- !u!114 &7440763644098462664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 0}
-  onStateChangeHandler:
-    m_PersistentCalls:
-      m_Calls: []
-  isDead: 0
 --- !u!114 &4964823335596200490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,8 +210,71 @@ MonoBehaviour:
   resource: 200
   maxResource: 200
   defense: 10
+  movementSpeed: 0
+  attackSpeed: 0
   hp: {fileID: 0}
-  mana: {fileID: 0}
+--- !u!114 &5348724573569074768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9083040907121873970}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2697d091c6693e4faa5dc56f0d737ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  hitRadius: 1
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  _playerAnimator: {fileID: 0}
+  sprite: {fileID: 0}
+  spellSlot: 0
+  damageSender: {fileID: 8480147002679231755, guid: 3b10e54ccea100e40a039cd83449a464,
+    type: 3}
+--- !u!114 &7440763644098462664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9083040907121873970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbarScript: {fileID: 0}
+  onCombatStateChangeHandler:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8009665319561904617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9083040907121873970}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc7f060bff87574abf1ae8888e4adc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  hitRadius: 1
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7e7a7f3aab0c74048944c39e40305609, type: 3}
+  spellSlot: 3
+  _initialSummon: {fileID: 2363680987434103974, guid: 0fcaebefdbc7a8c41b0eb34d78ae7020,
+    type: 3}
+  shadowWarrior: {fileID: 9083040907121873970, guid: 0c5182cec18b0d44bb60360242a77b95,
+    type: 3}
 --- !u!1001 &443247658155875009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -475,12 +479,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d137d44990918a48bfc447d3dda3796, type: 3}
---- !u!4 &1232144446854105215 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 309532187399419942, guid: 6d137d44990918a48bfc447d3dda3796,
-    type: 3}
-  m_PrefabInstance: {fileID: 1536529269487333465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2212365774451380593
 PrefabInstance:
   m_ObjectHideFlags: 0

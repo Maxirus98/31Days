@@ -77480,11 +77480,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 0}
+  spellSlot: 0
   damageSender: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee,
     type: 3}
   explosion: {fileID: 1809022330002312, guid: ad2d4bd2648087f46bb6e37ab9bb7a2b, type: 3}
@@ -77502,11 +77503,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 020cda17be6444b4ea8a87875a422daf, type: 3}
+  spellSlot: 0
   channelingFire: {fileID: 1293375810718194, guid: 0e27717049f50724ba2034b0b77ab444,
     type: 3}
 --- !u!114 &1297613406519114039
@@ -77523,11 +77525,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 9349686e715f5a44e934127f834cde0e, type: 3}
+  spellSlot: 2
   spawnArea: {fileID: 0}
   tornado: {fileID: 1858714725665292, guid: f2d2eb5e2dcf3744095b7caf76d344dc, type: 3}
   spawn: {fileID: 1096038273005124, guid: 5cabce0a1911b5c44aeeeb03c087c0a0, type: 3}
@@ -77545,11 +77548,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 568eff53b11390440bcad05454d51e81, type: 3}
+  spellSlot: 1
   _initialSummon: {fileID: 4060939980105884499, guid: 10fc260457d86684bb2e5798323873cd,
     type: 3}
 --- !u!114 &6698702507565572033
@@ -77566,11 +77570,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 783823c842ba6f044a80c52a6295d6a2, type: 3}
+  spellSlot: 3
   voidMaterial: {fileID: 2100000, guid: 3074202733f4d804c833795ed40f1824, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 068b891fe967b1c45850c97d1092abe0, type: 2}
   initialAutoAttack: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee,

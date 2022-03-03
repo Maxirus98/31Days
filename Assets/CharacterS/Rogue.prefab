@@ -20238,11 +20238,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 686e883f35c245c449656d33c26f82c4, type: 3}
+  spellSlot: 0
   damageSender: {fileID: 8480147002679231755, guid: 3b10e54ccea100e40a039cd83449a464,
     type: 3}
   isBuffed: 0
@@ -20264,11 +20265,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 62c404dd5543d364393c4965702aa48a, type: 3}
+  spellSlot: 1
 --- !u!114 &695627650000916009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20283,11 +20285,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 840d686dbd0c17f459e455f3de562b9d, type: 3}
+  spellSlot: 2
   initialMaterial: {fileID: 2100000, guid: ea128b040f8b0af4c9d2de400aaff30a, type: 2}
   stealthMaterial: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   vanishSmoke: {fileID: 1095787749935704, guid: e7a258c2ec7beb34c877759d463e8f6d,
@@ -20306,11 +20309,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 28e269d4c2fb1f5448995fca5f2497d5, type: 3}
+  spellSlot: 3
   smokeBomb: {fileID: 1095787749935704, guid: f548f895ba8c132459bb8547e449c83c, type: 3}
 --- !u!114 &4628150205126457609
 MonoBehaviour:
@@ -20326,11 +20330,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1
   hitRadius: 1
-  attackPoint: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
   _playerAnimator: {fileID: 0}
+  sprite: {fileID: 0}
+  spellSlot: 0
   damageSender: {fileID: 8480147002679231755, guid: 3b10e54ccea100e40a039cd83449a464,
     type: 3}
 --- !u!114 &6935103913686921775
@@ -20350,6 +20355,8 @@ MonoBehaviour:
   resource: 100
   maxResource: 100
   defense: 5
+  movementSpeed: 0
+  attackSpeed: 0
   hp: {fileID: 0}
 --- !u!114 &387245281917655237
 MonoBehaviour:
@@ -20363,11 +20370,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e6c54e6155ccb44b62137896f84ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthbarScript: {fileID: 0}
-  onStateChangeHandler:
+  healthbarScript: {fileID: 0}
+  onCombatStateChangeHandler:
     m_PersistentCalls:
       m_Calls: []
-  isDead: 0
 --- !u!1 &1298277522779278
 GameObject:
   m_ObjectHideFlags: 0

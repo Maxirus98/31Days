@@ -22,7 +22,12 @@ public class BoomerangSword : ThrowSpells
         IsAutoTarget = false;
         _playerTransform = transform;
     }
-    
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && !_cloneIndicator)

@@ -23,7 +23,6 @@ public class GameManager : Singleton<GameManager>
     private string _currentLevelName = string.Empty;
     private GameObject _player;
     private Rigidbody _playerRb;
-    private PlayerCombat _playerCombat;
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -98,7 +97,6 @@ public class GameManager : Singleton<GameManager>
     {
         _playerRb = _player.GetComponent<Rigidbody>();
         _playerRb.useGravity = true;
-        _playerCombat = _player.GetComponent<PlayerCombat>();
         foreach (Behaviour behaviour in _player.GetComponents<Behaviour>())
         {
             behaviour.enabled = true;
@@ -116,6 +114,9 @@ public class GameManager : Singleton<GameManager>
                 UpdateGameState(GameState.Running);
             }
         }
+        
+        var spawnPoint = GameObject.Find("PlayerCamera").transform.position;
+        _player.transform.Translate(spawnPoint);
         print("load completed" + CurrentLevelName);
     }
 

@@ -37,7 +37,7 @@ public class BoomerangSwordScript : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(_player.transform.position.x,_player.transform.position.y + 1,_player.transform.position.z), Time.deltaTime * 15); //Return To Player
         }
-        print(Vector3.SqrMagnitude(_player.transform.position - transform.position));
+        
         if(!_isMoving && Vector3.SqrMagnitude(_player.transform.position - transform.position) <= 1f)
         {
             _sword.enabled = true;
