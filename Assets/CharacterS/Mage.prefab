@@ -77485,7 +77485,7 @@ MonoBehaviour:
     m_Bits: 256
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 0}
-  spellSlot: 0
+  spellSlot: 5
   damageSender: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee,
     type: 3}
   explosion: {fileID: 1809022330002312, guid: ad2d4bd2648087f46bb6e37ab9bb7a2b, type: 3}

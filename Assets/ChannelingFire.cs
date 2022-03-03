@@ -19,7 +19,7 @@ public class ChannelingFire : Spells
     private void Awake()
     {
         Name = "Channeling Fire";
-        Description = "Channel a beam of fire in front of you.";
+        Description = "Channel a beam of fire in front of you, dealing damage in a line.";
         cooldown = 8f;
         Duration = 6f;
         CastTime = 1f;

@@ -12,8 +12,8 @@ public class SmokeBomb : Spells
     private readonly float RADIUS = 6f;
     private void Awake()
     {
-        Name = "Vanish";
-        Description = "The Rogue hides in the shadows.";
+        Name = "Smoke Bomb";
+        Description = "While inside Smoke Bomb, Blade Dance's cooldown is reduced and deals bonus damage.";
         cooldown = 1f;
         Duration = 8f;
         _bladeDance = GetComponent<BladeDance>();

@@ -18,7 +18,7 @@ public class Tornado : SkillShotSpell
     {
         Name = "Tornado";
         Duration = 5f;
-        Description = $"Summon a tornado and bring all enemies in the center. They are unable to move. (Last {Duration} seconds). (10 mana)";
+        Description = $"Summon a tornado and bring all enemies in the center. They are unable to move.";
         cooldown = 1f;
         CastTime = 1f;
         MaxRange = 10f;

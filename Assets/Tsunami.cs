@@ -7,7 +7,7 @@ public class Tsunami : ThrowSpells
     private void Awake()
     {
         Name = "Typhoon";
-        Description = "Summon a tsunami in front of you pushing back enemies. (80 mana)";
+        Description = "Summon a tsunami in front of you pushing back enemies.";
         cooldown = 1f;
         Range = 1.2f;
         TravelSpeed = 6f;

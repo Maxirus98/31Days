@@ -21,7 +21,7 @@ public class SurrenderToTheVoid : Spells
     private void Awake()
     {
         Name = "Surrender to the Void";
-        Description = "The mage turns to the power of the void. He cannot cast spells but all his Auto Attacks becomes void, piercing through armor and dealing more damage. After Surrender to the void, the mage gains all his mana back.";
+        Description = "The mage turns to the Void, dealing bonus damage on Auto Attack and restoring Mana on hit.";
         cooldown = 20f;
         IsAutoTarget = true;
         hitRadius = 2f;

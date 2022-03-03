@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +9,8 @@ public class Spells : MonoBehaviour
     protected CharacterCombat CharacterCombat;
     public delegate void AttackCallback(CharacterCombatState characterCombatState);
     public AttackCallback attackCallback;
-    protected string Name { get; set; }
-    protected string Description { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
     public float cooldown;
     public float Timestamp { get; set; }
 
@@ -21,7 +22,7 @@ public class Spells : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayers;
     [SerializeField] protected PlayerAnimator _playerAnimator;
     [SerializeField] private Sprite sprite;
-    [SerializeField] private int spellSlot;
+    public int spellSlot;
     
     // The slot it will be placed into in the Spellbar UI.
     
@@ -33,17 +34,17 @@ public class Spells : MonoBehaviour
         attackCallback = CharacterCombat.UpdateCharacterCombatState;
         _playerAnimator = GetComponent<PlayerAnimator>();
         animator = GetComponent<Animator>();
-        StartCoroutine(initSpellSprites());
+        StartCoroutine(initSpellUi());
     }
 
     // TODO: Find a better way than waiting
-    private IEnumerator initSpellSprites()
+    private IEnumerator initSpellUi()
     {
         yield return new WaitForSeconds(1f);
-        var playerResource = GameObject.Find("/PlayerResource/Spellbar");
+        var spellBar = GameObject.Find("/PlayerResource/Spellbar");
         if (sprite != null)
         {
-            playerResource.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;
+            spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;
         }
     }
 

@@ -12,6 +12,7 @@ public class AutoAttack : AutoTargetSpell
         Name = "AutoAttacking";
         BaseDamage = 100f;
         Range = 15f;
+        spellSlot = 5;
     }
 
     private void Update()
