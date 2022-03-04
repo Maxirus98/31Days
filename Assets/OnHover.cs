@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OnHover : MonoBehaviour
 {
     private GameObject _player;
     private Spells[] _spells;
-    private GameObject _spellDescriptionFrame;
-    private GameObject _spellDescription;
-    private GameObject _spellTitle;
+    private GameObject _descriptionPanel;
+    private GameObject _description;
+    private GameObject _title;
 
     // Start is called before the first frame update
     void Start()
@@ -21,23 +20,23 @@ public class OnHover : MonoBehaviour
 
     private void InitDescriptionFrame()
     {
-        _spellDescriptionFrame = GameObject.Find("/PlayerResource/SpellDescription");
-        _spellTitle = GameObject.Find("/PlayerResource/SpellDescription/Title");
-        _spellDescription = GameObject.Find("/PlayerResource/SpellDescription/Content");
-        _spellDescriptionFrame.SetActive(false);
+        _descriptionPanel = GameObject.Find("/PlayerResource/Description");
+        _title = GameObject.Find("/PlayerResource/Description/Title");
+        _description = GameObject.Find("/PlayerResource/Description/Content");
+        _descriptionPanel.SetActive(false);
     }
 
     public void OnPointerEnter(int index)
     {
-        _spellDescriptionFrame.SetActive(true);
+        _descriptionPanel.SetActive(true);
 
         var hoveredSpell = _spells.First(s => s.spellSlot == index);
-        _spellTitle.GetComponent<TextMeshProUGUI>().text = hoveredSpell.Name;
-        _spellDescription.GetComponent<TextMeshProUGUI>().text = hoveredSpell.Description;
+        _title.GetComponent<TextMeshProUGUI>().text = hoveredSpell.Name;
+        _description.GetComponent<TextMeshProUGUI>().text = hoveredSpell.Description;
     }
 
     public void OnPointerExit()
     {
-        _spellDescriptionFrame.SetActive(false);
+        _descriptionPanel.SetActive(false);
     }
 }

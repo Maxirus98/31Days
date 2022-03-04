@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class ChannelingFire : Spells
 {
@@ -62,8 +61,6 @@ public class ChannelingFire : Spells
     {
         _playerController.YawSpeed = YAW_SPEED;
         _spawnPoint = AbilityUtils.FindDeepChild("SpellCast", transform);
-        var fireEffect = AbilityUtils.FindDeepChild("FireEffect", transform).GetComponent<ParticleSystem>();
-        if(!fireEffect.isPlaying)fireEffect.Play();
         _cloneChannelingFire = Instantiate(channelingFire, _spawnPoint.position, transform.rotation, _spawnPoint);
         Destroy(_cloneChannelingFire, Duration - CastTime / 2);
     }
