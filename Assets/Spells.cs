@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,9 +21,9 @@ public class Spells : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayers;
     [SerializeField] protected PlayerAnimator _playerAnimator;
     [SerializeField] private Sprite sprite;
-    public int spellSlot;
     
     // The slot it will be placed into in the Spellbar UI.
+    public int spellSlot;
     
     protected Animator animator;
     

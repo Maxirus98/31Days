@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ArenaEntry : MonoBehaviour
 {
@@ -18,10 +15,10 @@ public class ArenaEntry : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // TODO: Make DRY
         Invoke("TurnCameraMainOn", _cameraEntry.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         if (other.CompareTag("Player"))
         {
-            
             foreach (var cam in Camera.allCameras) {
                 cam.enabled = false;
             }

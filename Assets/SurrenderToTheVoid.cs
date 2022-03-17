@@ -46,6 +46,8 @@ public class SurrenderToTheVoid : Spells
         Timestamp = Time.time + cooldown;
         if(!_voidEffect.isPlaying)_voidEffect.Play(true);
         BuffAutoAttack();
+        
+        // TODO: Refactor into method to make it DRY and reusable
         Renderer[] rs = GetComponentsInChildren<Renderer>();
         foreach (Renderer r in rs)
         {
@@ -54,7 +56,9 @@ public class SurrenderToTheVoid : Spells
         }
 
         StartCoroutine(nameof(AnimatePlayer));
-        yield return new WaitForSeconds(Duration);   
+        yield return new WaitForSeconds(Duration);
+        
+        // TODO: Refactor into method to make it DRY and reusable
         foreach (Renderer r in rs)
         {
             if(!r.gameObject.name.Equals("VoidEffect") && !r.gameObject.name.Equals("CenterVoid"))

@@ -10,18 +10,17 @@ public class Quiz : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            AMethod();
-        }
-
-        if ((interactObject.transform.position - transform.position).sqrMagnitude <= 1.5f)
-        {
-            interactObject.GetComponent<Animator>().SetFloat("VelocityZ", 0f);
+            QuizMethod();
         }
     }
 
-    private void AMethod()
+    private void QuizMethod()
     {
-        interactObject.GetComponent<NavMeshAgent>().destination = transform.position;
-        interactObject.GetComponent<Animator>().SetFloat("VelocityZ", 1f);
+        var direction = transform.position - interactObject.transform.position;
+        direction.Normalize();
+        interactObject.transform.rotation = 
+            Quaternion.Slerp(interactObject.transform.rotation,
+            Quaternion.LookRotation(direction),
+            5f * Time.deltaTime);
     }
 }

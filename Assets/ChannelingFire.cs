@@ -41,7 +41,6 @@ public class ChannelingFire : Spells
     protected override IEnumerator DoSpell()
     {
         Timestamp = Time.time + cooldown;
-        _fireball.Blocked = true;
         _playerController.Speed = SPEED;
         _playerController.YawSpeed = YAW_SPEED;
         StartCoroutine(nameof(AnimatePlayer));
@@ -74,7 +73,6 @@ public class ChannelingFire : Spells
 
     private void Reset()
     {
-        _fireball.Blocked = false;
         _playerController.Speed = _playerController.INIT_SPEED;
         _playerController.YawSpeed = _playerController.INIT_YAW_SPEED;
     }

@@ -8,7 +8,7 @@ public class EventVector3 : UnityEvent<Vector3>
     //1. déFINIR LA CLASSE D'ÉVÉNEMENT avec les param qu'on veut passer
 }
 
-
+// TODO: Should be separated into 2 distincts scripts, one for combat and one for interacting with anything in the scene.
 public class MouseManager : MonoBehaviour
 {
     [SerializeField] private LayerMask _clickableLayer;
@@ -77,18 +77,26 @@ public class MouseManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                Interactable interactable;
                 switch (hit.collider.tag)
                 {
                     // bad way to put a targeter under the enemy
                     case "Enemy":
-                        Interactable interactable = hit.collider.GetComponent<Interactable>();
-                        Cursor.SetCursor(_target, new Vector2(16, 16), CursorMode.Auto);
+                        interactable = hit.collider.GetComponent<Interactable>();
+                        if (interactable)
+                        {
+                            SetFocus(interactable);
+                        }
+                        break;
+                    case "Shop":
+                        interactable = hit.collider.GetComponent<Interactable>();
                         if (interactable)
                         {
                             SetFocus(interactable);
                         }
                         break;
                     default:
+                        Debug.Log($"{hit.collider.name} with tag {hit.collider.tag} does not have anything implemented on click");
                         SetFocus(null);
                         break;
                 }
@@ -97,6 +105,18 @@ public class MouseManager : MonoBehaviour
                 OnClickEnvironment.Invoke(hit.point);
             }
         }
+    }
+    
+    public void SetFocus(Enemy newFocus)
+    {
+        if (newFocus != focus)
+        {
+            if (focus != null)
+                focus.OnDefocused();
+            focus = newFocus;
+        }
+        if (newFocus != null)
+            newFocus.OnFocused();
     }
 
     public void SetFocus(Interactable newFocus)

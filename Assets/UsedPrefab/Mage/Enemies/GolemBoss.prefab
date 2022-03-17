@@ -3123,6 +3123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d597c865f78abd442ba4fcd72d4cec9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   radius: 3
   _targeter: {fileID: 0}
 --- !u!114 &6341261221765855469

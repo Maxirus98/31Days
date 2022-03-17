@@ -45,10 +45,12 @@ public class AutoTargetSpell : Spells
         MouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
     }
 
-    protected bool IsInRange(float range)
+    protected bool IsEnemyInRange(float range)
     {
         if (MouseManager)
         {
+            if (MouseManager.focus && !MouseManager.focus.isEnemy)
+                return false;
             tmpFocus = MouseManager.focus;
         }
         if(tmpFocus)

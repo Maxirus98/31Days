@@ -26,7 +26,7 @@ public class AutoAttack : AutoTargetSpell
 
     protected override IEnumerator DoSpell()
     {
-        if (IsInRange(Range) && IsLookingAt(MouseManager.focus.transform))
+        if (IsEnemyInRange(Range) && IsLookingAt(MouseManager.focus.transform))
         {
             Timestamp = Time.time + cooldown;
             CharacterCombat.onCombatStateChangeHandler.Invoke(CharacterCombatState.InCombat);

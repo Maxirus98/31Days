@@ -41,7 +41,7 @@ public class Charge : AutoTargetSpell
 
     protected override IEnumerator DoSpell()
     {
-        if (IsInRange(Range))
+        if (IsEnemyInRange(Range))
         {
             Timestamp = Time.time + cooldown;
             _isCharging = true;
@@ -67,7 +67,7 @@ public class Charge : AutoTargetSpell
 
     private void StopCharging()
     {
-        if (IsInRange(_stopChargingRange) && _isCharging)
+        if (IsEnemyInRange(_stopChargingRange) && _isCharging)
         {
             var enemyCombat = _currentFocus.GetComponent<CharacterCombat>();
             _isCharging = false;

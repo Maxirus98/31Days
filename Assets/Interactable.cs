@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
     private static readonly string TargetIndicator = "Target";
     private CharacterCombat _characterCombat;
     private MouseManager _mouseManager;
+    public bool isEnemy = false;
     public float radius = 3f;
     
     private bool isFocus;
@@ -15,7 +15,7 @@ public class Interactable : MonoBehaviour
     
     private bool hasInteracted;
     
-    private void Start()
+    public virtual void Start()
     {
         _characterCombat = GetComponent<CharacterCombat>();
         _mouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
@@ -31,21 +31,21 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (_characterCombat.CurrentCharacterCombatState.Equals(CharacterCombatState.Dead) && isFocus)
+        if (_characterCombat && _characterCombat.CurrentCharacterCombatState.Equals(CharacterCombatState.Dead) && isFocus)
         {
             OnDefocused();
         }
     }
 
     // Set Target here
-    public void OnFocused()
+    public virtual void OnFocused()
     {
         isFocus = true;
         _targeter.SetActive(true);
     }
     
     // Remove target here
-    public void OnDefocused()
+    public virtual void OnDefocused()
     {
         isFocus = false;
         _mouseManager.focus = null;
