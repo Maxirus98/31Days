@@ -14,8 +14,8 @@ public class Spells : MonoBehaviour
     public float Timestamp { get; set; }
 
     public float BaseDamage { get; set; }
-    protected bool IsAutoTarget { get; set; }
-    protected float Range { get; set; }
+    public bool IsAutoTarget { get; set; }
+    public float Range { get; set; }
     public float hitRadius = 1f;
 
     [SerializeField] protected LayerMask enemyLayers;
@@ -36,11 +36,11 @@ public class Spells : MonoBehaviour
         StartCoroutine(initSpellUi());
     }
 
-    // TODO: Find a better way than waiting
+    // TODO: Refactor to find a better way than waiting on Start
     private IEnumerator initSpellUi()
     {
         yield return new WaitForSeconds(1f);
-        var spellBar = GameObject.Find("/HUD/PlayerResource/Spellbar");
+        var spellBar = GameObject.Find("/HUD/Spellbar");
         if (sprite != null)
         {
             spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;

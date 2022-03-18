@@ -7,7 +7,10 @@ public class SelectPlayerUiRenderer : MonoBehaviour
     [SerializeField]private TextMeshProUGUI _playerClassText;
     void Start()
     {
-        Debug.LogWarning($"_playerClassText can't be empty in script SelectPlayerUiRenderer on {gameObject.name}");
+        if (_playerClassText == null)
+        {
+            Debug.LogWarning($"_playerClassText can't be empty in script SelectPlayerUiRenderer on {gameObject.name}");
+        }
         var player = GameObject.FindWithTag("Player");
         var playerName = player.name;
         var sanitizedName = player.name.Substring(0, playerName.IndexOf('('));
