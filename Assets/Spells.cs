@@ -40,7 +40,7 @@ public class Spells : MonoBehaviour
     private IEnumerator initSpellUi()
     {
         yield return new WaitForSeconds(1f);
-        var spellBar = GameObject.Find("/PlayerResource/Spellbar");
+        var spellBar = GameObject.Find("/HUD/PlayerResource/Spellbar");
         if (sprite != null)
         {
             spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;

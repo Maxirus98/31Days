@@ -20,9 +20,9 @@ public class OnHover : MonoBehaviour
 
     private void InitDescriptionFrame()
     {
-        _descriptionPanel = GameObject.Find("/PlayerResource/Description");
-        _title = GameObject.Find("/PlayerResource/Description/Title");
-        _description = GameObject.Find("/PlayerResource/Description/Content");
+        _descriptionPanel = GameObject.Find("HUD/PlayerResource/Description");
+        _title = GameObject.Find("HUD/PlayerResource/Description/Title");
+        _description = GameObject.Find("HUD/PlayerResource/Description/Content");
         _descriptionPanel.SetActive(false);
     }
 

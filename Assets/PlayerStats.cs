@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerStats : CharacterStats
 {
-    private Transform _resourceTransform;
+    private Transform _hud;
     public  GameObject hp;
     public override void Start()
     {
@@ -15,11 +15,11 @@ public class PlayerStats : CharacterStats
     protected override IEnumerator SetSliders()
     {
         yield return new WaitForSeconds(1f);
-        _resourceTransform = GameObject.Find("PlayerResource").transform;
+        _hud = GameObject.Find("HUD").transform;
 
-        hp = AbilityUtils.FindDeepChild("HP", _resourceTransform).gameObject;
+        hp = AbilityUtils.FindDeepChild("HP", _hud).gameObject;
         _hpSlider = hp.GetComponent<Slider>();
-        _resourceSlider =  AbilityUtils.FindDeepChild("Mana", _resourceTransform).GetComponent<Slider>();
+        _resourceSlider =  AbilityUtils.FindDeepChild("Mana", _hud).GetComponent<Slider>();
 
         _hpSlider.maxValue = maxHealth;
         _resourceSlider.maxValue = maxResource;
