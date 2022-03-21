@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Spells : MonoBehaviour
 {
-    protected CharacterCombat CharacterCombat;
+    // The slot it will be placed into in the Spellbar UI.
+    public int spellSlot;
     public delegate void AttackCallback(CharacterCombatState characterCombatState);
     public AttackCallback attackCallback;
     public string Name { get; set; }
@@ -14,18 +15,16 @@ public class Spells : MonoBehaviour
     public float Timestamp { get; set; }
 
     public float BaseDamage { get; set; }
-    protected bool IsAutoTarget { get; set; }
-    protected float Range { get; set; }
+    public bool IsAutoTarget { get; set; }
+    public float Range { get; set; }
     public float hitRadius = 1f;
-
+    
+    protected Animator animator;
+    protected CharacterCombat CharacterCombat;
     [SerializeField] protected LayerMask enemyLayers;
     [SerializeField] protected PlayerAnimator _playerAnimator;
     [SerializeField] private Sprite sprite;
     
-    // The slot it will be placed into in the Spellbar UI.
-    public int spellSlot;
-    
-    protected Animator animator;
     
     protected virtual void Start()
     {
@@ -36,11 +35,11 @@ public class Spells : MonoBehaviour
         StartCoroutine(initSpellUi());
     }
 
-    // TODO: Find a better way than waiting
+    // TODO: Refactor to find a better way than waiting on Start
     private IEnumerator initSpellUi()
     {
         yield return new WaitForSeconds(1f);
-        var spellBar = GameObject.Find("/PlayerResource/Spellbar");
+        var spellBar = GameObject.Find("/HUD/Spellbar");
         if (sprite != null)
         {
             spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;

@@ -7,7 +7,7 @@ public class ShopScript : MonoBehaviour
     private GameObject _hud;
     private void Start()
     {
-        _hud = GameObject.Find("PlayerResource");
+        _hud = GameObject.Find("HUD");
         AddStoreToHud();
     }
 
