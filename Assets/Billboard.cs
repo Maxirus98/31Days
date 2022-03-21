@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class Billboard : MonoBehaviour
 
     void LateUpdate()
     {
-        // Take current position and go 1 unity in the direction the camera is currently facing
+        // Take current position and go 1 unit in the direction the camera is currently facing
         // Standard billboard script
         transform.LookAt(transform.position + _camera.transform.forward);
     }

@@ -80,9 +80,6 @@ public class SurrenderToTheVoid : Spells
         _fireballScript.BaseDamage = BaseDamage;
         _fireballScript.damageSender = voidAutoAttack;
         _fireballScript.explosion = voidExplosion;
-        // make it do more dmamage
-        // make it aoe
-        // make it restore mana per hit.
     }
 
     private void DebuffAutoAttack()
