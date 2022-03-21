@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Spells : MonoBehaviour
 {
-    protected CharacterCombat CharacterCombat;
+    // The slot it will be placed into in the Spellbar UI.
+    public int spellSlot;
     public delegate void AttackCallback(CharacterCombatState characterCombatState);
     public AttackCallback attackCallback;
     public string Name { get; set; }
@@ -17,15 +18,13 @@ public class Spells : MonoBehaviour
     public bool IsAutoTarget { get; set; }
     public float Range { get; set; }
     public float hitRadius = 1f;
-
+    
+    protected Animator animator;
+    protected CharacterCombat CharacterCombat;
     [SerializeField] protected LayerMask enemyLayers;
     [SerializeField] protected PlayerAnimator _playerAnimator;
     [SerializeField] private Sprite sprite;
     
-    // The slot it will be placed into in the Spellbar UI.
-    public int spellSlot;
-    
-    protected Animator animator;
     
     protected virtual void Start()
     {
