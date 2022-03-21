@@ -10,6 +10,8 @@ public class BoomerangSwordScript : MonoBehaviour
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
+    public delegate void BleedMemory();
+    public BleedMemory Bleed;
 
     private void Start()
     {
@@ -57,6 +59,7 @@ public class BoomerangSwordScript : MonoBehaviour
         if (!other.CompareTag("Enemy")) return;
         var enemy = other.GetComponent<CharacterCombat>();
         enemy.TakeDamage(_boomerangSword.BaseDamage);
+        Bleed?.Invoke();
     }
 
     private void OnDrawGizmos()
