@@ -6,21 +6,20 @@ public class BoomerangSwordScript : MonoBehaviour
     private readonly float HitRadius = 1f;
     [SerializeField] private LayerMask enemyLayers;
     private GameObject _player;
-    private BoomerangSword _boomerangSword;
+    public BoomerangSword boomerangSword;
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
-    public delegate void BleedMemory();
-    public BleedMemory Bleed;
+    private BleedMemory _bleedMemory;
 
     private void Start()
     {
         _isMoving = false;
         _player = GameObject.FindWithTag("Player");
-        _boomerangSword = _player.GetComponent<BoomerangSword>();
+        boomerangSword = _player.GetComponent<BoomerangSword>();
 
         _locationInFrontOfPlayer = _player.transform.position + Vector3.up +
-                                   _player.transform.forward * (_boomerangSword.indicator.transform.localScale.z + 2f);
+                                   _player.transform.forward * (boomerangSword.indicator.transform.localScale.z + 2f);
 
         _sword = AbilityUtils.FindDeepChild("WarriorSword", _player.transform).GetComponent<MeshRenderer>();
         
@@ -50,7 +49,7 @@ public class BoomerangSwordScript : MonoBehaviour
     private IEnumerator MoveSword()
     {
         _isMoving = true;
-        yield return new WaitForSeconds(_boomerangSword.TravelTime);
+        yield return new WaitForSeconds(boomerangSword.TravelTime);
         _isMoving = false;
     }
 
@@ -58,8 +57,8 @@ public class BoomerangSwordScript : MonoBehaviour
     {
         if (!other.CompareTag("Enemy")) return;
         var enemy = other.GetComponent<CharacterCombat>();
-        enemy.TakeDamage(_boomerangSword.BaseDamage);
-        Bleed?.Invoke();
+        enemy.TakeDamage(boomerangSword.BaseDamage);
+        // Check if Memories
     }
 
     private void OnDrawGizmos()

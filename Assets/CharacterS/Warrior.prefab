@@ -155,6 +155,19 @@ MonoBehaviour:
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 21300000, guid: 8076430f60c8ec4428a3bb5fcb7c9c59, type: 3}
   damageSender: {fileID: 0}
+--- !u!114 &1793094976803613761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9083040907121873970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f892cb38927fe4b44ac8d4c8098d6d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _memories: []
 --- !u!114 &3824159373136018422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,18 +288,21 @@ MonoBehaviour:
     type: 3}
   shadowWarrior: {fileID: 9083040907121873970, guid: 0c5182cec18b0d44bb60360242a77b95,
     type: 3}
---- !u!114 &1793094976803613761
+--- !u!114 &623657198843038062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083040907121873970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f892cb38927fe4b44ac8d4c8098d6d3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d4d415e273430f838f1dd1419ac52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sprite: {fileID: 0}
+  boomerangSwordScript: {fileID: 7052643653405244536, guid: 2a1f01091710d154c927ad10991a05df,
+    type: 3}
 --- !u!1001 &443247658155875009
 PrefabInstance:
   m_ObjectHideFlags: 0
