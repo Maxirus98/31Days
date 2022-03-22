@@ -1,30 +1,41 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// BoomerangSwordScript is attached to the BoomerangSword that is thrown so its MonoBehaviour
+/// only starts when it's instantiated.
+/// </summary>
 public class BoomerangSwordScript : MonoBehaviour
 {
-    private readonly float HitRadius = 1f;
-    [SerializeField] private LayerMask enemyLayers;
-    private GameObject _player;
     public BoomerangSword boomerangSword;
+    
+    [SerializeField] private LayerMask enemyLayers;
+    
+    private readonly string BLEED_DEBUFF = "BleedDebuff";
+    private readonly float HIT_RADIUS = 1f;
+    private readonly string PLAYER_TAG = "Player";
+    private readonly string PLAYER_SWORD = "WarriorSword";
+    
+    private GameObject _player;
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
-    private BleedMemory _bleedMemory;
+    private Memory _bleed;
 
     private void Start()
     {
         _isMoving = false;
-        _player = GameObject.FindWithTag("Player");
+        _player = GameObject.FindWithTag(PLAYER_TAG);
         boomerangSword = _player.GetComponent<BoomerangSword>();
 
         _locationInFrontOfPlayer = _player.transform.position + Vector3.up +
                                    _player.transform.forward * (boomerangSword.indicator.transform.localScale.z + 2f);
 
-        _sword = AbilityUtils.FindDeepChild("WarriorSword", _player.transform).GetComponent<MeshRenderer>();
+        _sword = AbilityUtils.FindDeepChild(PLAYER_SWORD, _player.transform).GetComponent<MeshRenderer>();
         
         _sword.enabled = false;
         StartCoroutine(MoveSword());
+        _bleed = GetChosenMemoryByTitle("Bleed");
     }
 
     private void Update()
@@ -58,11 +69,31 @@ public class BoomerangSwordScript : MonoBehaviour
         if (!other.CompareTag("Enemy")) return;
         var enemy = other.GetComponent<CharacterCombat>();
         enemy.TakeDamage(boomerangSword.BaseDamage);
-        // Check if Memories
+        // Check in player memories
+        if (_bleed != null)
+        {
+            var bleedDebuff = AbilityUtils.FindDeepChild(BLEED_DEBUFF, enemy.transform);
+            if(bleedDebuff)bleedDebuff.GetComponent<BleedDebuff>().StartBleeding();
+        }
+    }
+    
+    // TODO: Refactor if needed elsewhere
+    private Memory GetChosenMemoryByTitle(string title)
+    {
+        var memories = _player.GetComponent<Memories>().memories;
+        foreach (var memory in memories)
+        {
+            if (memory.isChosen && memory.title.Equals(title))
+            {
+                return memory;
+            }
+        }
+
+        return null;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, HitRadius);
+        Gizmos.DrawWireSphere(transform.position, HIT_RADIUS);
     }
 }
