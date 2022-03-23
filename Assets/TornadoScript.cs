@@ -49,7 +49,7 @@ public class TornadoScript : MonoBehaviour
         if (enemy.Find("RootedEffect(Clone)") == null)
         {
             var cloneDebuff = Instantiate(rootedDebuff, enemy);
-            var rooted = cloneDebuff.GetComponent<RootedScript>();
+            var rooted = cloneDebuff.GetComponent<RootedDebuff>();
             rooted.duration = _tornado.Duration;
         }
     }

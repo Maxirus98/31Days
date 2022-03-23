@@ -34,6 +34,9 @@ public class BleedDebuff : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Trigger to make the target bleed and take damage.
+    /// </summary>
     public void StartBleeding()
     {
         if(!_particle.isPlaying)_particle.Play();
@@ -49,6 +52,10 @@ public class BleedDebuff : MonoBehaviour
         TimeStamp = Time.time + RepeatRate;
     }
 
+    /// <summary>
+    /// Coroutine to make the target stop bleeding after duration
+    /// </summary>
+    /// <returns>IEnumerator for Couroutine</returns>
     private IEnumerator StopBleeding()
     {
         yield return new WaitForSeconds(duration);

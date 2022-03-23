@@ -69,7 +69,8 @@ public class BoomerangSwordScript : MonoBehaviour
         if (!other.CompareTag("Enemy")) return;
         var enemy = other.GetComponent<CharacterCombat>();
         enemy.TakeDamage(boomerangSword.BaseDamage);
-        // Check in player memories
+        
+        // Check in player memories component if BleedMemory is chosen
         if (_bleed != null)
         {
             var bleedDebuff = AbilityUtils.FindDeepChild(BLEED_DEBUFF, enemy.transform);

@@ -1,4 +1,7 @@
-﻿public class RootedScript : DebuffScript
+﻿/// <summary>
+/// TODO: Change how debuffs work. Do not instantiate but instead ACTIVATE the Debuff
+/// </summary>
+public class RootedDebuff : Debuff
 {
     private CharacterStats _characterStats;
 
