@@ -18,7 +18,7 @@ public class Memory : MonoBehaviour
     /// <summary>
     /// Sprite show in the MemorySlot of the AmnesiaStore
     /// </summary>
-    [SerializeField] private Sprite _sprite;
+    public Sprite sprite;
 
     /// <summary>
     /// Title shown in the MemorySlot of the AmnesiaStore
@@ -50,7 +50,7 @@ public class Memory : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (_sprite == null || string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description))
+        if (sprite == null || string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description))
         {
             Debug.LogWarning($"Make sure that every properties of the memory {name} are initialized.");
         }

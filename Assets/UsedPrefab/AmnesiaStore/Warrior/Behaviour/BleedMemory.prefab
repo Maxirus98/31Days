@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b40a7a6199bc24c89c6ef8c8051ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: eefa0c368a46db94cbe12225b724a293, type: 3}
+  sprite: {fileID: 21300000, guid: eefa0c368a46db94cbe12225b724a293, type: 3}
   title: Bleed
   description: Bleed for 8 seconds
   index: 0
