@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class AmnesiaStoreGridManager : MonoBehaviour
 {
@@ -13,12 +15,22 @@ public class AmnesiaStoreGridManager : MonoBehaviour
     /// The list of memories on the current player
     /// </summary>
     private Memory[] _memoryList;
-
+    
     private void Start()
     {
         _memoryList = GameObject.FindWithTag("Player").GetComponent<Memories>().memories;
         _slots = new Transform[_memoryList.Length];
         FillGrid();
+    }
+    
+    public void OnPointerEnter(int index)
+    {
+        _slots[index].Find("Text").GetComponent<TextMeshProUGUI>().gameObject.SetActive(true);
+    }
+
+    public void OnPointerExit(int index)
+    {
+        _slots[index].Find("Text").GetComponent<TextMeshProUGUI>().gameObject.SetActive(false);
     }
 
     private void FillGrid()
@@ -28,9 +40,12 @@ public class AmnesiaStoreGridManager : MonoBehaviour
             var slot = transform.GetChild(i);
             var memory = _memoryList[i];
             slot.Find("SlotTitle").GetComponent<TextMeshProUGUI>().text = memory.title;
-            slot.Find("Text").GetComponent<TextMeshProUGUI>().text = memory.description;
-            slot.GetComponent<Image>().sprite = memory.sprite; 
+            var description = slot.Find("Text").GetComponent<TextMeshProUGUI>();
+            description.text = memory.description;
+            description.gameObject.SetActive(false);
+            slot.GetComponent<Image>().sprite = memory.sprite;
             _slots[memory.index] = slot;
+            
         }
     }
 }

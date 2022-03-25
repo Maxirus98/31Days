@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class OnHover : MonoBehaviour
+public class OnHoverSpells : MonoBehaviour
 {
     private GameObject _player;
     private Spells[] _spells;
