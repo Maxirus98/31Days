@@ -18,13 +18,6 @@ public class ChangeView : Interactable
         UpdateView();
     }
     
-    // Remove target here
-    public override void OnDefocused()
-    {
-        base.OnDefocused();
-        EnableMainCamera();
-    }
-
     private void UpdateView()
     {
         if (_camera == null)

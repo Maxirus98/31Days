@@ -96,7 +96,6 @@ public class MouseManager : MonoBehaviour
                         }
                         break;
                     default:
-                        Debug.Log($"{hit.collider.name} with tag {hit.collider.tag} does not have anything implemented on click");
                         SetFocus(null);
                         break;
                 }
