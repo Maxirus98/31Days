@@ -13,8 +13,8 @@ public class Memory : MonoBehaviour
         Buff,
         Spell,
     }
-    // TODO: Should I make it public or use getters and setters without using a property. I need it Serialized.
     
+    // TODO: Should I make it public or use getters and setters without using a property. I need it Serialized.
     /// <summary>
     /// Sprite show in the MemorySlot of the AmnesiaStore
     /// </summary>

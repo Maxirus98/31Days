@@ -2,6 +2,7 @@
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
+// TODO: Not just for abilities anymore, change name
 public class AbilityUtils
 {
     public static Transform FindDeepChild(string name, Transform parent)
@@ -26,5 +27,11 @@ public class AbilityUtils
         Vector3 direction = toPosition - fromPosition;
 
         return direction;
+    }
+    
+    public static void UpdateView(Camera currentCamera, Camera nextCamera)
+    {
+        currentCamera.enabled = false;
+        nextCamera.enabled = true;
     }
 }

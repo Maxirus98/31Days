@@ -15,26 +15,6 @@ public class ChangeView : Interactable
     public override void OnFocused()
     {
         base.OnFocused();
-        UpdateView();
-    }
-    
-    private void UpdateView()
-    {
-        if (_camera == null)
-        {
-            Debug.LogWarning($"No Camera to render." +
-                             $" This is probably due that you forgot to add it to the script ChangeView of {gameObject.name}" );
-        }
-        _playerCamera.enabled = false;
-        _camera.enabled = true;
-        print($"call {_playerCamera.enabled}");
-        print($"call {_camera.enabled}");
-
-    }
-    
-    private void EnableMainCamera()
-    {
-        _playerCamera.enabled = true;
-        _camera.enabled = false;
+        AbilityUtils.UpdateView(_playerCamera, _camera);
     }
 }
