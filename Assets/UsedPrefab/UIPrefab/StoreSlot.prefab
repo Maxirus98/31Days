@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 7424678014870605654}
   - component: {fileID: 5383472851173001345}
   - component: {fileID: 6945108570904298606}
+  - component: {fileID: 684498545945919794}
   m_Layer: 5
   m_Name: StoreSlot
   m_TagString: Untagged
@@ -313,6 +314,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 1
+--- !u!114 &684498545945919794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322799423774549554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87bdb8ae329ade4bbc36ebec8a8596d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9158991343114930793
 GameObject:
   m_ObjectHideFlags: 0
