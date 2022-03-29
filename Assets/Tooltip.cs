@@ -14,16 +14,20 @@ public class Tooltip : MonoBehaviour
     private RectTransform _rectTransform;
     private TextMeshProUGUI _tooltipText;
     private TextMeshProUGUI _tooltipTitle;
-    private RectTransform _backgroundRectTransform;
+    private RectTransform _tooltipRect;
     private Camera _playerCamera;
     
     protected  void Awake()
     {
         _instance = this;
-        _tooltipTitle = transform.Find(TOOLTIP_TITLE).GetComponent<TextMeshProUGUI>();
-        _tooltipText = transform.Find(TOOLTIP_TEXT).GetComponent<TextMeshProUGUI>();
+        
+        var tooltipTitle = transform.Find(TOOLTIP_TITLE);
+        var tooltipDescription = transform.Find(TOOLTIP_TEXT);
+        _tooltipTitle = tooltipTitle.GetComponent<TextMeshProUGUI>();
+        _tooltipText = tooltipDescription.GetComponent<TextMeshProUGUI>();
+        
+        _tooltipRect = GetComponent<RectTransform>();
         _rectTransform = transform.parent.GetComponent<RectTransform>();
-        _backgroundRectTransform = transform.Find(TOOLTIP_BACKGROUND).GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -54,7 +58,8 @@ public class Tooltip : MonoBehaviour
 
     private void MoveTooltipToMouse()
     {
-        var mousePosition = new Vector2(Input.mousePosition.x +_backgroundRectTransform.sizeDelta.x, Input.mousePosition.y);
+        var offsetX = _tooltipRect.sizeDelta.x / 2;
+        var mousePosition = new Vector2(Input.mousePosition.x + offsetX, Input.mousePosition.y);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, mousePosition, _playerCamera, out var localPoint);
         transform.localPosition = localPoint;
     }
@@ -65,14 +70,11 @@ public class Tooltip : MonoBehaviour
             return;
         _tooltipTitle.text = title;
         _tooltipText.text = description;
-        var textPaddingSize = 2f;
-        // TODO: Fix tooltip
-        var backgroundSize = new Vector2(_tooltipText.renderedWidth + textPaddingSize, _tooltipText.renderedWidth + textPaddingSize);
-        _backgroundRectTransform.sizeDelta = backgroundSize;
+
         gameObject.SetActive(true);
     }
 
-    private void Hide()
+    public void Hide()
     {
         gameObject.SetActive(false);
     }
