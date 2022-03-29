@@ -5,18 +5,25 @@ public class Tooltip : MonoBehaviour
 {
     #region string access region
     private readonly string TOOLTIP_BACKGROUND = "Background";
-    private readonly string TOOLTIP_TEXT = "Text";
+    private readonly string TOOLTIP_TITLE = "Title";
+    private readonly string TOOLTIP_TEXT = "Description";
     private readonly string PLAYER_CAMERA = "PlayerCamera";
     #endregion
-    
+
+    private static Tooltip _instance;
+    private RectTransform _rectTransform;
     private TextMeshProUGUI _tooltipText;
+    private TextMeshProUGUI _tooltipTitle;
     private RectTransform _backgroundRectTransform;
     private Camera _playerCamera;
     
-    protected void Awake()
+    protected  void Awake()
     {
-        _backgroundRectTransform = transform.Find(TOOLTIP_BACKGROUND).GetComponent<RectTransform>();
+        _instance = this;
+        _tooltipTitle = transform.Find(TOOLTIP_TITLE).GetComponent<TextMeshProUGUI>();
         _tooltipText = transform.Find(TOOLTIP_TEXT).GetComponent<TextMeshProUGUI>();
+        _rectTransform = transform.parent.GetComponent<RectTransform>();
+        _backgroundRectTransform = transform.Find(TOOLTIP_BACKGROUND).GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -29,23 +36,43 @@ public class Tooltip : MonoBehaviour
     {
         MoveTooltipToMouse();
     }
+    
+    /// <summary>
+    /// Static method of singleton Tooltip to show the tooltip with the correct content
+    /// </summary>
+    /// <param name="title">Header of the tooltip</param>
+    /// <param name="description">Content of the tooltip</param>
+    public static void ShowTooltip(string title, string description)
+    {
+        _instance.Show(title, description);
+    }
+    
+    public static void HideTooltip()
+    {
+        _instance.Hide();
+    }
 
     private void MoveTooltipToMouse()
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponent<RectTransform>(), Input.mousePosition, _playerCamera, out Vector2 localPoint);
+        var mousePosition = new Vector2(Input.mousePosition.x +_backgroundRectTransform.sizeDelta.x, Input.mousePosition.y);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, mousePosition, _playerCamera, out var localPoint);
         transform.localPosition = localPoint;
     }
 
-    public void Show(string content)
+    private void Show(string title, string description)
     {
-        _tooltipText.text = content;
+        if (string.IsNullOrEmpty(description))
+            return;
+        _tooltipTitle.text = title;
+        _tooltipText.text = description;
         var textPaddingSize = 2f;
-        Vector2 backgroundSize = new Vector2(_tooltipText.preferredWidth + textPaddingSize, _tooltipText.preferredHeight + textPaddingSize);
+        // TODO: Fix tooltip
+        var backgroundSize = new Vector2(_tooltipText.renderedWidth + textPaddingSize, _tooltipText.renderedWidth + textPaddingSize);
         _backgroundRectTransform.sizeDelta = backgroundSize;
         gameObject.SetActive(true);
     }
-    
-    public void Hide()
+
+    private void Hide()
     {
         gameObject.SetActive(false);
     }

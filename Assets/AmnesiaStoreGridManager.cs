@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 public class AmnesiaStoreGridManager : MonoBehaviour
@@ -79,9 +81,18 @@ public class AmnesiaStoreGridManager : MonoBehaviour
             var memory = _temporarySelectedMemories[i];
             Debug.Log($"Applied {memory.title}");
             memory.isChosen = true;
+            
+            // Set the image of the memories
             var image = _chosenMemoriesToDisplay[i];
             image.sprite = memory.sprite;
             image.color = new Color(255f, 255f, 255f, 255f);
+            
+            // Set the PointerEventEnter text of the memories
+            var enter = image.GetComponent<EventTrigger>();
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener( (_) => { Tooltip.ShowTooltip(memory.title, memory.description); } );
+            enter.triggers.Add(entry);
         }
         _temporarySelectedMemories.Clear();
         AbilityUtils.UpdateView(_storeCamera, _playerCamera);
