@@ -58,7 +58,8 @@ public class Tooltip : MonoBehaviour
 
     private void MoveTooltipToMouse()
     {
-        var offsetX = _tooltipRect.sizeDelta.x / 2;
+        var cursorSize = 16;
+        var offsetX = _tooltipRect.sizeDelta.x / 2 + cursorSize;
         var mousePosition = new Vector2(Input.mousePosition.x + offsetX, Input.mousePosition.y);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, mousePosition, _playerCamera, out var localPoint);
         transform.localPosition = localPoint;
