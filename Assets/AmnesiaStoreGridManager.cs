@@ -16,7 +16,7 @@ public class AmnesiaStoreGridManager : MonoBehaviour
     /// <summary>
     /// The list of memories on the current player
     /// </summary>
-    private Memory[] _memories;
+    private Memories _memories;
 
     /// <summary>
     /// Memories selected before hitting the Apply button.
@@ -46,18 +46,23 @@ public class AmnesiaStoreGridManager : MonoBehaviour
     
     private void Start()
     {
-        _memories = GameObject.FindWithTag(PLAYER_TAG).GetComponent<Memories>().memories;
-        Debug.Log($"The player has {_memories.Length} memories don't worry if some behaviour are not implemented onEvent!");
-        _slots = new Transform[_memories.Length];
+        _memories = GameObject.FindWithTag(PLAYER_TAG).GetComponent<Memories>();
+        Debug.Log($"The player has {_memories.memories.Length} memories don't worry if some behaviour are not implemented onEvent!");
+        _slots = new Transform[_memories.memories.Length];
         _chosenMemoriesToDisplay = GameObject.Find(DISPLAYED_MEMORIES).GetComponentsInChildren<Image>();
         _storeCamera = GameObject.Find(STORE_CAMERA).GetComponent<Camera>();
         _playerCamera = GameObject.Find(PLAYER_CAMERA).GetComponent<Camera>();
         FillGrid();
     }
 
+    /// <summary>
+    /// Select memories on click
+    /// </summary>
+    /// <param name="index">The index in the Memory tree</param>
     public void onClick(int index)
     {
-        var selectedMemory = _memories[index];
+        // TODO: If same Row, unselect the other
+        var selectedMemory = _memories.memories[index];
         if (!_temporarySelectedMemories.Contains(selectedMemory))
         {
             _temporarySelectedMemories.Add(selectedMemory);
@@ -79,8 +84,6 @@ public class AmnesiaStoreGridManager : MonoBehaviour
         for (int i = 0; i < _temporarySelectedMemories.Count; i++)
         {
             var memory = _temporarySelectedMemories[i];
-            Debug.Log($"Applied {memory.title}");
-            memory.isChosen = true;
             
             // Set the image of the memories
             var image = _chosenMemoriesToDisplay[i];
@@ -94,6 +97,8 @@ public class AmnesiaStoreGridManager : MonoBehaviour
             entry.callback.AddListener( (_) => { Tooltip.ShowTooltip(memory.title, memory.description); } );
             enter.triggers.Add(entry);
         }
+        
+        _memories.chosenMemories = _temporarySelectedMemories;         
         _temporarySelectedMemories.Clear();
         AbilityUtils.UpdateView(_storeCamera, _playerCamera);
     }
@@ -134,10 +139,11 @@ public class AmnesiaStoreGridManager : MonoBehaviour
     // TODO: Refactor Long Method
     private void FillGrid()
     {
-        for(int i = 0; i < _memories.Length; i++)
+        var memories = _memories.memories;
+        for(int i = 0; i < memories.Length; i++)
         {
             var slot = transform.GetChild(i);
-            var memory = _memories[i];
+            var memory = memories[i];
             slot.Find("SlotTitle").GetComponent<TextMeshProUGUI>().text = memory.title;
             var description = slot.Find("Text").GetComponent<TextMeshProUGUI>();
             description.text = memory.description;

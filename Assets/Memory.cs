@@ -42,9 +42,4 @@ public class Memory : ScriptableObject
     /// Spell = to player, active: an action is needed to take effect. It's added to the ExtraBar.
     /// </summary>
     public MemoryType type;
-
-    /// <summary>
-    /// Check if the player bought that Memory in the AmnesiaStore
-    /// </summary>
-    public bool isChosen;
 }

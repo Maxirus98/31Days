@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -15,6 +17,7 @@ public class BoomerangSwordScript : MonoBehaviour
     private readonly float HIT_RADIUS = 1f;
     private readonly string PLAYER_TAG = "Player";
     private readonly string PLAYER_SWORD = "WarriorSword";
+    private readonly string BLEED_TITLE = "Bleed";
     
     private GameObject _player;
     private bool _isMoving;
@@ -35,7 +38,7 @@ public class BoomerangSwordScript : MonoBehaviour
         
         _sword.enabled = false;
         StartCoroutine(MoveSword());
-        _bleed = GetChosenMemoryByTitle("Bleed");
+        _bleed = Memories.GetChosenMemoryByTitle(BLEED_TITLE);
     }
 
     private void Update()
@@ -76,21 +79,6 @@ public class BoomerangSwordScript : MonoBehaviour
             var bleedDebuff = AbilityUtils.FindDeepChild(BLEED_DEBUFF, enemy.transform);
             if(bleedDebuff)bleedDebuff.GetComponent<BleedDebuff>().StartBleeding();
         }
-    }
-    
-    // TODO: Refactor if needed elsewhere
-    private Memory GetChosenMemoryByTitle(string title)
-    {
-        var memories = _player.GetComponent<Memories>().memories;
-        foreach (var memory in memories)
-        {
-            if (memory.isChosen && memory.title.Equals(title))
-            {
-                return memory;
-            }
-        }
-
-        return null;
     }
 
     private void OnDrawGizmos()
