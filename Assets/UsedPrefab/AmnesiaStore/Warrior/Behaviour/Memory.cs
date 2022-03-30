@@ -5,7 +5,8 @@
 /// They only describe what it does.
 /// Can be of type MemoryType
 /// </summary>
-public class Memory : MonoBehaviour
+[CreateAssetMenu(fileName = "New Memory", menuName = "Create a Memory")]
+public class Memory : ScriptableObject
 {
     public enum MemoryType
     {
@@ -14,7 +15,6 @@ public class Memory : MonoBehaviour
         Spell,
     }
     
-    // TODO: Should I make it public or use getters and setters without using a property. I need it Serialized.
     /// <summary>
     /// Sprite show in the MemorySlot of the AmnesiaStore
     /// </summary>
@@ -47,12 +47,4 @@ public class Memory : MonoBehaviour
     /// Check if the player bought that Memory in the AmnesiaStore
     /// </summary>
     public bool isChosen;
-
-    protected virtual void Start()
-    {
-        if (sprite == null || string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description))
-        {
-            Debug.LogWarning($"Make sure that every properties of the memory {name} are initialized.");
-        }
-    }
 }
