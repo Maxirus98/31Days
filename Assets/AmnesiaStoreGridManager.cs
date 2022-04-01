@@ -96,9 +96,9 @@ public class AmnesiaStoreGridManager : MonoBehaviour
             entry.eventID = EventTriggerType.PointerEnter;
             entry.callback.AddListener( (_) => { Tooltip.ShowTooltip(memory.title, memory.description); } );
             enter.triggers.Add(entry);
+            _memories.chosenMemories.Add(_temporarySelectedMemories[i]);
         }
         
-        _memories.chosenMemories = _temporarySelectedMemories;         
         _temporarySelectedMemories.Clear();
         AbilityUtils.UpdateView(_storeCamera, _playerCamera);
     }

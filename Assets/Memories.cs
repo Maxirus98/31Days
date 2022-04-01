@@ -13,7 +13,7 @@ public class Memories : MonoBehaviour
     /// <summary>
     /// List of memories applied to the player.
     /// </summary>
-    public List<Memory> chosenMemories;
+    public List<Memory> chosenMemories = new List<Memory>();
 
     private void Start()
     {
