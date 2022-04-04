@@ -11,6 +11,7 @@ public class HammerOfJusticeScript : MonoBehaviour
     [SerializeField] private float yawSpeed = 1000f;
     [SerializeField] private float damage = 100f;
     [SerializeField] private float stunPercentage = 0.1f;
+    [SerializeField] private float duration = 5f;
 
     private Transform _player;
     private float _timer;
@@ -18,6 +19,7 @@ public class HammerOfJusticeScript : MonoBehaviour
     private void Start()
     {
         _player = transform.parent;
+        Invoke(nameof(Desactivate), duration);
     }
 
     private void Update()
@@ -26,6 +28,11 @@ public class HammerOfJusticeScript : MonoBehaviour
         Swivel();
     }
 
+    private void Desactivate()
+    {
+        gameObject.SetActive(false);
+    }
+    
     private void OrbitAround()
     {
         _timer += Time.deltaTime * orbitalSpeed;
@@ -37,6 +44,6 @@ public class HammerOfJusticeScript : MonoBehaviour
 
     private void Swivel()
     {
-        transform.Rotate(Vector3.up *  yawSpeed * Time.deltaTime, Space.World);
+        transform.Rotate(Vector3.up * yawSpeed * Time.deltaTime, Space.World);
     }
 }

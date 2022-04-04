@@ -77357,6 +77357,7 @@ GameObject:
   - component: {fileID: 6698702507565572033}
   - component: {fileID: 1068645061629048139}
   - component: {fileID: 6440541421942666727}
+  - component: {fileID: 958225650889088290}
   m_Layer: 2
   m_Name: Mage
   m_TagString: Player
@@ -77478,6 +77479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1678f6157d3b84981c6ba7951a24f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellSlot: 5
   cooldown: 0
   hitRadius: 1
   enemyLayers:
@@ -77485,7 +77487,6 @@ MonoBehaviour:
     m_Bits: 256
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 0}
-  spellSlot: 5
   damageSender: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee,
     type: 3}
   explosion: {fileID: 1809022330002312, guid: ad2d4bd2648087f46bb6e37ab9bb7a2b, type: 3}
@@ -77501,6 +77502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b68786dbd63ae149b70b045a2004cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellSlot: 0
   cooldown: 0
   hitRadius: 1
   enemyLayers:
@@ -77508,7 +77510,6 @@ MonoBehaviour:
     m_Bits: 0
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 21300000, guid: 020cda17be6444b4ea8a87875a422daf, type: 3}
-  spellSlot: 0
   channelingFire: {fileID: 1293375810718194, guid: 0e27717049f50724ba2034b0b77ab444,
     type: 3}
 --- !u!114 &1297613406519114039
@@ -77523,6 +77524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a74364cf6361944b280ab6b6b09b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellSlot: 2
   cooldown: 0
   hitRadius: 1
   enemyLayers:
@@ -77530,7 +77532,6 @@ MonoBehaviour:
     m_Bits: 0
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 21300000, guid: 9349686e715f5a44e934127f834cde0e, type: 3}
-  spellSlot: 2
   spawnArea: {fileID: 0}
   tornado: {fileID: 1858714725665292, guid: f2d2eb5e2dcf3744095b7caf76d344dc, type: 3}
   spawn: {fileID: 1096038273005124, guid: 5cabce0a1911b5c44aeeeb03c087c0a0, type: 3}
@@ -77546,6 +77547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6c4ac63a2b44642bfcbda9d29d4087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellSlot: 1
   cooldown: 0
   hitRadius: 1
   enemyLayers:
@@ -77553,7 +77555,6 @@ MonoBehaviour:
     m_Bits: 0
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 21300000, guid: 568eff53b11390440bcad05454d51e81, type: 3}
-  spellSlot: 1
   _initialSummon: {fileID: 4060939980105884499, guid: 10fc260457d86684bb2e5798323873cd,
     type: 3}
 --- !u!114 &6698702507565572033
@@ -77568,6 +77569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168aaa89ca71bbc43af353eb35adb3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellSlot: 3
   cooldown: 0
   hitRadius: 1
   enemyLayers:
@@ -77575,7 +77577,6 @@ MonoBehaviour:
     m_Bits: 0
   _playerAnimator: {fileID: 0}
   sprite: {fileID: 21300000, guid: 783823c842ba6f044a80c52a6295d6a2, type: 3}
-  spellSlot: 3
   voidMaterial: {fileID: 2100000, guid: 3074202733f4d804c833795ed40f1824, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 068b891fe967b1c45850c97d1092abe0, type: 2}
   initialAutoAttack: {fileID: 1677232327238848, guid: db3d8b401c15d894d97fc7b9910ae2ee,
@@ -77622,6 +77623,23 @@ MonoBehaviour:
   onCombatStateChangeHandler:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &958225650889088290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930578967618458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f892cb38927fe4b44ac8d4c8098d6d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memories:
+  - {fileID: 11400000, guid: 9b784802768d1664caba6fe8e664ad28, type: 2}
+  - {fileID: 11400000, guid: 4e71b21ea77e6be4e88948d4e0cf499a, type: 2}
+  - {fileID: 11400000, guid: c912c6f9fd362574e9dd6a184b7050b8, type: 2}
+  chosenMemories: []
 --- !u!1 &1931926986896276
 GameObject:
   m_ObjectHideFlags: 0

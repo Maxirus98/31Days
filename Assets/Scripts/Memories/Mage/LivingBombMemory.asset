@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b40a7a6199bc24c89c6ef8c8051ed6, type: 3}
+  m_Name: LivingBombMemory
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 89cf31c4caf79014fb3c06f7f2b94b72, type: 3}
+  title: Fire Bomb
+  description: Your channeling fire applies a fire bomb dealing damage over the duration
+    and exploding after.
+  index: 0
+  type: 0

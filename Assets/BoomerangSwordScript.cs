@@ -13,17 +13,22 @@ public class BoomerangSwordScript : MonoBehaviour
     
     [SerializeField] private LayerMask enemyLayers;
     
+    // Memories
     private readonly string BLEED_DEBUFF = "BleedDebuff";
+    private readonly string BLEED_TITLE = "Bleed";
+    private readonly string JUSTICE_BUFF = "HammerOfJustice";
+    private readonly string JUSTICE_TITLE = "Hammer Of Justice";
+    
     private readonly float HIT_RADIUS = 1f;
     private readonly string PLAYER_TAG = "Player";
     private readonly string PLAYER_SWORD = "WarriorSword";
-    private readonly string BLEED_TITLE = "Bleed";
     
     private GameObject _player;
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
     private Memory _bleed;
+    private Memory _justice;
 
     private void Start()
     {
@@ -39,6 +44,7 @@ public class BoomerangSwordScript : MonoBehaviour
         _sword.enabled = false;
         StartCoroutine(MoveSword());
         _bleed = Memories.GetChosenMemoryByTitle(BLEED_TITLE);
+        _justice = Memories.GetChosenMemoryByTitle(JUSTICE_TITLE);
     }
 
     private void Update()
