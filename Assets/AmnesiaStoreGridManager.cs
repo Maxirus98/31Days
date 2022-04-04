@@ -109,8 +109,6 @@ public class AmnesiaStoreGridManager : MonoBehaviour
     /// </summary>
     public void OnClose()
     {
-        if (_temporarySelectedMemories.Count == 0)
-            return;
         Debug.Log($"{_temporarySelectedMemories.Count} memories were not applied.");
         _temporarySelectedMemories.Clear();
         AbilityUtils.UpdateView(_storeCamera, _playerCamera);

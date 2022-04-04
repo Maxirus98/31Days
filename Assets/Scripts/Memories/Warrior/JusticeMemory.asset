@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: c0b48fd129df81f46903f9766253c73f, type: 3}
   title: Hammer Of Justice
-  description: Boomerang Sword spawns hammers that orbit around the player, dealing
-    damage when near enemies. Every hit, has a 10% chance to stun the enemy.
+  description: Boomerang Sword spawns a hammer that stuns enemies nearby and deals
+    damage.
   index: 1
   type: 1
-  isChosen: 0

@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEditor.Timeline;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // TODO: Make parent class Buff
 // On GameObject HammerOfJustice
@@ -19,7 +17,6 @@ public class HammerOfJusticeScript : MonoBehaviour
     private void Start()
     {
         _player = transform.parent;
-        Invoke(nameof(Desactivate), duration);
     }
 
     private void Update()
@@ -28,11 +25,6 @@ public class HammerOfJusticeScript : MonoBehaviour
         Swivel();
     }
 
-    private void Desactivate()
-    {
-        gameObject.SetActive(false);
-    }
-    
     private void OrbitAround()
     {
         _timer += Time.deltaTime * orbitalSpeed;

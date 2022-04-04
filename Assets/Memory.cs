@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// The difference between a Spell and a Memory is that Memories are inside the Amnesia Store.

@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -29,6 +29,7 @@ public class BoomerangSwordScript : MonoBehaviour
     private MeshRenderer _sword;
     private Memory _bleed;
     private Memory _justice;
+    private GameObject _hammerOfJustice;
 
     private void Start()
     {
@@ -45,6 +46,12 @@ public class BoomerangSwordScript : MonoBehaviour
         StartCoroutine(MoveSword());
         _bleed = Memories.GetChosenMemoryByTitle(BLEED_TITLE);
         _justice = Memories.GetChosenMemoryByTitle(JUSTICE_TITLE);
+        if (_justice != null)
+        {
+            _hammerOfJustice = BuffsParent.Buffs.First(go => go.name.Equals(JUSTICE_BUFF));
+            _hammerOfJustice.SetActive(true);
+            print("ACTIVE");
+        }
     }
 
     private void Update()
@@ -85,6 +92,11 @@ public class BoomerangSwordScript : MonoBehaviour
             var bleedDebuff = AbilityUtils.FindDeepChild(BLEED_DEBUFF, enemy.transform);
             if(bleedDebuff)bleedDebuff.GetComponent<BleedDebuff>().StartBleeding();
         }
+    }
+
+    private void OnDestroy()
+    {
+        _hammerOfJustice.SetActive(false);
     }
 
     private void OnDrawGizmos()
