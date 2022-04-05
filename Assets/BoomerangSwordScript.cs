@@ -27,16 +27,16 @@ public class BoomerangSwordScript : MonoBehaviour
     private bool _isMoving;
     private Vector3 _locationInFrontOfPlayer;
     private MeshRenderer _sword;
+    
     private Memory _bleed;
     private Memory _justice;
     private GameObject _hammerOfJustice;
 
     private void Start()
     {
-        _isMoving = false;
         _player = GameObject.FindWithTag(PLAYER_TAG);
         boomerangSword = _player.GetComponent<BoomerangSword>();
-
+        _isMoving = false;
         _locationInFrontOfPlayer = _player.transform.position + Vector3.up +
                                    _player.transform.forward * (boomerangSword.indicator.transform.localScale.z + 2f);
 

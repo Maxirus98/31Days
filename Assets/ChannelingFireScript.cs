@@ -14,6 +14,7 @@ public class ChannelingFireScript : MonoBehaviour
     {
         _player = GameObject.FindWithTag("Player");
         _channelingFire = _player.GetComponent<ChannelingFire>();
+        // TODO: Check on that if it takes time to activate the damage?
         Timestamp = _channelingFire.DAMAGE_INTERVAL;
     }
 

@@ -21,9 +21,10 @@ public class Spells : MonoBehaviour
     
     protected Animator animator;
     protected CharacterCombat CharacterCombat;
+    protected GameObject spellBar;
     [SerializeField] protected LayerMask enemyLayers;
     [SerializeField] protected PlayerAnimator _playerAnimator;
-    [SerializeField] private Sprite sprite;
+    [SerializeField] protected Sprite sprite;
     
     
     protected virtual void Start()
@@ -39,7 +40,7 @@ public class Spells : MonoBehaviour
     private IEnumerator initSpellUi()
     {
         yield return new WaitForSeconds(1f);
-        var spellBar = GameObject.Find("/HUD/Spellbar");
+        spellBar = GameObject.Find("/HUD/Spellbar");
         if (sprite != null)
         {
             spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;

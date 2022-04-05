@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &452112
 Transform:
   m_ObjectHideFlags: 0
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd733d4f58795a44bc5ef0e943790ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boomerangSword: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256

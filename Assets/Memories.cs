@@ -20,6 +20,11 @@ public class Memories : MonoBehaviour
         _instance = this;
     }
 
+    /// <summary>
+    /// Return the memory if found by title
+    /// </summary>
+    /// <param name="title">Memory title ex: Bleed</param>
+    /// <returns>Memory</returns>
     public static Memory GetChosenMemoryByTitle(string title)
     {
         return _instance.GetChosenMemory(title);

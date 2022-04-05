@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class BoomerangSword : ThrowSpells
 {
     public GameObject indicator;
+
+    private readonly string BLADESTORM_TITLE = "Bladestorm";
     private GameObject _cloneIndicator;
     private GameObject _cloneSword;
     private Transform _playerTransform;
     private Vector3 _targetPos;
     private Vector3 _initPos;
+
+    private Memory _bladestorm;
+    private GameObject _bladestormGo;
     
     private void Awake()
     {
@@ -23,9 +30,20 @@ public class BoomerangSword : ThrowSpells
     
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !_cloneIndicator)
+        // if Memory : Bladestorm is not selected
+        if (_bladestorm == null)
         {
-            SpawnIndicator();
+            _bladestorm = Memories.GetChosenMemoryByTitle(BLADESTORM_TITLE);
+            _bladestormGo = AbilityUtils.FindDeepChild(BLADESTORM_TITLE, transform).gameObject;
+            _bladestormGo.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.Alpha1) && !_cloneIndicator)
+            {
+                SpawnIndicator();
+            }
+        }
+        else
+        {
+            StartCoroutine(Bladestorm());
         }
 
         if (Time.time > Timestamp && _cloneIndicator && Input.GetMouseButton(0))
@@ -69,5 +87,27 @@ public class BoomerangSword : ThrowSpells
         _playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(0.1f);
         _playerAnimator.StopAnimatingSpell(Name);
+    }
+
+    // if Memory: Bladestorm is selected
+    // TODO: Memory checked, gameobject with script that checks if the memory is selected.
+    private IEnumerator Bladestorm()
+    {
+        if (sprite != _bladestorm.sprite)
+        {
+            print("changed SPRITE TO BLADESTORM");
+            spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = _bladestorm.sprite;
+            sprite = _bladestorm.sprite;
+            Description = _bladestorm.description;
+            Name = _bladestorm.title;
+            cooldown = 5f;
+        }
+
+        if (!(Time.time > Timestamp) || !Input.GetKeyDown(KeyCode.Alpha1)) yield break;
+        _bladestormGo.SetActive(true);
+        _playerAnimator.AnimateSpell(BLADESTORM_TITLE);
+        yield return new WaitForSeconds(cooldown);
+        _playerAnimator.StopAnimatingSpell(BLADESTORM_TITLE);
+        _bladestormGo.SetActive(false);
     }
 }
