@@ -91,6 +91,7 @@ public class BoomerangSword : ThrowSpells
 
     // if Memory: Bladestorm is selected
     // TODO: Memory checked, gameobject with script that checks if the memory is selected.
+    // TODO: Spells are strongly coupled when they need to interact with each other, find a way to make it easier to change spells
     private IEnumerator Bladestorm()
     {
         if (sprite != _bladestorm.sprite)

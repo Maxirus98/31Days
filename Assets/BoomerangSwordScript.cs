@@ -50,7 +50,6 @@ public class BoomerangSwordScript : MonoBehaviour
         {
             _hammerOfJustice = BuffsParent.Buffs.First(go => go.name.Equals(JUSTICE_BUFF));
             _hammerOfJustice.SetActive(true);
-            print("ACTIVE");
         }
     }
 
@@ -92,11 +91,6 @@ public class BoomerangSwordScript : MonoBehaviour
             var bleedDebuff = AbilityUtils.FindDeepChild(BLEED_DEBUFF, enemy.transform);
             if(bleedDebuff)bleedDebuff.GetComponent<BleedDebuff>().StartBleeding();
         }
-    }
-
-    private void OnDestroy()
-    {
-        _hammerOfJustice.SetActive(false);
     }
 
     private void OnDrawGizmos()
