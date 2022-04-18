@@ -21,6 +21,8 @@ public class EnemyCombat : CharacterCombat
     private float _overlappingCooldown = 5f;
     [SerializeField] private LayerMask attackableLayer;
     private bool _isOverlapped;
+    
+    private CombatUiScript _combatUiScript;
 
     protected override void Start()
     {
@@ -32,6 +34,7 @@ public class EnemyCombat : CharacterCombat
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _player = GameObject.FindWithTag("Player");
         _playerCombat = _player.GetComponent<CharacterCombat>();
+        _combatUiScript = AbilityUtils.FindDeepChild("DamageTextContainer", transform).GetComponent<CombatUiScript>();
     }
 
     protected void Update()
@@ -82,7 +85,8 @@ public class EnemyCombat : CharacterCombat
     {
         var direction = _player.transform.position - transform.position;
         direction.Normalize();
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), _slerpSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
+            _slerpSpeed * Time.deltaTime);
     }
 
     // TODO: If was attacked or player nearby
@@ -96,7 +100,12 @@ public class EnemyCombat : CharacterCombat
         }
     }
 
-    
+    public override float TakeDamage(float pDamage)
+    {
+        var damageDone = base.TakeDamage(pDamage);
+        _combatUiScript.PrintDamage(damageDone);
+        return damageDone;
+    }
 
     private IEnumerator AttackPlayer()
     {

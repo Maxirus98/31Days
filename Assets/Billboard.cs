@@ -10,7 +10,7 @@ public class Billboard : MonoBehaviour
         _camera = GameObject.Find("PlayerCamera").GetComponent<Camera>();
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         // Take current position and go 1 unit in the direction the camera is currently facing
         // Standard billboard script

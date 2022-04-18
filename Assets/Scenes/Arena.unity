@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.58056706, g: 0.36767623, b: 0.098205306, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -447,6 +447,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630529449583768828, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3630529449583770198, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
@@ -1154,6 +1159,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3630529449583768828, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3630529449583770198, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
       propertyPath: m_Layer
@@ -1417,15 +1427,20 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1067413713}
+    - target: {fileID: 3420734526624483438, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3420734526624483439, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 3420734526624483439, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 3420734526624483439, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
@@ -2300,6 +2315,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3630529449583768828, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3630529449583770198, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
       propertyPath: m_Layer
@@ -3150,7 +3170,7 @@ PrefabInstance:
     - target: {fileID: 4225369062156729654, guid: 292f796210597404b986ab7676ebe1ca,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6779818980131826840, guid: 292f796210597404b986ab7676ebe1ca,
         type: 3}
@@ -7739,6 +7759,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3630529449583768828, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3630529449583770198, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}
       propertyPath: m_Layer
@@ -8444,6 +8469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630529449583768828, guid: 747ab46216b0b324a91637908a3b56f8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3630529449583770198, guid: 747ab46216b0b324a91637908a3b56f8,
         type: 3}

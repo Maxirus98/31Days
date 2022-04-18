@@ -52,7 +52,7 @@ public class CharacterCombat : MonoBehaviour
         onCombatStateChangeHandler.Invoke(characterCombatState);
     }
     
-    public void TakeDamage(float damage)
+    public virtual float TakeDamage(float damage)
     {
         var damageDone = damage / CharacterStats.defense;
         CharacterStats.health -= damageDone;
@@ -62,11 +62,14 @@ public class CharacterCombat : MonoBehaviour
             Debug.Log($"{gameObject.name} took {damageDone} damage.");
             UpdateCharacterCombatState(CharacterCombatState.InCombat);
         }
+        
         healthbarScript.SetHealth(CharacterStats.health);
         if (CharacterStats.health <= 0)
         {
             OnDeathCallback.Invoke();
         }
+
+        return damageDone;
     }
     
     public void TakeDamageNoAnimation(float damage)
