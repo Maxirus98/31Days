@@ -39,7 +39,8 @@ public class BleedDebuff : MonoBehaviour
     /// </summary>
     public void StartBleeding()
     {
-        if(!_particle.isPlaying)_particle.Play();
+        if(_particle.isPlaying)_particle.Stop();
+        _particle.Play();
         IsBleeding = true;
     }
 

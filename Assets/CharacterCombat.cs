@@ -72,7 +72,7 @@ public class CharacterCombat : MonoBehaviour
         return damageDone;
     }
     
-    public void TakeDamageNoAnimation(float damage)
+    public virtual float TakeDamageNoAnimation(float damage)
     {
         var damageDone = damage / CharacterStats.defense;
         CharacterStats.health -= damageDone;
@@ -85,6 +85,8 @@ public class CharacterCombat : MonoBehaviour
         {
             OnDeathCallback.Invoke();
         }
+        
+        return damageDone;
     }
 
     protected virtual void Die()

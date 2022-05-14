@@ -1,21 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Add the current camera to the canvas component
+/// This Script is on the AmnesiaStoreUI GameObject 
+/// </summary>
+[RequireComponent(typeof(Canvas))]
 public class ToggleCanvas : MonoBehaviour
 {
     private Canvas _canvas;
     private Camera _camera;
-    void Start()
+    
+    private void Start()
     {
         _canvas = GetComponent<Canvas>();
         _camera = _canvas.worldCamera;
     }
 
-    void Update()
+    private void Update()
     {
         // TODO: Refactor for an event instead of in the Update method?
-        // Activate the canvas only when the camera is on.
         _canvas.enabled = _camera.isActiveAndEnabled;
     }
 }

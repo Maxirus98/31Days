@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class BladestormScript : MonoBehaviour
 {
-    private readonly string ENEMY_TAG = "Enemy";
-    private readonly float _repeatRate = 0.8f;
-    
     [SerializeField]private List<Collider> _collidersCollidedWith = new List<Collider>();
+
+    private readonly string ENEMY_TAG = "Enemy";
+    private readonly float REPEAT_RATE = 0.5f;
     private BoomerangSword _boomerangSword;
     private float Timestamp { get; set; }
     
-
     private void Start()
     {
         _boomerangSword = GetComponentInParent<BoomerangSword>();
@@ -27,15 +26,15 @@ public class BladestormScript : MonoBehaviour
     
     private void DamageEnemies()
     {
-        Timestamp = Time.time + _repeatRate;
-        foreach (var collider in  _collidersCollidedWith)
+        Timestamp = Time.time + REPEAT_RATE;
+        foreach (var enemy in  _collidersCollidedWith)
         {
-            if (collider == null)
+            if (enemy == null)
             {
-                _collidersCollidedWith.Remove(collider);
+                _collidersCollidedWith.Remove(enemy);
             }
-            var enemy = collider.GetComponent<CharacterCombat>();
-            enemy.TakeDamage(_boomerangSword.BaseDamage);
+            var enemyCombat = enemy.GetComponent<CharacterCombat>();
+            enemyCombat.TakeDamage(_boomerangSword.BaseDamage);
         }
     }
 

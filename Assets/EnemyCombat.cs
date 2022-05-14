@@ -106,6 +106,13 @@ public class EnemyCombat : CharacterCombat
         _combatUiScript.PrintDamage(damageDone);
         return damageDone;
     }
+    
+    public override float TakeDamageNoAnimation(float pDamage)
+    {
+        var damageDone = base.TakeDamage(pDamage);
+        _combatUiScript.PrintDamage(damageDone);
+        return damageDone;
+    }
 
     private IEnumerator AttackPlayer()
     {

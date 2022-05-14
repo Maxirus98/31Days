@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 public class AmnesiaStoreGridManager : MonoBehaviour
@@ -32,15 +31,7 @@ public class AmnesiaStoreGridManager : MonoBehaviour
     /// Selected memories to display.
     /// </summary>
     private Image[] _chosenMemoriesToDisplay;
-
-    /// <summary>
-    /// PlayerCamera
-    /// </summary>
     private Camera _playerCamera;
-    
-    /// <summary>
-    /// 
-    /// </summary>
     private Camera _storeCamera;
     #endregion
     

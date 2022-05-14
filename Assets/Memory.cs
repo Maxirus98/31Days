@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// The difference between a Spell and a Memory is that Memories are inside the Amnesia Store.
-/// They only describe what it does.
+/// They only hold data
 /// Can be of type MemoryType
 /// </summary>
 [CreateAssetMenu(fileName = "New Memory", menuName = "Create a Memory")]

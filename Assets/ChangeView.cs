@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Class to Render the AmnesiaStore Camera instead of the PlayerCamera
+/// </summary>
 public class ChangeView : Interactable
 {
     [SerializeField] private Camera _camera;
@@ -13,7 +16,6 @@ public class ChangeView : Interactable
         _playerCamera = GameObject.Find(PLAYER_CAMERA).GetComponent<Camera>();
     }
     
-    // Set Target here
     public override void OnFocused()
     {
         base.OnFocused();
