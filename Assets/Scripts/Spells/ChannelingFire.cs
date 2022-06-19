@@ -51,9 +51,9 @@ public class ChannelingFire : Spells
     
     protected override IEnumerator AnimatePlayer()
     {
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(Duration + CastTime);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     private void CastChannelingFire()
@@ -66,7 +66,7 @@ public class ChannelingFire : Spells
 
     private void CancelChannelingFire()
     {
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
         Reset();
         if(_cloneChannelingFire) Destroy(_cloneChannelingFire);
     }

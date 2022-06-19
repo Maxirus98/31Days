@@ -70,9 +70,9 @@ public class SurrenderToTheVoid : Spells
 
     protected override IEnumerator AnimatePlayer()
     {
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(0.1f);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     private void BuffAutoAttack()

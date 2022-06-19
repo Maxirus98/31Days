@@ -50,9 +50,9 @@ public class Growth : Spells
     protected override IEnumerator AnimatePlayer()
     {
         Debug.Log("animate player with spellName" + Name);
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(0.1f);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     private void Buff()

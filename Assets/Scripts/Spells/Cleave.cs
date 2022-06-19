@@ -37,13 +37,13 @@ public class Cleave : ThrowSpells
     protected override IEnumerator DoSpell()
     {
         Timestamp = Time.time + cooldown;
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         SpawnShadowWarrior();
         SpawnCleave();
         Invoke(nameof(StopSpreading), Duration);
         if(!_cleaveEffect.isPlaying)_cleaveEffect.Play(false);
         yield return  new WaitForSeconds(0.1f);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     private void SpawnShadowWarrior()

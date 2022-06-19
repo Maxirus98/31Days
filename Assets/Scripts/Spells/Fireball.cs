@@ -48,15 +48,15 @@ public class Fireball : AutoTargetSpell
         }
         else
         {
-            _playerAnimator.StopAnimatingSpell(Name);
+            playerAnimator.StopAnimatingSpell(Name);
         }
     }
 
     protected override IEnumerator AnimatePlayer()
     {
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(0.5f);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     private float GetAnimationClipLength()

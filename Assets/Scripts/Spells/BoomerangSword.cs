@@ -84,9 +84,9 @@ public class BoomerangSword : ThrowSpells
     protected override IEnumerator AnimatePlayer()
     {
         Debug.Log("animate player with spellName" + Name);
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(0.1f);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     // if Memory: Bladestorm is selected
@@ -104,9 +104,9 @@ public class BoomerangSword : ThrowSpells
 
         if (!(Time.time > Timestamp) || !Input.GetKeyDown(KeyCode.Alpha1)) yield break;
         _bladestormGo.SetActive(true);
-        _playerAnimator.AnimateSpell(BLADESTORM_TITLE);
+        playerAnimator.AnimateSpell(BLADESTORM_TITLE);
         yield return new WaitForSeconds(cooldown);
-        _playerAnimator.StopAnimatingSpell(BLADESTORM_TITLE);
+        playerAnimator.StopAnimatingSpell(BLADESTORM_TITLE);
         _bladestormGo.SetActive(false);
     }
 }

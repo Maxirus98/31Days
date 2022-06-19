@@ -56,9 +56,9 @@ public class Tornado : SkillShotSpell
     
     protected override IEnumerator AnimatePlayer()
     {
-        _playerAnimator.AnimateSpell(Name);
+        playerAnimator.AnimateSpell(Name);
         yield return new WaitForSeconds(CastTime);
-        _playerAnimator.StopAnimatingSpell(Name);
+        playerAnimator.StopAnimatingSpell(Name);
     }
 
     private void InstantiateSpawnPoint()

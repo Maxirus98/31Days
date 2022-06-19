@@ -15,7 +15,7 @@ public class AutoAttack : AutoTargetSpell
         spellSlot = 5;
     }
 
-    private void Update()
+    private new void Update()
     {
         base.Update();
         if (Time.time > Timestamp)
@@ -32,9 +32,9 @@ public class AutoAttack : AutoTargetSpell
             CharacterCombat.onCombatStateChangeHandler.Invoke(CharacterCombatState.InCombat);
             cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
             DamageDid = false;
-            _playerAnimator.AnimateSpell(Name);
+            playerAnimator.AnimateSpell(Name);
             yield return new WaitForSeconds(0.1f);
-            _playerAnimator.StopAnimatingSpell(Name);
+            playerAnimator.StopAnimatingSpell(Name);
             attackCallback(CharacterCombatState.InCombat);
             
             // Warrior only - to refactor

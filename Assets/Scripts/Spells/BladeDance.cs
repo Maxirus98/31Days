@@ -60,9 +60,9 @@ public class BladeDance : AutoTargetSpell
             cloneDmgSender = Instantiate(damageSender, transform.position, Quaternion.identity);
             DamageDid = false;
             SpawnDaggers();
-            _playerAnimator.AnimateSpell(Name);
+            playerAnimator.AnimateSpell(Name);
             yield return new WaitForSeconds(0.1f);
-            _playerAnimator.StopAnimatingSpell(Name);
+            playerAnimator.StopAnimatingSpell(Name);
             attackCallback(CharacterCombatState.InCombat);
         }
     }

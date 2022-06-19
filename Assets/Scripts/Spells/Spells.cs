@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Spells : MonoBehaviour
 {
-    // The slot it will be placed into in the Spellbar UI.
+    /// <summary>
+    /// SpellBar Ui Slot Index
+    /// </summary>
     public int spellSlot;
     public delegate void AttackCallback(CharacterCombatState characterCombatState);
     public AttackCallback attackCallback;
@@ -19,32 +21,32 @@ public class Spells : MonoBehaviour
     public float Range { get; set; }
     public float hitRadius = 1f;
     
+    [SerializeField] protected LayerMask enemyLayers;
+    [SerializeField] protected PlayerAnimator playerAnimator;
+    [SerializeField] protected Sprite sprite;
+    
     protected Animator animator;
     protected CharacterCombat CharacterCombat;
     protected GameObject spellBar;
-    [SerializeField] protected LayerMask enemyLayers;
-    [SerializeField] protected PlayerAnimator _playerAnimator;
-    [SerializeField] protected Sprite sprite;
+    
     
     
     protected virtual void Start()
     {
         CharacterCombat = GetComponent<CharacterCombat>();
         attackCallback = CharacterCombat.UpdateCharacterCombatState;
-        _playerAnimator = GetComponent<PlayerAnimator>();
+        playerAnimator = GetComponent<PlayerAnimator>();
         animator = GetComponent<Animator>();
-        StartCoroutine(initSpellUi());
+        InitSpellUi();
     }
 
     // TODO: Refactor to find a better way than waiting on Start
-    private IEnumerator initSpellUi()
+    private void InitSpellUi()
     {
-        yield return new WaitForSeconds(1f);
+        if (sprite == null) return;
+
         spellBar = GameObject.Find("/HUD/Spellbar");
-        if (sprite != null)
-        {
-            spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;
-        }
+        spellBar.transform.GetChild(spellSlot).Find("BackgroundSprite").GetComponent<Image>().sprite = sprite;
     }
 
     protected virtual IEnumerator DoSpell()
@@ -59,6 +61,6 @@ public class Spells : MonoBehaviour
 
     protected void StopCurrentAnimation(string name)
     {
-        _playerAnimator.StopAnimatingSpell(name);
+        playerAnimator.StopAnimatingSpell(name);
     }
 }

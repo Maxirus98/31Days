@@ -11,7 +11,6 @@ public class AutoTargetSpell : Spells
     protected GameObject cloneDmgSender;
     protected bool DamageDid = false;
     
-    
     protected override void Start()
     {
         base.Start();
@@ -25,6 +24,12 @@ public class AutoTargetSpell : Spells
             SendDamage();
         }
     }
+    
+    public bool IsLookingAt(Transform target)
+    {
+        var dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
+        return dot > 0.7f;
+    }
 
     protected void SendDamage()
     {
@@ -37,12 +42,6 @@ public class AutoTargetSpell : Spells
         {
             DamageEnemiesHit();
         }
-    }
-
-    private  IEnumerator GetMouseManager()
-    {
-        yield return new WaitForSeconds(1);
-        MouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
     }
 
     protected bool IsEnemyInRange(float range)
@@ -60,13 +59,7 @@ public class AutoTargetSpell : Spells
         
         return false;
     }
-    
-    public bool IsLookingAt(Transform target)
-    {
-        float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-        return dot > 0.7f;
-    }
-    
+
     protected void DamageEnemiesHit()
     {
         int maxColliders = 1;
@@ -81,6 +74,12 @@ public class AutoTargetSpell : Spells
                 Destroy(cloneDmgSender, 0.2f);
             }
         }
+    }
+    
+    private  IEnumerator GetMouseManager()
+    {
+        yield return new WaitForSeconds(1);
+        MouseManager = GameObject.Find("MouseManager").GetComponent<MouseManager>();
     }
 
     private void OnDrawGizmos()

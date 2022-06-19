@@ -1,28 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyCombat : CharacterCombat
 {
     [SerializeField] private float damage;
-    private readonly float _detectionRadius = 6f;
-    private readonly float _attackDistance = 2f;
-    private readonly float _slerpSpeed = 6f;
+    private readonly float DETECTION_RADIUS = 6f;
+    private readonly float ATTACK_DISTANCE = 2f;
+    private readonly float SLERP_SPEED = 6f;
     
     private EnemyAnimator _enemyAnimator;
     private GameObject _player;
     private float TimestampAttack { get; set; }
     private float AttackCooldown { get; set; } = 2f;
-    private bool _hasTarget = false;
+    
+    private bool _hasTarget;
     private CharacterCombat _playerCombat;
     private Vector3 _initialPosition;
     private Quaternion _initialRotation;
-    private float _overlapOffsetRadius = 3f;
-    private float _overlappingTimestamp;
-    private float _overlappingCooldown = 5f;
-    [SerializeField] private LayerMask attackableLayer;
-    private bool _isOverlapped;
     
     private CombatUiScript _combatUiScript;
+    private NavMeshAgent _navMeshAgent;
 
     protected override void Start()
     {
@@ -34,21 +32,22 @@ public class EnemyCombat : CharacterCombat
         _enemyAnimator = GetComponent<EnemyAnimator>();
         _player = GameObject.FindWithTag("Player");
         _playerCombat = _player.GetComponent<CharacterCombat>();
+        
+        // TODO: Refactor - Child Name dependant
         _combatUiScript = AbilityUtils.FindDeepChild("DamageTextContainer", transform).GetComponent<CombatUiScript>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     protected void Update()
     {
-        // TODO: if is not dead and a list of condition to move doesn't sound good 
+        if (_navMeshAgent.isStopped) return;
         if (_player != null && !CurrentCharacterCombatState.Equals(CharacterCombatState.Dead))
         {
             SetTarget();
             if (_hasTarget)
             {
-                DirectAtPlayer();
                 FollowPlayer();
-                
-                if (Time.time >= TimestampAttack && Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _attackDistance)
+                if (Time.time >= TimestampAttack && Vector3.SqrMagnitude(_player.transform.position - transform.position) <= ATTACK_DISTANCE)
                 {
                     StartCoroutine(AttackPlayer());
                 }
@@ -57,6 +56,10 @@ public class EnemyCombat : CharacterCombat
             {
                 ResetEnemy();
             }
+        }
+        else
+        {
+            _navMeshAgent.isStopped = true;
         }
     }
     
@@ -69,32 +72,22 @@ public class EnemyCombat : CharacterCombat
     {
         if (GetInitialPositionDiff() <= 1f && CurrentCharacterCombatState.Equals(CharacterCombatState.OutCombat)) {
             _enemyAnimator.AnimateMovements("Movements", 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _initialRotation, _slerpSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _initialRotation, SLERP_SPEED * Time.deltaTime);
         }
         else
         {
             _enemyAnimator.AnimateMovements("Movements", CharacterStats.movementSpeed);
             var newRotation = Quaternion.LookRotation(_initialPosition);
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, _slerpSpeed * Time.deltaTime);
-            transform.position = Vector3.MoveTowards(transform.position, _initialPosition, CharacterStats.movementSpeed  * Time.deltaTime);
-
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, SLERP_SPEED * Time.deltaTime);
+            _navMeshAgent.destination = _initialPosition;
         }
     }
 
-    private void DirectAtPlayer()
-    {
-        var direction = _player.transform.position - transform.position;
-        direction.Normalize();
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
-            _slerpSpeed * Time.deltaTime);
-    }
-
-    // TODO: If was attacked or player nearby
     private void FollowPlayer()
     {
-        if (Vector3.SqrMagnitude(_player.transform.position - transform.position) > _attackDistance)
+        if (Vector3.SqrMagnitude(_player.transform.position - transform.position) > ATTACK_DISTANCE)
         {
-            transform.position += transform.forward * CharacterStats.movementSpeed * Time.deltaTime;
+            _navMeshAgent.destination = _player.transform.position;
             _enemyAnimator.StopAnimatingEnemy("Attack");
             _enemyAnimator.AnimateMovements("Movements", CharacterStats.movementSpeed);
         }
@@ -140,6 +133,6 @@ public class EnemyCombat : CharacterCombat
 
     private bool IsPlayerInRange()
     {
-        return _player != null &&  Vector3.SqrMagnitude(_player.transform.position - transform.position) <= _detectionRadius;
+        return _player != null &&  Vector3.SqrMagnitude(_player.transform.position - transform.position) <= DETECTION_RADIUS;
     }
 }
